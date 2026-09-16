@@ -35,6 +35,7 @@ import {
   PreviewThumb,
   date,
 } from "./components/shared";
+import { AnimatedNumber, LoadingSignal } from "./components/Motion";
 import { Dialog } from "./components/Dialog";
 import { Intake } from "./components/Intake";
 import { ProjectPage } from "./components/ProjectPage";
@@ -51,15 +52,15 @@ export default function App() {
   const [menu, setMenu] = useState(false);
   const [help, setHelp] = useState(false);
   const location = useLocation();
-  const refresh = useCallback(async () => {
-    const data = await api.snapshot();
+  const refresh = useCallback(async (background = false) => {
+    const data = await api.snapshot(background);
     setData(data);
     setError("");
   }, []);
   useEffect(() => {
     void refresh().catch((e) => setError(e.message));
     const timer = setInterval(() => {
-      void refresh().catch((e) => setError(e.message));
+      void refresh(true).catch((e) => setError(e.message));
     }, 5000);
     return () => clearInterval(timer);
   }, [refresh]);
@@ -171,6 +172,7 @@ export default function App() {
         </div>
       </aside>
       <div className="workspace">
+        <LoadingSignal />
         <header className="topbar">
           <button
             className="icon-button mobile-menu"
@@ -220,6 +222,7 @@ export default function App() {
           )}
           {data ? (
             <StudioContext.Provider value={{ data, refresh, notify: setToast }}>
+              <div className="route-scene" key={location.pathname}>
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/projects" element={<Projects />} />
@@ -238,6 +241,7 @@ export default function App() {
                   }
                 />
               </Routes>
+              </div>
             </StudioContext.Provider>
           ) : (
             <Spinner />
@@ -249,7 +253,7 @@ export default function App() {
         </footer>
       </div>
       {toast && (
-        <div role="status" className="toast">
+        <div role="status" className="toast" key={toast}>
           <CheckCheck size={18} />
           {toast}
           <button
@@ -331,7 +335,7 @@ function Home() {
         ].map((s, i) => (
           <div key={s.label}>
             <span className={i === 1 ? "accent" : ""}>
-              {String(s.value).padStart(2, "0")}
+              <AnimatedNumber value={s.value} />
             </span>
             <small>{s.label}</small>
           </div>

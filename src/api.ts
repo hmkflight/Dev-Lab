@@ -1,3 +1,4 @@
+import { beginRequest } from "./request-activity";
 import type {
   StudioSnapshot,
   ProjectDetail,
@@ -6,7 +7,9 @@ import type {
   StudioContext,
   ProjectAction,
 } from "../lib/studio-adapter/types";
-async function request<T>(path: string, options?: RequestInit): Promise<T> {
+async function request<T>(path: string, options?: RequestInit, background = false): Promise<T> {
+  const finish = background ? () => {} : beginRequest();
+  try {
   const response = await fetch(`/api${path}`, options);
   if (!response.ok) {
     const body = await response
@@ -14,7 +17,8 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
       .catch(() => ({ error: "Studio is unavailable." }));
     throw new Error(body.error || "Request failed.");
   }
-  return response.json();
+  return await response.json();
+  } finally { finish(); }
 }
 const json = (body: unknown, method = "POST") => ({
   method,
@@ -22,8 +26,8 @@ const json = (body: unknown, method = "POST") => ({
   body: JSON.stringify(body),
 });
 export const api = {
-  snapshot: () => request<StudioSnapshot>("/studio"),
-  project: (id: string) => request<ProjectDetail>(`/projects/${id}`),
+  snapshot: (background = false) => request<StudioSnapshot>("/studio", undefined, background),
+  project: (id: string, background = false) => request<ProjectDetail>(`/projects/${id}`, undefined, background),
   create: (input: ProjectInput) =>
     request<StudioProject>("/projects", json(input)),
   action: (id: string, action: ProjectAction) =>

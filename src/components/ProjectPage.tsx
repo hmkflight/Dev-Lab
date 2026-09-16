@@ -41,6 +41,7 @@ import {
   date,
   safeUrl,
 } from "./shared";
+import { PreviewFrame } from "./Motion";
 import { Dialog } from "./Dialog";
 import { ContextFields, parseLinks, FileDrop } from "./Intake";
 export function ProjectPage() {
@@ -53,9 +54,9 @@ export function ProjectPage() {
   const [busy, setBusy] = useState(false);
   const [confirm, setConfirm] = useState<ProjectAction>();
   const [logs, setLogs] = useState(false);
-  const load = useCallback(async () => {
+  const load = useCallback(async (background = false) => {
     if (!id) return;
-    const next = await api.project(id);
+    const next = await api.project(id, background);
     setDetail(next);
   }, [id]);
   useEffect(() => {
@@ -63,7 +64,7 @@ export function ProjectPage() {
     setError("");
     void load().catch((e) => setError(e.message));
     const timer = setInterval(() => {
-      void load().catch((e) => setError(e.message));
+      void load(true).catch((e) => setError(e.message));
     }, 5000);
     return () => clearInterval(timer);
   }, [load]);
@@ -299,7 +300,7 @@ export function ProjectPage() {
           </button>
         ))}
       </div>
-      <div role="tabpanel" aria-label={tab}>
+      <div role="tabpanel" aria-label={tab} className="tab-scene" key={tab} aria-busy={busy}>
         {(tab === "overview" || tab === "progress") && (
           <>
             <section className="panel progress-panel">
@@ -320,7 +321,7 @@ export function ProjectPage() {
                   </button>
                 )}
               </div>
-              <Timeline stages={detail.stages} />
+              <Timeline stages={detail.stages} active={p.status === "working"} />
               {data.mode === "mock" && (
                 <p className="demo-caption">
                   Demo stages advance only when you press Continue demo.
@@ -865,8 +866,9 @@ function Review({
   if (compact)
     return safeUrl(url) ? (
       <div className="compact-preview">
-        <iframe
+        <PreviewFrame
           src={url}
+          key={url}
           title={`${p.name} latest website`}
           sandbox="allow-scripts"
           tabIndex={-1}
@@ -981,7 +983,7 @@ function Review({
                     </small>
                     <RefreshCw size={12} />
                   </div>
-                  <iframe
+                  <PreviewFrame
                     key={`${url}-${device}`}
                     src={url}
                     title={`${p.name} ${selected?.name || ""} ${device} preview`}
@@ -1001,8 +1003,9 @@ function Review({
                     <div className="browser-chrome">
                       <small>Previous iteration</small>
                     </div>
-                    <iframe
+                    <PreviewFrame
                       src={previous.previewUrl}
+                      key={previous.previewUrl}
                       title={`Previous iteration ${previous.name}`}
                       sandbox="allow-scripts"
                     />

@@ -384,6 +384,7 @@ export function Intake() {
             <button
               className="button primary full"
               disabled={busy || !data.capabilities.canCreateProject}
+              aria-busy={busy}
               type="submit"
             >
               {busy ? (

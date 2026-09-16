@@ -1,9 +1,9 @@
+import { StageProgress } from "./Motion";
 import { useState } from "react";
 import {
   ArrowUpRight,
   Check,
   Circle,
-  LoaderCircle,
   Plus,
   FileText,
   ArrowRight,
@@ -122,6 +122,7 @@ export function ProjectCard({
             {project.stages.find((s) => s.id === project.stageId)?.name}
           </span>
         </div>
+        <StageProgress stages={project.stages} active={project.status === "working"} compact />
         <div className="card-footer">
           <span>
             {agent ? (
@@ -143,9 +144,11 @@ export function ProjectCard({
     </Link>
   );
 }
-export function Timeline({ stages }: { stages: StudioStage[] }) {
+export function Timeline({ stages, active = false }: { stages: StudioStage[]; active?: boolean }) {
   return (
-    <ol className="timeline">
+    <>
+    <StageProgress stages={stages} active={active} />
+    <ol className={`timeline ${active ? "is-running" : ""}`}>
       {stages.map((s) => (
         <li className={s.status} key={s.id}>
           <span className="stage-node">
@@ -170,6 +173,7 @@ export function Timeline({ stages }: { stages: StudioStage[] }) {
         </li>
       ))}
     </ol>
+    </>
   );
 }
 export function Activity({
@@ -217,7 +221,7 @@ export function AgentCard({
 }) {
   const project = projects.find((p) => p.id === agent.projectId);
   return (
-    <article className="agent-card">
+    <article className={`agent-card agent-${agent.status}`}>
       <div className="row">
         <span className={`avatar large ${agent.color}`}>{agent.initials}</span>
         <Status status={agent.status} />
@@ -293,9 +297,11 @@ export function SectionTitle({
 }
 export function Spinner() {
   return (
-    <div className="loading">
-      <LoaderCircle className="spin" />
-      Loading your studio…
+    <div className="loading studio-loading" role="status">
+      <div className="loader-orbit" aria-hidden="true"><i /><i /><i /><span>↗</span></div>
+      <div><strong>Loading your studio</strong><small>Bringing your workspace into view</small></div>
+      <div className="loader-rail" aria-hidden="true"><i /></div>
+      <div className="loading-skeleton" aria-hidden="true"><i /><i /><i /></div>
     </div>
   );
 }
