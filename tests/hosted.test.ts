@@ -28,7 +28,7 @@ test('hosted uploads download original bytes and enforce same origin',async()=>{
  const bytes=await upload.arrayBuffer();
  const result=await worker.fetch(new Request(upload.url,{method:'POST',headers:{'Content-Type':upload.headers.get('content-type')!,'Content-Length':String(bytes.byteLength),Origin:'https://studio.test'},body:bytes}),env);
  assert.equal(result.status,201); const assets=await result.json() as any[];
- const download=await worker.fetch(req(assets[0].url),env);assert.equal(await download.text(),'hello upload');assert.match(download.headers.get('content-disposition')!,/^attachment/);
+ const download=await worker.fetch(req(assets[0].downloadUrl),env);assert.equal(await download.text(),'hello upload');assert.match(download.headers.get('content-disposition')!,/^attachment/);
  const bad=req('/api/projects',{});bad.headers.set('origin','https://foreign.test');assert.equal((await worker.fetch(bad,env)).status,403);
  assert.equal((await worker.fetch(new Request('https://studio.test/projects/example',{headers:{accept:'text/html'}}),env)).status,200);
 });

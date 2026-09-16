@@ -1,6 +1,6 @@
 # Studio / Dev Lab
 
-A desktop-first, functional web studio prototype for operating an existing Dev Lab. It does not rebuild the lab, execute agents, or generate websites. **Demo mode is always visible.**
+A desktop-first, functional web studio prototype for operating an existing Dev Lab. It does not rebuild the lab, execute agents, or generate websites. **DEMO MODE is visible whenever the mock adapter is active.**
 
 ## Run
 
@@ -47,3 +47,7 @@ See [INTEGRATION.md](./INTEGRATION.md) for the adapter contract and integration 
 ## ChatGPT hosting
 
 `npm run db:generate` generates hosted schema migrations; `npm run build:hosted` builds the Sites Worker and client. The hosted site is owner-private and uses D1 for demo state and R2 for uploaded files. It starts with sample projects; existing `.studio` data is not uploaded. Hosted uploads support 25 MB total per batch (up to 20 files). Local development continues to use `.studio` storage. The hosted demo does not execute real Dev Lab agents.
+
+## Adapter foundation
+
+See [docs/DEVLAB_STUDIO_ADAPTER.md](docs/DEVLAB_STUDIO_ADAPTER.md). The server resolver defaults to `mock`; `DEVLAB_ADAPTER_MODE=devlab` selects a deliberately unconfigured skeleton whose operations fail clearly. No real Dev Lab integration runs. `npm run lint` validates the browser/server import boundary, and `npm run typecheck` checks TypeScript.

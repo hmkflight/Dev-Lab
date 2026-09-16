@@ -1,9 +1,11 @@
 import type { D1Database, R2Bucket } from "@cloudflare/workers-types";
 import { z } from "zod";
 import { input, context } from "./validation";
-import { StudioError } from "../lib/studio-adapter/mock";
+import { StudioError } from "../lib/studio-adapter/errors";
+import type { AdapterEnvironment } from "../lib/studio-adapter/index.server";
+import { performAction, requireCapability } from "./studio-actions";
 import { loadStudio } from "./hosted-storage";
-type Env = { DB: D1Database; BUCKET: R2Bucket; ASSETS: { fetch(request: Request): Promise<Response> } };
+type Env = AdapterEnvironment & { DB: D1Database; BUCKET: R2Bucket; ASSETS: { fetch(request: Request): Promise<Response> } };
 const json = (data: unknown, status = 200) => Response.json(data, {status, headers: {"Cache-Control":"no-store"}});
 async function body(request: Request) {
   const value = await request.text();
@@ -23,33 +25,36 @@ export default {
     try {
       const mutation = !["GET", "HEAD", "OPTIONS"].includes(request.method);
       if (mutation && request.headers.get("origin") && request.headers.get("origin") !== url.origin) throw new StudioError("Requests must come from this studio.", 403);
-      const {adapter, save} = await loadStudio(env.DB);
+      const {adapter, save} = await loadStudio(env.DB,env);
       const p = url.pathname.split("/").filter(Boolean).map(decodeURIComponent);
       const id = p[2];
       let result: unknown; let status = 200;
       if (request.method === "GET" && p[1] === "studio" && p.length === 2) return json(await adapter.getSnapshot());
       if (request.method === "GET" && p[1] === "assets" && p.length === 3) {
         if (!z.uuid().safeParse(id).success) throw new StudioError("Asset not found.",404);
-        const artifact = adapter.exportState().artifacts.find(a => a.url === `/api/assets/${id}`);
+        const projects = await adapter.getProjects();
+        const artifacts = (await Promise.all(projects.map(p=>adapter.getMedia(p.id)))).flat();
+        const artifact = artifacts.find(a => a.downloadUrl === `/api/assets/${id}`);
         const object = artifact && await env.BUCKET.get(id);
         if (!artifact || !object) throw new StudioError("Asset not found.",404);
         return new Response(object.body as unknown as ReadableStream, { headers: {
           "Content-Type": "application/octet-stream", "X-Content-Type-Options":"nosniff", "Cache-Control":"no-store",
-          "Content-Disposition": `attachment; filename*=UTF-8''${encodeURIComponent(artifact.name)}`,
+          "Content-Disposition": `attachment; filename*=UTF-8''${encodeURIComponent(artifact.title)}`,
         }});
       }
       if (p[1] !== "projects") throw new StudioError("Endpoint not found.",404);
       if (request.method === "GET" && p.length === 3) return json(await adapter.getProject(id));
-      if (request.method === "POST" && p.length === 2) { result = await adapter.createProject(input.parse(await body(request))); status = 201; }
-      else if (request.method === "PUT" && p[3] === "context" && p.length === 4) result = await adapter.updateContext(id, context.parse(await body(request)));
+      if (request.method === "POST" && p.length === 2) { requireCapability(adapter,"canCreateProject"); result = await adapter.createProject(input.parse(await body(request))); status = 201; }
+      else if (request.method === "PUT" && p[3] === "context" && p.length === 4) result = await (requireCapability(adapter,"canUpdateContext"), adapter.updateContext(id, context.parse(await body(request))));
       else if (request.method === "POST" && p[3] === "actions" && p.length === 4) {
         const {action} = z.object({action:z.enum(["start","pause","resume","cancel","archive","advance-demo","resolve-demo"])}).parse(await body(request));
-        const method = {start:adapter.startRun,pause:adapter.pauseRun,resume:adapter.resumeRun,cancel:adapter.cancelRun,archive:adapter.archiveProject,"advance-demo":adapter.advanceDemo,"resolve-demo":adapter.resolveDemo}[action];
-        result = await method.call(adapter,id);
+        result = await performAction(adapter,id,action);
       } else if (request.method === "POST" && p[3] === "approvals" && p.length === 5) {
         const value = z.object({decision:z.enum(["approve","changes"]),feedback:z.string().max(10000).optional()}).parse(await body(request));
-        await adapter.approveGate(id,p[4],value.decision,value.feedback); result = {ok:true};
+        requireCapability(adapter,"canApprove");
+        await adapter.approveGate(id,p[4],value); result = {ok:true};
       } else if (request.method === "POST" && p[3] === "assets" && p.length === 4) {
+        requireCapability(adapter,"canUploadMedia");
         const {project} = await adapter.getProject(id);
         if (project.archived || ["cancelled","complete"].includes(project.status)) throw new StudioError("Uploads are closed for this project.",409);
         // Keep multipart parsing below the hosted runtime's memory limit.

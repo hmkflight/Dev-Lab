@@ -26,6 +26,7 @@ import type {
   StudioApproval,
   StudioArtifact,
 } from "../../lib/studio-adapter/types";
+import { supportsAction } from "../../lib/studio-adapter/capabilities";
 import { api } from "../api";
 import { useStudio } from "../App";
 import {
@@ -103,8 +104,8 @@ export function ProjectPage() {
     );
   const p = detail.project;
   const pending = detail.approvals.find((a) => a.status === "pending");
-  const actions = p.actions;
-  const currentAgent = data.agents.find((a) => a.id === p.agentId);
+  const actions = p.actions.filter(a => supportsAction(detail.capabilities,a));
+  const currentAgent = detail.agents.find((a) => a.id === p.agentId);
   const tabs = [
     "overview",
     "context",
@@ -197,9 +198,10 @@ export function ProjectPage() {
         <span>
           Stage{" "}
           <strong>
-            {p.stages.find((s) => s.id === p.stageId)?.name || p.stageId}
+            {detail.stages.find((s) => s.id === p.stageId)?.name || p.stageId}
           </strong>
         </span>
+        {detail.productionRun && <span>Run <strong>{detail.productionRun.status}</strong></span>}
         <span>
           Agent <strong>{currentAgent?.name || "Unassigned"}</strong>
         </span>
@@ -252,7 +254,7 @@ export function ProjectPage() {
               () => api.approve(p.id, pending.id, decision, feedback),
               decision === "approve"
                 ? "Approval saved."
-                : data.mode === "demo"
+                : data.mode === "mock"
                   ? "Feedback saved. A new demo review is ready."
                   : "Feedback sent to Dev Lab.",
             )
@@ -318,8 +320,8 @@ export function ProjectPage() {
                   </button>
                 )}
               </div>
-              <Timeline stages={p.stages} />
-              {data.mode === "demo" && (
+              <Timeline stages={detail.stages} />
+              {data.mode === "mock" && (
                 <p className="demo-caption">
                   Demo stages advance only when you press Continue demo.
                   Approval gates require a decision.
@@ -415,7 +417,7 @@ export function ProjectPage() {
           </div>
         )}
         {tab === "artifacts" && (
-          <Artifacts artifacts={detail.artifacts.filter((a) => !a.uploaded)} />
+          detail.capabilities.canReadArtifacts ? <Artifacts artifacts={detail.artifacts.filter((a) => !a.uploaded)} /> : <Empty title="Artifacts unavailable" copy="The active adapter cannot read artifacts." />
         )}
         {tab === "media" && (
           <Media
@@ -518,6 +520,7 @@ function ApprovalPanel({
   const [feedback, setFeedback] = useState("");
   const [change, setChange] = useState(false);
   const paused = project.project.status === "paused";
+  const unavailable = !project.capabilities.canApprove;
   return (
     <section className="approval-panel">
       <div className="approval-panel-heading">
@@ -528,7 +531,7 @@ function ApprovalPanel({
           <span className="eyebrow">{approval.kind} APPROVAL REQUIRED</span>
           <h3>{approval.title}</h3>
           <p>
-            {paused
+            {unavailable ? "Approvals are unavailable for this adapter." : paused
               ? "Resume this project to make a decision."
               : approval.description}
           </p>
@@ -561,7 +564,7 @@ function ApprovalPanel({
           <div className="button-row">
             <button
               className="button primary"
-              disabled={busy || paused}
+              disabled={busy || unavailable || paused}
               onClick={() => void onDecision("approve", feedback)}
             >
               <Check size={17} />{" "}
@@ -573,7 +576,7 @@ function ApprovalPanel({
               <>
                 <button
                   className="button secondary"
-                  disabled={busy || paused || !feedback.trim()}
+                  disabled={busy || unavailable || paused || !feedback.trim()}
                   onClick={() =>
                     void onDecision("changes", feedback).then((ok) => {
                       if (ok) {
@@ -595,7 +598,7 @@ function ApprovalPanel({
             ) : (
               <button
                 className="button secondary"
-                disabled={busy || paused}
+                disabled={busy || unavailable || paused}
                 onClick={() => setChange(true)}
               >
                 Request changes
@@ -620,7 +623,7 @@ function ProjectContext({
   const [links, setLinks] = useState(context.links.join("\n"));
   const [error, setError] = useState("");
   const locked =
-    detail.project.archived ||
+    !detail.capabilities.canUpdateContext || detail.project.archived ||
     ["complete", "cancelled"].includes(detail.project.status);
   return (
     <form
@@ -668,7 +671,7 @@ function Artifacts({ artifacts }: { artifacts: StudioArtifact[] }) {
             <span className="eyebrow">
               {a.type} · {date(a.createdAt)}
             </span>
-            <h3>{a.name}</h3>
+            <h3>{a.title}</h3>
             {a.content && (
               <details>
                 <summary>Read artifact</summary>
@@ -676,10 +679,10 @@ function Artifacts({ artifacts }: { artifacts: StudioArtifact[] }) {
               </details>
             )}
           </div>
-          {safeUrl(a.url) && (
+          {safeUrl((a.previewUrl || a.downloadUrl)) && (
             <a
               className="button secondary"
-              href={a.url}
+              href={(a.previewUrl || a.downloadUrl)}
               target="_blank"
               rel="noreferrer"
             >
@@ -708,35 +711,34 @@ function Media({
 }) {
   const [files, setFiles] = useState<File[]>([]);
   const locked =
-    detail.project.archived ||
+    !detail.capabilities.canUploadMedia || detail.project.archived ||
     ["complete", "cancelled"].includes(detail.project.status);
   return (
     <div className="media-layout">
       <section>
         <SectionTitle title="Client assets" />
-        {detail.artifacts
-          .filter((a) => a.uploaded)
+        {detail.media
           .map((a) => (
             <article className="panel asset-row" key={a.id}>
               <FileText size={23} />
               <div>
-                <strong>{a.name}</strong>
+                <strong>{a.title}</strong>
                 <small>
                   {a.mimeType} · {Math.ceil((a.size || 0) / 1024)} KB
                 </small>
               </div>
-              {safeUrl(a.url) && (
+              {safeUrl(a.downloadUrl) && (
                 <a
-                  href={a.url}
+                  href={a.downloadUrl}
                   className="icon-button"
-                  aria-label={`Download ${a.name}`}
+                  aria-label={`Download ${a.title}`}
                 >
                   <Download size={18} />
                 </a>
               )}
             </article>
           ))}
-        {!detail.artifacts.some((a) => a.uploaded) && (
+        {!detail.media.length && (
           <Empty
             title="All the pieces, together"
             copy="Upload the client’s logos, imagery, and documents."
@@ -765,16 +767,22 @@ function Media({
 }
 function Quality({ detail }: { detail: ProjectDetail }) {
   const { data } = useStudio();
-  const review = detail.review;
+  const review = { categories: detail.reviews.flatMap(r=>r.categories), issues: detail.reviews.flatMap(r=>r.issues) };
   const sections = [...new Set(review.issues.map((i) => i.section))];
   return (
     <>
-      {data.mode === "demo" && (
+      {data.mode === "mock" && (
         <div className="info-note">
           Illustrative demo QA · These results are not live audits of the
           website.
         </div>
       )}
+      <section className="panel">
+        <SectionTitle title="Production readiness" />
+        <Status status={detail.readiness.status} />
+        <p>{detail.readiness.summary}</p>
+        <small>{detail.readiness.clientReady ? "Ready for client review" : "Not ready for client review"}</small>
+      </section>
       {review.categories.length ? (
         <>
           <div className="qa-grid">
@@ -969,7 +977,7 @@ function Review({
                       <i />
                     </span>
                     <small>
-                      {p.name} / {data.mode === "demo" ? "demo" : "preview"}
+                      {p.name} / {data.mode === "mock" ? "demo" : "preview"}
                     </small>
                     <RefreshCw size={12} />
                   </div>
@@ -1011,7 +1019,7 @@ function Review({
           <div className="review-caption">
             <span>{selected?.summary || "Website preview"}</span>
             <span>
-              {data.mode === "demo"
+              {data.mode === "mock"
                 ? "Illustrative demo website"
                 : "Website preview"}{" "}
               ·{" "}

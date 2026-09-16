@@ -15,22 +15,28 @@ import type {
   StudioContext,
   UploadInput,
 } from "./types";
-export class StudioError extends Error {
-  constructor(
-    message: string,
-    public status = 400,
-  ) {
-    super(message);
-  }
-}
+import "./server-only";
+import { StudioError } from "./errors";
+export { StudioError } from "./errors";
+import { toStudioArtifact } from "./artifact.server";
+import { unavailableCapabilities } from "./capabilities";
+import type { ApprovalInput, EventOptions, LibraryOptions, StudioReadiness, StudioProductionRun, StudioMedia } from "./types";
 /** Demonstration behavior only. Replace this class, never reproduce this in the UI. */
 export class MockStudioAdapter implements StudioAdapter {
+  readonly mode = "mock" as const;
+  readonly capabilities = Object.freeze({...unavailableCapabilities,
+    canStartRun:true,canResumeRun:true,canPauseRun:true,canCancelRun:true,canApprove:true,
+    canReadArtifacts:true,canReadLibrary:true,canCreateProject:true,canArchiveProject:true,
+    canUpdateContext:true,canUploadMedia:true,canAdvanceDemo:true,
+  });
   private state: DemoState;
   constructor(private file?: string, state?: DemoState) {
     this.state = state ?? (
       file && existsSync(file)
         ? JSON.parse(readFileSync(file, "utf8"))
         : createSeed());
+    this.state = structuredClone(this.state);
+    this.state.artifacts = this.state.artifacts.map(toStudioArtifact);
     this.persist();
   }
   exportState(): DemoState { return structuredClone(this.state); }
@@ -48,7 +54,7 @@ export class MockStudioAdapter implements StudioAdapter {
   }
   private view(p: StudioProject): StudioProject {
     return {
-      ...p,
+      ...structuredClone(p),
       actions: p.archived
         ? []
         : p.status === "draft"
@@ -113,47 +119,73 @@ export class MockStudioAdapter implements StudioAdapter {
   }
   async getSnapshot() {
     return {
-      mode: "demo" as const,
+      mode: this.mode,
+      capabilities: this.capabilities,
       projects: await this.getProjects(),
-      agents: this.state.agents,
-      approvals: this.state.approvals,
-      events: this.state.events,
-      library: this.state.library,
+      agents: structuredClone(this.state.agents),
+      approvals: structuredClone(this.state.approvals),
+      events: structuredClone(this.state.events),
+      library: structuredClone(this.state.library),
     };
   }
   async getProjects() {
-    return this.state.projects.map((p) => this.view(p));
+    return this.state.projects.map((p) => { const {context: _context, referenceIds: _refs, ...summary} = this.view(p); return summary; });
   }
-  async getAgents() {
-    return this.state.agents;
+  async getAgents(projectId?: string) {
+    if (projectId) this.raw(projectId);
+    return structuredClone(this.state.agents.filter(a => !projectId || a.projectId === projectId));
   }
-  async getEvents(id: string) {
+  async getEvents(id: string, options: EventOptions = {}) {
     this.raw(id);
-    return this.state.events.filter((e) => e.projectId === id);
+    if (options.before && !Number.isFinite(Date.parse(options.before))) throw new StudioError("Invalid event cursor.");
+    return structuredClone(this.state.events.filter(e => e.projectId === id && (!options.before || Date.parse(e.createdAt) < Date.parse(options.before)))
+      .sort((a,b) => Date.parse(b.createdAt)-Date.parse(a.createdAt)).slice(0,this.limit(options.limit)));
+  }
+  private limit(value = 100) {
+    if (!Number.isInteger(value) || value < 1 || value > 1000) throw new StudioError("Limit must be between 1 and 1000.");
+    return value;
   }
   async getArtifacts(id: string) {
     this.raw(id);
-    return this.state.artifacts.filter((e) => e.projectId === id);
+    return this.state.artifacts.filter((e) => e.projectId === id).map(toStudioArtifact);
   }
   async getIterations(id: string) {
     this.raw(id);
-    return this.state.iterations.filter((e) => e.projectId === id);
+    return structuredClone(this.state.iterations.filter((e) => e.projectId === id));
   }
-  async getLibrary() {
-    return this.state.library;
+  async getLibrary(options: LibraryOptions = {}) {
+    return structuredClone(this.state.library.filter(l => (!options.category || l.category === options.category) && (!options.query || `${l.name} ${l.description}`.toLowerCase().includes(options.query.toLowerCase()))).slice(0,this.limit(options.limit)));
+  }
+  async getStages(id: string) { return structuredClone(this.raw(id).stages); }
+  async getApprovals(id: string) { this.raw(id); return structuredClone(this.state.approvals.filter(a=>a.projectId===id)); }
+  async getReviews(id: string) { this.raw(id); return structuredClone(this.state.reviews.filter(r=>r.projectId===id)); }
+  async getMedia(id: string): Promise<StudioMedia[]> {
+    return (await this.getArtifacts(id)).filter((a): a is StudioMedia => a.uploaded === true && !!a.downloadUrl);
+  }
+  async getProductionRun(id: string): Promise<StudioProductionRun | null> {
+    const p = this.raw(id);
+    return p.status === "draft" ? null : {id:`mock-run-${id}`,projectId:id,status:p.status,stageId:p.stageId,startedAt:p.createdAt,updatedAt:p.updatedAt,mode:this.mode};
+  }
+  async getReadiness(id: string): Promise<StudioReadiness> {
+    const p = this.raw(id);
+    const blockers = (await this.getReviews(id)).flatMap(r=>r.issues.filter(i=>i.severity === "blocker"));
+    const ready = p.status === "complete" && !blockers.length;
+    return {projectId:id,status:blockers.length ? "blocked" : ready ? "ready" : "not-ready",clientReady:ready,blockers,
+      summary:ready ? "Demo handoff approved. This is an illustrative result." : blockers.length ? "Demo content blockers remain." : "Demo production is not ready for handoff.",assessedAt:p.updatedAt,mode:this.mode};
   }
   async getRunStatus(id: string) {
     return this.view(this.raw(id));
   }
   async getProject(id: string) {
+    const [project, agents, stages, productionRun, readiness, media, reviews, events, artifacts, iterations, approvals] = await Promise.all([
+      this.getRunStatus(id), this.getAgents(id), this.getStages(id), this.getProductionRun(id),
+      this.getReadiness(id), this.getMedia(id), this.getReviews(id), this.getEvents(id),
+      this.getArtifacts(id), this.getIterations(id), this.getApprovals(id),
+    ]);
     return {
-      project: await this.getRunStatus(id),
-      agents: this.state.agents.filter((a) => a.projectId === id),
-      events: await this.getEvents(id),
-      artifacts: await this.getArtifacts(id),
-      iterations: await this.getIterations(id),
-      approvals: this.state.approvals.filter((a) => a.projectId === id),
-      review: this.state.reviews.find((r) => r.projectId === id) || {
+      project, agents, stages, productionRun, readiness, media, reviews, events, artifacts, iterations, approvals,
+      capabilities: this.capabilities,
+      review: reviews[0] || {
         projectId: id,
         categories: [],
         issues: [],
@@ -169,7 +201,7 @@ export class MockStudioAdapter implements StudioAdapter {
       throw new StudioError("A selected reference no longer exists.");
     const now = new Date().toISOString();
     const p: StudioProject = {
-      ...input,
+      ...structuredClone(input),
       id: randomUUID(),
       summary: input.context.description || "A new story starts here.",
       theme: "forma",
@@ -230,7 +262,7 @@ export class MockStudioAdapter implements StudioAdapter {
     this.state.approvals
       .filter((a) => a.projectId === id && a.status === "pending")
       .forEach((a) => {
-        a.status = "changes-requested";
+        a.status = "cancelled";
         a.feedback = "Run cancelled";
         a.resolvedAt = new Date().toISOString();
       });
@@ -250,7 +282,7 @@ export class MockStudioAdapter implements StudioAdapter {
         "Context is read-only for a finished project.",
         409,
       );
-    p.context = context;
+    p.context = structuredClone(context);
     this.event(id, "Client context updated");
     return this.save(p);
   }
@@ -261,21 +293,23 @@ export class MockStudioAdapter implements StudioAdapter {
     const assets = files.map((f) => ({
       id: randomUUID(),
       projectId: id,
-      name: f.name,
+      title: f.name,
+      metadata: {demo:true},
       type: "Media",
       mimeType: f.mimeType,
       size: f.size,
-      url: f.url,
+      downloadUrl: f.url,
       createdAt: new Date().toISOString(),
       uploaded: true,
     }));
-    this.state.artifacts.push(...assets);
+    const safeAssets = assets.map(toStudioArtifact);
+    this.state.artifacts.push(...safeAssets);
     this.event(
       id,
       `${assets.length} client asset${assets.length === 1 ? "" : "s"} added`,
     );
     this.save(p);
-    return assets;
+    return structuredClone(safeAssets);
   }
   private gate(p: StudioProject, kind: string) {
     p.status = "waiting";
@@ -376,9 +410,9 @@ export class MockStudioAdapter implements StudioAdapter {
   async approveGate(
     projectId: string,
     gateId: string,
-    decision: "approve" | "changes",
-    feedback = "",
+    input: ApprovalInput,
   ) {
+    const { decision, feedback = "" } = input;
     const p = this.raw(projectId);
     const gate = this.state.approvals.find(
       (a) => a.id === gateId && a.projectId === projectId,

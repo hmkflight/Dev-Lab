@@ -4,19 +4,9 @@ import type {
   StudioSnapshot,
   ProjectDetail,
 } from "./types";
-export const emptyContext: StudioContext = {
-  description: "",
-  goals: "",
-  audience: "",
-  requirements: "",
-  notes: "",
-  links: [],
-  email: "",
-  phone: "",
-  address: "",
-  socials: "",
-  anythingElse: "",
-};
+import "./server-only";
+import { emptyContext } from "./defaults";
+export { emptyContext } from "./defaults";
 export const stageNames = [
   "Intake",
   "Research",
@@ -91,7 +81,7 @@ export function createSeed(): DemoState {
   ];
   const projects = specs.map((s) => ({
     ...s,
-    stageId: stageNames[Math.min(s.index, 6)].toLowerCase(),
+    stageId: stageNames[Math.min(s.index, stageNames.length - 1)].toLowerCase(),
     stages: stagesAt(s.index),
     createdAt: date(8),
     updatedAt: date(),
@@ -213,11 +203,12 @@ export function createSeed(): DemoState {
       createdAt: date(),
     },
   ];
-  const artifacts = projects.flatMap((p) => [
+  const artifacts: DemoState["artifacts"] = projects.flatMap((p) => [
     {
       id: `${p.id}-research`,
       projectId: p.id,
-      name: "Brand & audience research",
+      title: "Brand & audience research",
+      metadata: { demo: true },
       type: "Research",
       createdAt: date(5),
       content: `${p.name} — Research notes\n\nAudience\n${p.context.audience}\n\nOpportunity\nLead with a distinct point of view. Make the value proposition immediate and the next step clear.\n\nDesign principles\n1. Let typography carry the identity.\n2. Use a restrained, intentional color system.\n3. Keep navigation simple and content useful.\n\nThese are illustrative demo findings, not live research.`,
@@ -225,9 +216,10 @@ export function createSeed(): DemoState {
     {
       id: `${p.id}-concept`,
       projectId: p.id,
-      name: "Creative direction / 01",
+      title: "Creative direction / 01",
+      metadata: { demo: true },
       type: "Concepts",
-      url: `/previews/${p.theme}.html?v=1`,
+      previewUrl: `/previews/${p.theme}.html?v=1`,
       createdAt: date(4),
       content:
         "Expressive editorial typography with a focused palette. Strong contrast, open spacing, and a clear hierarchy.",
@@ -235,9 +227,10 @@ export function createSeed(): DemoState {
     {
       id: `${p.id}-design`,
       projectId: p.id,
-      name: "Visual system / 02",
+      title: "Visual system / 02",
+      metadata: { demo: true },
       type: "Design",
-      url: `/previews/${p.theme}.html`,
+      previewUrl: `/previews/${p.theme}.html`,
       createdAt: date(2),
       content:
         "Refined hierarchy, clear action labels, and responsive layouts. Review at each device width.",
@@ -245,12 +238,14 @@ export function createSeed(): DemoState {
     {
       id: `${p.id}-mockups`,
       projectId: p.id,
-      name: "Responsive composition",
+      title: "Responsive composition",
+      metadata: { demo: true },
       type: "Mockups",
-      url: `/previews/${p.theme}.html`,
+      previewUrl: `/previews/${p.theme}.html`,
       createdAt: date(1),
     },
   ]);
+  artifacts.push({id:"forma-brief",projectId:"forma",title:"Sample brand brief",type:"Media",mimeType:"text/plain",size:113,createdAt:date(6),uploaded:true,downloadUrl:"/previews/sample-brand-brief.txt",metadata:{demo:true}});
   const iterations = projects.flatMap((p) =>
     [1, 2, 3].map((v) => ({
       id: `${p.id}-v${v}`,

@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import type {
-  StudioProject,
+  StudioProjectSummary,
   StudioAgent,
   StudioEvent,
   StudioStage,
@@ -98,7 +98,7 @@ export function ProjectCard({
   project,
   agents,
 }: {
-  project: StudioProject;
+  project: StudioProjectSummary;
   agents: StudioAgent[];
 }) {
   const agent = agents.find((a) => a.id === project.agentId);
@@ -213,7 +213,7 @@ export function AgentCard({
   projects,
 }: {
   agent: StudioAgent;
-  projects: StudioProject[];
+  projects: StudioProjectSummary[];
 }) {
   const project = projects.find((p) => p.id === agent.projectId);
   return (

@@ -22,17 +22,17 @@ test("complete intake → research → direction → design → build → QA →
   assert.equal(d.project.status, "waiting");
   assert.equal(d.project.stageId, "concept");
   await assert.rejects(() => adapter.advanceDemo(p.id), /not available/);
-  await adapter.approveGate(p.id, d.approvals.at(-1)!.id, "approve");
+  await adapter.approveGate(p.id, d.approvals.at(-1)!.id, {decision:"approve",feedback:""});
   await adapter.advanceDemo(p.id);
   d = await adapter.getProject(p.id);
   assert.equal(d.approvals.at(-1)?.kind, "Build");
-  await adapter.approveGate(p.id, d.approvals.at(-1)!.id, "approve");
+  await adapter.approveGate(p.id, d.approvals.at(-1)!.id, {decision:"approve",feedback:""});
   await adapter.advanceDemo(p.id);
   await adapter.advanceDemo(p.id);
   await adapter.advanceDemo(p.id);
   d = await adapter.getProject(p.id);
   assert.equal(d.approvals.at(-1)?.kind, "Final");
-  await adapter.approveGate(p.id, d.approvals.at(-1)!.id, "approve");
+  await adapter.approveGate(p.id, d.approvals.at(-1)!.id, {decision:"approve",feedback:""});
   d = await adapter.getProject(p.id);
   assert.equal(d.project.status, "complete");
   assert.ok(d.project.stages.every((s) => s.status === "complete"));
@@ -44,32 +44,30 @@ test("pause preserves approval state and prevents approval while paused", async 
   const adapter = new MockStudioAdapter();
   await adapter.pauseRun("offscript");
   await assert.rejects(
-    () => adapter.approveGate("offscript", "direction-offscript", "approve"),
+    () => adapter.approveGate("offscript", "direction-offscript", {decision:"approve",feedback:""}),
     /no longer available/,
   );
   await adapter.resumeRun("offscript");
   assert.equal((await adapter.getRunStatus("offscript")).status, "waiting");
-  await adapter.approveGate("offscript", "direction-offscript", "approve");
+  await adapter.approveGate("offscript", "direction-offscript", {decision:"approve",feedback:""});
   await assert.rejects(
-    () => adapter.approveGate("offscript", "direction-offscript", "approve"),
+    () => adapter.approveGate("offscript", "direction-offscript", {decision:"approve",feedback:""}),
     /no longer available/,
   );
 });
 test("gate cannot be used by a different project and change requests require feedback", async () => {
   const adapter = new MockStudioAdapter();
   await assert.rejects(() =>
-    adapter.approveGate("forma", "direction-offscript", "approve"),
+    adapter.approveGate("forma", "direction-offscript", {decision:"approve",feedback:""}),
   );
   await assert.rejects(
     () =>
-      adapter.approveGate("offscript", "direction-offscript", "changes", " "),
+      adapter.approveGate("offscript", "direction-offscript", {decision:"changes",feedback:" "}),
     /Add a note/,
   );
   await adapter.approveGate(
     "offscript",
-    "direction-offscript",
-    "changes",
-    "More contrast",
+    "direction-offscript", {decision:"changes",feedback:"More contrast"},
   );
   const detail = await adapter.getProject("offscript");
   assert.equal(detail.approvals[0].feedback, "More contrast");
@@ -126,7 +124,7 @@ test("project context, references, and assets persist after adapter restart", as
     const restored = await second.getProject(p.id);
     assert.equal(restored.project.context.goals, "Build something useful.");
     assert.deepEqual(restored.project.referenceIds, ["lib-forma"]);
-    assert.equal(restored.artifacts[0].name, "brand.pdf");
+    assert.equal(restored.artifacts[0].title, "brand.pdf");
     assert.equal(restored.project.status, "working");
   } finally {
     rmSync(dir, { recursive: true, force: true });

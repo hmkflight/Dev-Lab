@@ -4,8 +4,10 @@ import { mkdirSync, unlinkSync } from "node:fs";
 import { resolve } from "node:path";
 import { randomUUID } from "node:crypto";
 import { z } from "zod";
-import { studioAdapter as adapter } from "../lib/studio-adapter/index.server";
-import { StudioError, MockStudioAdapter } from "../lib/studio-adapter/mock";
+import { getStudioAdapter } from "../lib/studio-adapter/index.server";
+import { performAction, requireCapability } from "./studio-actions";
+const adapter = getStudioAdapter();
+import { StudioError } from "../lib/studio-adapter/errors";
 const app = express();
 const port = Number(process.env.PORT || 4173);
 app.disable("x-powered-by");
@@ -32,14 +34,14 @@ app.get("/api/projects/:id", async (req, res) =>
   res.json(await adapter.getProject(z.string().parse(req.params.id))),
 );
 app.post("/api/projects", async (req, res) =>
-  res.status(201).json(await adapter.createProject(input.parse(req.body))),
+  res.status(201).json(await (requireCapability(adapter,"canCreateProject"), adapter.createProject(input.parse(req.body)))),
 );
 app.put("/api/projects/:id/context", async (req, res) =>
   res.json(
-    await adapter.updateContext(
+    await (requireCapability(adapter,"canUpdateContext"), adapter.updateContext(
       z.string().parse(req.params.id),
       context.parse(req.body),
-    ),
+    )),
   ),
 );
 app.post("/api/projects/:id/actions", async (req, res) => {
@@ -56,24 +58,7 @@ app.post("/api/projects/:id/actions", async (req, res) => {
       ]),
     })
     .parse(req.body);
-  if (action === "advance-demo" || action === "resolve-demo") {
-    if (!(adapter instanceof MockStudioAdapter))
-      throw new StudioError("Demo actions are unavailable.", 409);
-    res.json(
-      await (action === "advance-demo"
-        ? adapter.advanceDemo(z.string().parse(req.params.id))
-        : adapter.resolveDemo(z.string().parse(req.params.id))),
-    );
-    return;
-  }
-  const f = {
-    start: adapter.startRun,
-    pause: adapter.pauseRun,
-    resume: adapter.resumeRun,
-    cancel: adapter.cancelRun,
-    archive: adapter.archiveProject,
-  }[action];
-  res.json(await f.call(adapter, z.string().parse(req.params.id)));
+  res.json(await performAction(adapter,z.string().parse(req.params.id),action));
 });
 app.post("/api/projects/:id/approvals/:gateId", async (req, res) => {
   const body = z
@@ -82,11 +67,11 @@ app.post("/api/projects/:id/approvals/:gateId", async (req, res) => {
       feedback: z.string().max(10000).optional(),
     })
     .parse(req.body);
+  requireCapability(adapter,"canApprove");
   await adapter.approveGate(
     z.string().parse(req.params.id),
     req.params.gateId,
-    body.decision,
-    body.feedback,
+    body,
   );
   res.json({ ok: true });
 });
@@ -103,6 +88,7 @@ app.post(
   "/api/projects/:id/assets",
   async (req, res, next) => {
     try {
+      requireCapability(adapter,"canUploadMedia");
       const d = await adapter.getProject(z.string().parse(req.params.id));
       if (
         d.project.archived ||
@@ -143,13 +129,13 @@ app.get("/api/assets/:id", async (req, res) => {
   let asset;
   for (const p of projects) {
     asset = (await adapter.getArtifacts(p.id)).find(
-      (a) => a.url === `/api/assets/${z.string().parse(req.params.id)}`,
+      (a) => a.downloadUrl === `/api/assets/${z.string().parse(req.params.id)}`,
     );
     if (asset) break;
   }
   if (!asset) throw new StudioError("Asset not found.", 404);
   res.setHeader("X-Content-Type-Options", "nosniff");
-  res.download(resolve(uploadDir, z.string().parse(req.params.id)), asset.name);
+  res.download(resolve(uploadDir, z.string().parse(req.params.id)), asset.title);
 });
 app.use("/api", (_req, res) =>
   res.status(404).json({ error: "Endpoint not found." }),
@@ -200,5 +186,5 @@ if (process.env.NODE_ENV === "production") {
   app.use(vite.middlewares);
 }
 app.listen(port, "127.0.0.1", () =>
-  console.log(`Studio ready at http://localhost:${port} (DEMO MODE)`),
+  console.log(`Studio ready at http://localhost:${port} (${adapter.mode === "mock" ? "DEMO MODE" : "DEV LAB NOT CONFIGURED"})`),
 );

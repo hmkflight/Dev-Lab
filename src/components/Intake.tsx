@@ -13,19 +13,7 @@ import type { StudioContext } from "../../lib/studio-adapter/types";
 import { api } from "../api";
 import { useStudio } from "../App";
 import { PageTitle } from "./shared";
-export const blankContext: StudioContext = {
-  description: "",
-  goals: "",
-  audience: "",
-  requirements: "",
-  notes: "",
-  links: [],
-  email: "",
-  phone: "",
-  address: "",
-  socials: "",
-  anythingElse: "",
-};
+import { emptyContext as blankContext } from "../../lib/studio-adapter/defaults";
 export function ContextFields({
   value,
   onChange,
@@ -273,6 +261,7 @@ export function Intake() {
     .filter((id) => data.library.some((l) => l.id === id));
   async function submit(e: React.FormEvent) {
     e.preventDefault();
+    if (!data.capabilities.canCreateProject) { setError("Project creation is unavailable."); return; }
     setBusy(true);
     setError("");
     try {
@@ -292,10 +281,10 @@ export function Intake() {
         await api.upload(id, files);
         setFiles([]);
       }
-      await api.action(id, "start");
+      if (data.capabilities.canStartRun) await api.action(id, "start");
       await refresh();
       notify(
-        data.mode === "demo"
+        !data.capabilities.canStartRun ? "Project draft saved." : data.mode === "mock"
           ? "Demo factory started. Your project is ready."
           : "Factory started. Your project is ready.",
       );
@@ -355,7 +344,7 @@ export function Intake() {
           <section className="panel">
             <h2>All the pieces.</h2>
             <p className="muted">A home for everything the client shared.</p>
-            <FileDrop files={files} setFiles={setFiles} />
+            {data.capabilities.canUploadMedia && <FileDrop files={files} setFiles={setFiles} />}
           </section>
           {refs.length > 0 && (
             <section className="panel">
@@ -374,9 +363,9 @@ export function Intake() {
             <p>
               You can add more context and assets as the project takes shape.
             </p>
-            {data.mode === "demo" && (
+            {data.mode === "mock" && (
               <div className="demo-explainer">
-                Demo mode saves your intake locally and starts an illustrative
+                Demo mode saves your intake on the studio server and starts an illustrative
                 workflow. It does not generate a real website.
               </div>
             )}
@@ -394,7 +383,7 @@ export function Intake() {
             )}
             <button
               className="button primary full"
-              disabled={busy}
+              disabled={busy || !data.capabilities.canCreateProject}
               type="submit"
             >
               {busy ? (
@@ -404,7 +393,7 @@ export function Intake() {
               )}{" "}
               {busy
                 ? "Preparing your project…"
-                : createdId
+                : !data.capabilities.canStartRun ? "Save draft" : createdId
                   ? "Retry start factory"
                   : "Start factory"}
             </button>

@@ -10,7 +10,9 @@
     "test": "tsx --test tests/*.test.ts",
     "test:e2e": "node tests/workflow.e2e.mjs",
     "build:hosted": "tsc --noEmit && vite build && node scripts/build-hosted.mjs",
-    "db:generate": "drizzle-kit generate"
+    "db:generate": "drizzle-kit generate",
+    "typecheck": "tsc --noEmit",
+    "lint": "node scripts/client-boundary.mjs"
   },
   "dependencies": {
     "express": "^5.1.0",

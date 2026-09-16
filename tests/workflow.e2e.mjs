@@ -13,6 +13,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "server/index.ts"], {
     PORT: String(port),
     STUDIO_DATA_DIR: dir,
     NODE_ENV: "production",
+    DEVLAB_ADAPTER_MODE: "mock",
   },
   stdio: ["ignore", "pipe", "pipe"],
 });
@@ -78,9 +79,9 @@ try {
     await fetch(`${origin}/api/projects/${projectId}`)
   ).json();
   assert.deepEqual(detail.project.referenceIds, ["lib-forma"]);
-  assert.equal(detail.artifacts[0].name, "brand-notes.txt");
+  assert.equal(detail.artifacts[0].title, "brand-notes.txt");
   assert.equal(detail.project.context.links.length, 2);
-  const asset = await fetch(`${origin}${detail.artifacts[0].url}`);
+  const asset = await fetch(`${origin}${detail.artifacts[0].downloadUrl}`);
   assert.match(asset.headers.get("content-disposition"), /attachment/);
   assert.equal(await asset.text(), "Test brand context");
   await page.reload();
@@ -209,6 +210,27 @@ try {
     ).status,
     400,
   );
+  // Capability changes must remove actions even if project actions still list them.
+  await page.route('**/api/studio', async route => {
+    const response = await route.fetch();
+    const body = await response.json();
+    for (const key of Object.keys(body.capabilities)) body.capabilities[key] = false;
+    await route.fulfill({response,json:body});
+  });
+  await page.route('**/api/projects/forma', async route => {
+    const response = await route.fetch();
+    const body = await response.json();
+    for (const key of Object.keys(body.capabilities)) body.capabilities[key] = false;
+    await route.fulfill({response,json:body});
+  });
+  await page.setViewportSize({width:1440,height:1050});
+  await page.goto(`${origin}/projects/forma`);
+  await expect(page.getByRole('heading',{name:'Forma Studio',exact:true})).toBeVisible();
+  await expect(page.getByRole('button',{name:'Pause',exact:true})).toHaveCount(0);
+  await expect(page.getByRole('button',{name:'Continue demo',exact:true})).toHaveCount(0);
+  await page.goto(origin);
+  await expect(page.getByRole('heading',{name:'Good things are taking shape.'})).toBeVisible();
+  await expect(page.getByRole('link',{name:'New project',exact:true})).toHaveCount(0);
   assert.deepEqual(errors, []);
   console.log(
     "PASS: reference → intake + upload → pause/resume → feedback → approvals → QA → completion → archive; preview widths, comparison, mobile navigation, download and API validation.",

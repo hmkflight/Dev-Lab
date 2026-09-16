@@ -10,13 +10,13 @@ The Dev Lab remains authoritative. The frontend renders snapshots, sends explici
 
 `lib/studio-adapter/types.ts` defines serializable views for projects, agents, stages, artifacts, events, approvals, iterations, reviews, and library items. Stage count, agent count, artifact types, library categories, and QA categories are data-driven. Project status is a small presentation vocabulary; map richer Dev Lab statuses into it while preserving details in events. Project `actions` are capabilities supplied by the server, not derived in the browser.
 
-## Replace the mock
+## Adapter foundation
 
-1. Implement `StudioAdapter` in `lib/studio-adapter/dev-lab.server.ts` as `DevLabStudioAdapter`.
-2. Replace the `MockStudioAdapter` construction in `lib/studio-adapter/index.server.ts` with that adapter.
-3. Never return `advance-demo` or `resolve-demo` from the live adapter. These methods are outside the production contract, and the server rejects them unless the adapter is a `MockStudioAdapter`. The handlers may be removed when demo mode is no longer needed.
-4. Return `mode: 'live'` from `getSnapshot()`. The UI switches its connection labels and hides demo-only explanations from this data; no frontend rebuild or status-logic rewrite is required.
-5. Keep the existing UI contracts. Map actual Dev Lab IDs, stages, approvals, agent assignments, capabilities, and artifact URLs into them. Do not copy the mock’s transition logic into production.
+See [docs/DEVLAB_STUDIO_ADAPTER.md](docs/DEVLAB_STUDIO_ADAPTER.md) for the authoritative foundation contract, server boundary, capabilities, and proposed mappings. Every real Dev Lab mapping is **TODO VERIFY**; no real engine has been inspected or connected.
+
+`getStudioAdapter()` selects `mock` (default) or the unimplemented `devlab` skeleton using `DEVLAB_ADAPTER_MODE`. Both implement the same contract. The skeleton exposes no supported capabilities and all operations fail with `DevLabAdapterNotConfiguredError`; providing environment values does not enable real integration. Browser components only call same-origin API routes.
+
+The existing demo extension handles explicit advancement/content-resolution only in mock mode, outside the production contract. Demo data must never be used to infer real production readiness. In the future, implement the server-only skeleton using verified upstream mappings and enable capabilities individually.
 
 | Adapter operation                             | Existing Dev Lab responsibility                                               |
 | --------------------------------------------- | ----------------------------------------------------------------------------- |

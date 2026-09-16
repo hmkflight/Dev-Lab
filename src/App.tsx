@@ -134,12 +134,12 @@ export default function App() {
               DEV LAB CONNECTION
             </span>
             <strong>
-              {data?.mode === "live"
+              {data?.mode === "devlab"
                 ? "Connected to Dev Lab"
                 : "Running in demo mode"}
             </strong>
             <p>
-              {data?.mode === "live" ? (
+              {data?.mode === "devlab" ? (
                 <>
                   Your lab is connected.
                   <br />
@@ -192,9 +192,9 @@ export default function App() {
           </div>
           <div className="topbar-right">
             <span
-              className={`demo-label ${data?.mode === "live" ? "live-label" : ""}`}
+              className={`demo-label ${data?.mode === "devlab" ? "live-label" : ""}`}
             >
-              {data?.mode === "live" ? "DEV LAB CONNECTED" : "DEMO MODE"}
+              {data?.mode === "devlab" ? "DEV LAB CONNECTED" : "DEMO MODE"}
             </span>
             <Link
               to="/approvals"
@@ -276,9 +276,9 @@ export default function App() {
           </div>
           <h2 id="help-title">Ready for your Dev Lab.</h2>
           <p>
-            {data?.mode === "live"
+            {data?.mode === "devlab"
               ? "The studio is connected to your Dev Lab. Production state and available actions come from the server adapter."
-              : "This is a working demo. Projects and files are saved on this computer. No agents, production jobs, or external services are running."}
+              : "This is a working demo. Projects and files are saved by the studio server. No agents, production jobs, or external services are running."}
           </p>
           <div className="architecture">
             Browser UI <ArrowRight size={16} /> Server adapter{" "}
@@ -286,12 +286,12 @@ export default function App() {
           </div>
           <p>
             To connect your lab, implement the StudioAdapter interface and
-            replace the mock at the server composition root. Stages, agents,
+            select it at the server adapter resolver. Stages, agents,
             artifacts, approvals, and quality checks are supplied by the
             adapter.
           </p>
           <p>
-            The repository’s <strong>INTEGRATION.md</strong> includes the
+            The repository’s <strong>docs/DEVLAB_STUDIO_ADAPTER.md</strong> includes the
             contract, command mapping, and connection checklist.
           </p>
           <button className="button primary" onClick={() => setHelp(false)}>
@@ -317,7 +317,7 @@ function Home() {
         title="Good things are taking shape."
         description="A clear view of the work. Room for what’s next."
       >
-        <NewProjectButton />
+        {data.capabilities.canCreateProject && <NewProjectButton />}
       </PageTitle>
       <div className="stats-strip">
         {[
@@ -438,7 +438,7 @@ function Projects() {
         title="Every project, in perspective."
         description="From the first thought to the final detail."
       >
-        <NewProjectButton />
+        {data.capabilities.canCreateProject && <NewProjectButton />}
       </PageTitle>
       <div className="toolbar">
         <div className="filter-tabs">
@@ -492,7 +492,7 @@ function Agents() {
         title="Agent station."
         description="Who’s working, what’s happening, and what comes next."
       />
-      {data.mode === "demo" && (
+      {data.mode === "mock" && (
         <div className="info-note">
           Demo assignments · Real agent status will come from your Dev Lab.
         </div>
@@ -569,7 +569,7 @@ function Approvals() {
                 </strong>
                 <p>
                   {a.kind} ·{" "}
-                  {a.status === "approved" ? "Approved" : "Changes requested"}
+                  {a.status === "approved" ? "Approved" : a.status === "cancelled" ? "Cancelled" : "Changes requested"}
                   {a.feedback && ` — ${a.feedback}`}
                 </p>
               </div>
@@ -596,7 +596,7 @@ function Library() {
         title="The design library."
         description="References to build on. Never templates to be boxed into."
       >
-        {selected.length > 0 && (
+        {data.capabilities.canCreateProject && selected.length > 0 && (
           <Link
             className="button primary"
             to={`/new?references=${selected.join(",")}`}
@@ -607,6 +607,7 @@ function Library() {
           </Link>
         )}
       </PageTitle>
+      {!data.capabilities.canReadLibrary && <Empty title="Library unavailable" copy="The active adapter does not support reading the design library." />}
       <div className="filter-tabs library-filters">
         {categories.map((c) => (
           <button
@@ -619,7 +620,7 @@ function Library() {
         ))}
       </div>
       <div className="library-grid">
-        {data.library
+        {(data.capabilities.canReadLibrary ? data.library : [])
           .filter((l) => filter === "All work" || l.category === filter)
           .map((l) => (
             <article className="library-card" key={l.id}>
@@ -637,6 +638,7 @@ function Library() {
                 </div>
                 <button
                   className={`button ${selected.includes(l.id) ? "primary" : "secondary"}`}
+                  disabled={!data.capabilities.canReadLibrary || !data.capabilities.canCreateProject}
                   onClick={() =>
                     setSelected((s) =>
                       s.includes(l.id)
