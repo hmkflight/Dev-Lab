@@ -203,7 +203,9 @@ export function ProjectPage() {
           </strong>
         </span>
         {detail.productionRun && <><span>Run <strong>{detail.productionRun.status}</strong></span><span>Iteration counter <strong>{detail.productionRun.iterationNumber ?? detail.iterations.length}</strong></span></>}
-        {data.mode === "devlab" && <span>READ ONLY · controls disabled</span>}
+        {data.mode === "devlab" && <span>{p.slug === 'bridge-disposable-pass2' ? <Link to="/bridge">DISPOSABLE · fenced controls in Factory bridge</Link> : 'READ ONLY · controls disabled'}</span>}
+        {detail.productionRun?.responsibleAgent && <span>Responsible agent <strong>{detail.productionRun.responsibleAgent}</strong></span>}
+        {detail.productionRun?.lastAgent && <span>Last agent <strong>{detail.productionRun.lastAgent}</strong></span>}
         <span>
           Agent <strong>{currentAgent?.name || "Unassigned"}</strong>
         </span>

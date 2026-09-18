@@ -16,6 +16,15 @@ try{
   const distinct=await page.evaluate(async job=>{const r=await fetch('/api/bridge/commands',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({projectId:job.project_id,mode:'REAL',type:job.command_type,payload:JSON.parse(job.payload),idempotencyKey:crypto.randomUUID()})});return {status:r.status,body:await r.json()};},job);assert.equal(distinct.status,201);assert.equal(distinct.body.id,job.id);record.duplicate={sameKeySameId:true,differentKeySameId:true,commandId:job.id};
   if(phase==='create'){assert.equal(before.runner?.online,false);const after=await get();assert.equal(after.commands.find(x=>x.id===job.id).status,'QUEUED');record.disconnectedQueueProof=true;}
   evidence.phases[phase]=record;
+ }else if(phase==='stale'){
+  assert.equal(before.real.stage,'AWAITING_DIRECTION_APPROVAL');const real=before.real;record.tests=[];
+  for(const scenario of ['stale-run','stale-stage']){
+   const payload={runId:scenario==='stale-run'?crypto.randomUUID():real.runId,expectedStage:scenario==='stale-stage'?'CONCEPT_REVIEW':real.stage,approvalType:'AWAITING_DIRECTION_APPROVAL',gate:'AWAITING_DIRECTION_APPROVAL'};
+   const r=await page.request.post(config.origin+'/api/bridge/commands',{data:{projectId:real.projectSlug,mode:'REAL',type:'APPROVE_GATE',payload,idempotencyKey:crypto.randomUUID()}});assert.equal(r.status(),201);const job=await r.json();
+   await expect.poll(async()=>{const s=await get();return s.commands.find(c=>c.id===job.id)?.status;},{timeout:45000,intervals:[1500]}).toBe('FAILED');
+   const final=(await get()).commands.find(c=>c.id===job.id);assert.equal(JSON.parse(final.result).code,'FENCE_REJECTED');assert.equal(JSON.parse(final.result).executionCount,0);record.tests.push({scenario,command:final});
+  }
+  assert.equal((await get()).real.stage,real.stage);evidence.phases.stale=record;
  }else if(phase==='probes'){
   record.rejections=[];for(const projectId of ['eagleswings-cpe2-trial','eagleswings','eagleswings-v2','bridge-disposable-other']){const r=await page.request.post(config.origin+'/api/bridge/commands',{data:{projectId,mode:'REAL',type:'START_RUN',payload:{},idempotencyKey:crypto.randomUUID()}});assert.equal(r.status(),400);record.rejections.push({projectId,status:r.status()});}
   for(const type of ['SHELL','PAUSE_RUN','CANCEL_RUN']){const r=await page.request.post(config.origin+'/api/bridge/commands',{data:{projectId:'bridge-disposable-pass2',mode:'REAL',type,payload:{},idempotencyKey:crypto.randomUUID()}});assert.equal(r.status(),400);record.rejections.push({type,status:r.status()});}

@@ -207,6 +207,7 @@ export type StudioProjectSummary = Omit<StudioProject, "context" | "referenceIds
 export interface StudioProductionRun {
   iterationNumber?: number;
   responsibleAgent?: string;
+  lastAgent?: string;
   id: string;
   projectId: string;
   status: Extensible<"working" | "waiting" | "blocked" | "paused" | "complete" | "cancelled">;

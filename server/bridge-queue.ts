@@ -10,6 +10,8 @@ export class BridgeQueue {
   constructor(private db:D1Database,private now=()=>new Date().toISOString()){}
   async submit(input:unknown,actor:string){
     const data=commandInput.parse(input);authorizedProject(data.projectId,data.mode);
+    // A NEW explicit request may correct a proven pre-invocation rejection. Keep the old request/result immutable.
+    if(data.mode==='REAL')await this.db.prepare("UPDATE bridge_commands SET semantic_key=NULL WHERE semantic_key=? AND status='FAILED' AND json_extract(result,'$.code')='FENCE_REJECTED' AND json_extract(result,'$.executionCount')=0").bind(semanticKey(data)).run();
     const fingerprint=JSON.stringify([data.projectId,data.type,data.mode,data.payload]);const now=this.now();
     await this.db.prepare(`INSERT OR IGNORE INTO bridge_commands (id,project_id,command_type,mode,payload,requested_by,idempotency_key,fingerprint,created_at,status,attempt_count,available_at,history,semantic_key) VALUES (?,?,?,?,?,?,?,?,?,'QUEUED',0,?,?,?)`).bind(crypto.randomUUID(),data.projectId,data.type,data.mode,JSON.stringify(data.payload),actor,data.idempotencyKey,fingerprint,now,now,JSON.stringify([{status:'QUEUED',at:now}]),semanticKey(data)).run();
     const job=await this.db.prepare('SELECT * FROM bridge_commands WHERE (requested_by=? AND idempotency_key=?) OR (semantic_key IS NOT NULL AND semantic_key=?) ORDER BY created_at LIMIT 1').bind(actor,data.idempotencyKey,semanticKey(data)).first<Job>();

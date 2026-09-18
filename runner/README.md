@@ -1,11 +1,49 @@
-# Studio Mac runner — Pass 1
+# Studio bridge runner
 
-This outbound-only Node service processes the hosted D1 command queue. It runs in the Studio checkout, not inside AI_COMMAND_CENTER. Start with `npm run bridge:runner`; set `BRIDGE_CONFIG` to an absolute private JSON file when starting from another working directory.
+Default executor mode is MOCK. Pass 2 REAL dispatch requires both `mode: "REAL"`
+and `realProject: "bridge-disposable-pass2"` in the private runner configuration.
+The hosted Worker separately admits only commands named in `BRIDGE_REAL_COMMANDS`.
+Every other real project is rejected in both processes. No inbound port is opened.
 
-Private configuration fields: `origin` (HTTPS Studio URL), `runnerId`, `runnerToken`, `siteToken` (existing Sites machine-access credential), `mode: "MOCK"`, and absolute `journal` path. Keep the file mode 0600 and its directory 0700. No credentials belong in Git, browser storage, arguments to CPE, or logs.
+Start from the Studio repository with `npm run bridge:runner`. The installed
+LaunchAgent `com.hudson.studio-bridge-shadow` normally starts it automatically.
+Do not start a second copy. Its private configuration is `.studio/runner.json`
+(or `BRIDGE_CONFIG`), with origin, runnerId, runnerToken, siteToken, mode,
+realProject and journal. Never commit these values.
 
-The service heartbeats every 15 seconds and polls every 2 seconds; requests time out after 12 seconds. The Worker expires presence at 45 seconds and command leases at 60 seconds. SIGTERM/SIGINT finishes the current bounded request, marks the runner offline, closes its local SQLite journal, and exits. A launchd LaunchAgent can supervise it with KeepAlive and ThrottleInterval; see the Pass 1 report for the installed instance.
+REAL commands run in the exact separate `~/AI_COMMAND_CENTER-bridge` worktree.
+Install that worktree's dashboard lockfile dependencies, and configure its
+ignored `dashboard/.env.local` with NEXT_PUBLIC_SUPABASE_URL,
+SUPABASE_SERVICE_ROLE_KEY and CREATIVE_STUDIO_AGENT_PROVIDER=codex. The official
+provider uses the existing Codex subscription login. No mock agent output is used.
 
-The runner's persistent journal records execution by command ID. Completed results can be returned without re-executing. A crash during an uncertain execution is quarantined, never replayed automatically. Mock failures occur before any synthetic execution; retryable failures are bounded to three attempts. A lost completion response is retried with the same claim token.
+The polling service heartbeats every 15 seconds and polls every 2 seconds.
+Network calls have a 12-second timeout; CPE execution has no bridge timeout.
+A detached one-command supervisor writes a private execution receipt every
+5 seconds. The service renews its 60-second queue lease with that identity.
+The LaunchAgent uses AbandonProcessGroup=true so stopping the poller does not
+terminate its detached CPE supervisor. A browser has no ownership of execution.
 
-REAL execution helpers exist only for future disposable-project review. The hosted queue accepts MOCK only, and this Pass 1 runner refuses REAL startup. `realCommandPlan` translates CREATE_PROJECT, START_RUN, and RESUME_RUN to existing CPE entrypoints. `executeReal` requires the explicit `DISPOSABLE_PROJECT_ONLY` opt-in and a non-symlink AI_COMMAND_CENTER-bridge worktree. It is not called by the Pass 1 runner. APPROVE_GATE requires expected-stage/run fencing before it can be enabled. CANCEL_RUN and PAUSE_RUN remain unsupported. No CPE process was executed by these helpers in Pass 1.
+SQLite records dispatch intent before spawning. A crash gap, missing receipt,
+or stale supervisor receipt is **uncertain**, never permission to relaunch.
+REAL RUNNING jobs never automatically expire into a retry. They block further
+real dispatch until completion is reconciled or a human investigates. Do not
+manually delete the journal, task receipts or queue rows to force a retry.
+Completion delivery can retry without repeating CPE execution.
+
+Only fixed arguments to official CPE commands are used with shell:false.
+CREATE is unique for the disposable slug; START is unique for its lifetime;
+APPROVE and RESUME are unique per run and expected stage. Approval additionally
+holds the existing CPE run lock, re-reads authoritative state and calls the
+existing approval CLI. Only the direction gate is enabled for this pass.
+There is no PAUSE or CANCEL handler.
+
+Private output is bounded to the last 8,000 characters per stream, redacted to
+4,000 characters in the local receipt. Browser results receive a fixed summary,
+not raw command output. Task receipts and SQLite are under ignored `.studio/`.
+Service log files require normal OS log retention maintenance.
+
+Artifact transport automatically selects at most one non-sensitive JSON artifact
+owned by the disposable project, resolves its real path inside that exact project
+folder, checks size/content, hashes bytes, and sends it outbound to authenticated
+Worker/R2 storage. Eagle Wings is never a transport source.

@@ -63,3 +63,10 @@ Hosted Studio now observes an explicitly allowlisted CPE project through Supabas
 - `npm run test:bridge:hosted` explicitly tests hosted CPE reads and synthetic commands using private `.studio/operator.json` test credentials.
 
 The local Express preview remains a loopback-only demo/development server. Hosted API access uses Sites identity plus an explicit owner/viewer allowlist; machine requests additionally require an application token. No public inbound Mac listener is used.
+
+Pass 2 disposable real control is available through the Factory bridge screen.
+Only `bridge-disposable-pass2` can receive real commands. The normal project
+mutation API remains disabled. See [runner setup](runner/README.md) and
+[adapter mapping](docs/DEVLAB_STUDIO_ADAPTER.md). Run the hosted acceptance driver
+with `node tests/bridge-real-hosted.e2e.mjs status` for read-only observation;
+explicit create/start/approve/resume arguments perform the authorized test action.

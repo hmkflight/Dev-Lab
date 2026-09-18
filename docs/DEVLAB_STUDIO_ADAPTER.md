@@ -41,3 +41,26 @@ Prepared real translations in runner/executors.ts:
 Real helpers require a separate non-symlink AI_COMMAND_CENTER-bridge root and bridge-disposable-* slug. executeReal additionally requires its explicit disposable-only opt-in. The Pass 1 hosted queue and runner cannot invoke that helper. No real executor was exercised.
 
 See [the comprehensive report](STUDIO_LIVE_INTEGRATION_PASS_1_REPORT.md) for measured evidence, limitations, file inventory, setup, and acceptance results.
+
+## Pass 2 disposable command boundary
+
+Real controls use `/api/bridge/commands`; the read adapter does not acquire a
+whole-state save method. Its direct mutation methods remain disabled. Scoped
+bridge capabilities are returned under `BridgeSnapshot.real.capabilities`,
+with `projectSlug=bridge-disposable-pass2`; general Studio/project controls
+remain read-only. `BRIDGE_REAL_COMMANDS` admits explicit acceptance commands;
+`BRIDGE_PROVEN_COMMANDS` advertises only operations actually verified afterward.
+
+CPE CLI mappings were inspected at origin/main commit
+`6e781aaca1bae409aa11f66baa191fa6af2b15f8` in the separate bridge worktree.
+CREATE uses `command.sh creative-studio project create`. START/RESUME invoke
+`dashboard/scripts/creative-studio-orchestrator.ts` through its installed tsx
+loader (the same entrypoint used by the official npm script). APPROVE calls
+`command.sh creative-studio approve` only after acquiring the existing CPE run
+lock and verifying the exact run, project stage and direction gate. No CPE
+business logic or second production state machine was added to Studio.
+
+D1 stores transport state, immutable execution identity, last progress timestamp,
+and published artifact metadata. Supabase remains authoritative for projects,
+runs, gates, events, reviews and readiness. Private R2 objects contain only
+approved disposable JSON bytes. No Eagle Wings artifact synchronization exists.
