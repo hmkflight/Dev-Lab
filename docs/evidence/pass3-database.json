@@ -1,0 +1,55 @@
+{
+  "firstFinalFixture": [
+    {
+      "slug": "bridge-disposable-pass3",
+      "client_name": "TEST_FIXTURE — atomic approval concurrency",
+      "current_stage": "COMPLETE",
+      "run_id": "db5ac26a-b11d-4129-a940-775c62549ef9",
+      "status": "FINAL_APPROVED",
+      "client_ready": true,
+      "receipts": [
+        {
+          "id": "06733511-7e95-4434-b1d8-aa59ad1290e9",
+          "run_id": "db5ac26a-b11d-4129-a940-775c62549ef9",
+          "next_stage": "EXPERIENCE_DESIGN",
+          "approval_id": "bee17518-ccd5-439a-9ffa-a6b88f83a926",
+          "expected_stage": "AWAITING_DIRECTION_APPROVAL"
+        },
+        {
+          "id": "09e54b1c-0ad1-4665-a176-a885a654e48e",
+          "run_id": "db5ac26a-b11d-4129-a940-775c62549ef9",
+          "next_stage": "IMPLEMENTATION",
+          "approval_id": "bfca07e1-913d-4f8a-a0b4-99868dfa2de2",
+          "expected_stage": "AWAITING_BUILD_APPROVAL"
+        },
+        {
+          "id": "afc05f99-47c4-47b4-86c3-0f8539a88072",
+          "run_id": "db5ac26a-b11d-4129-a940-775c62549ef9",
+          "next_stage": "COMPLETE",
+          "approval_id": "22047b51-924a-4c4f-93dc-2c43d54210db",
+          "expected_stage": "AWAITING_FINAL_APPROVAL"
+        }
+      ]
+    }
+  ],
+  "secondFinalFixture": [
+    {
+      "slug": "bridge-disposable-pass3",
+      "current_stage": "COMPLETE",
+      "run_id": "d2015094-317f-4a67-8a3a-aabd7396ad3f",
+      "status": "FINAL_APPROVED",
+      "client_ready": true
+    }
+  ],
+  "fixtureRowsRemaining": 0,
+  "readPrivileges": [
+    {
+      "can_select": true,
+      "can_insert": false,
+      "can_update": false,
+      "can_delete": false,
+      "anonymous_can_approve": false,
+      "api_can_assume_read_executor": false
+    }
+  ]
+}

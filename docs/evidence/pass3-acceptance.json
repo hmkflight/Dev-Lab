@@ -1,0 +1,1432 @@
+{
+  "status": {
+    "phase": "status",
+    "at": "2026-09-18T22:40:10.323Z",
+    "before": {
+      "real": {
+        "projectSlug": "bridge-disposable-pass2",
+        "allowed": [
+          "CREATE_PROJECT",
+          "START_RUN",
+          "APPROVE_GATE",
+          "RESUME_RUN"
+        ],
+        "proven": [
+          "CREATE_PROJECT",
+          "START_RUN",
+          "APPROVE_GATE",
+          "RESUME_RUN"
+        ],
+        "capabilities": {
+          "canCreateProject": true,
+          "canStartRun": true,
+          "canResumeRun": true,
+          "canApprove": true,
+          "canPauseRun": false,
+          "canCancelRun": false
+        },
+        "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+        "runId": "2aa4b130-5f9b-414b-8e40-ee576c75352a",
+        "stage": "IMPLEMENTATION",
+        "runStatus": "REVISION_REQUIRED",
+        "gate": null
+      },
+      "runner": {
+        "runnerId": "hudson-mac-shadow",
+        "mode": "REAL",
+        "lastSeen": "2026-09-18T22:39:58.868Z",
+        "online": true,
+        "staleAfterSeconds": 45
+      }
+    },
+    "commands": [
+      {
+        "id": "7c699e56-703d-45e4-843c-21c2e5f705e6",
+        "project_id": "bridge-disposable-pass2",
+        "command_type": "RESUME_RUN",
+        "mode": "REAL",
+        "payload": "{\"runId\":\"2aa4b130-5f9b-414b-8e40-ee576c75352a\",\"expectedStage\":\"IMPLEMENTATION\"}",
+        "requested_by": "bridge-operator",
+        "idempotency_key": "c6c11354-d6bf-416e-9a81-861f08b6191d",
+        "created_at": "2026-09-18T22:37:50.028Z",
+        "status": "SUCCEEDED",
+        "claimed_by": "hudson-mac-shadow",
+        "claimed_at": "2026-09-18T22:37:50.557Z",
+        "attempt_count": 1,
+        "acknowledgment": "2026-09-18T22:37:51.165Z",
+        "result": "{\"ok\":true,\"retryable\":false,\"code\":\"REAL_COMPLETED\",\"executionCount\":1,\"executionId\":\"6024d869-49ee-492a-80c6-318599539fa7\",\"processId\":21732,\"stdout\":\"CPE output captured in private runner evidence.\",\"stderr\":\"\",\"projectId\":\"5831d3a0-3205-4b7a-a141-d57bfc2c1782\",\"runId\":\"2aa4b130-5f9b-414b-8e40-ee576c75352a\",\"mode\":\"REAL\",\"cpeInvoked\":true}",
+        "error": null,
+        "completed_at": "2026-09-18T22:37:59.041Z",
+        "available_at": "2026-09-18T22:37:59.041Z",
+        "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T22:37:50.028Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T22:37:50.557Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T22:37:51.165Z\"},{\"status\":\"SUCCEEDED\",\"at\":\"2026-09-18T22:37:59.041Z\"}]",
+        "semantic_key": "bridge-disposable-pass2:RESUME_RUN:2aa4b130-5f9b-414b-8e40-ee576c75352a:IMPLEMENTATION",
+        "execution_id": "6024d869-49ee-492a-80c6-318599539fa7",
+        "process_id": 21732,
+        "progress_at": "2026-09-18T22:37:58.322Z",
+        "reconciliation": "COMPLETED_SUCCESS",
+        "reconciled_at": "2026-09-18T22:37:57.806Z"
+      },
+      {
+        "id": "395029bf-eff3-4abf-8a5c-4a85b88642ca",
+        "project_id": "bridge-disposable-pass2",
+        "command_type": "APPROVE_GATE",
+        "mode": "REAL",
+        "payload": "{\"runId\":\"2aa4b130-5f9b-414b-8e40-ee576c75352a\",\"expectedStage\":\"AWAITING_BUILD_APPROVAL\",\"approvalType\":\"AWAITING_BUILD_APPROVAL\",\"gate\":\"AWAITING_BUILD_APPROVAL\"}",
+        "requested_by": "bridge-operator",
+        "idempotency_key": "338736e3-36c5-4fed-b738-862e6cc8c2ae",
+        "created_at": "2026-09-18T22:36:37.068Z",
+        "status": "SUCCEEDED",
+        "claimed_by": "hudson-mac-shadow",
+        "claimed_at": "2026-09-18T22:36:38.369Z",
+        "attempt_count": 1,
+        "acknowledgment": "2026-09-18T22:36:38.937Z",
+        "result": "{\"ok\":true,\"retryable\":false,\"code\":\"REAL_COMPLETED\",\"executionCount\":1,\"executionId\":\"66dd9af1-f8a9-4918-a6d6-21db0fddfc85\",\"processId\":21630,\"stdout\":\"CPE output captured in private runner evidence.\",\"stderr\":\"\",\"projectId\":\"5831d3a0-3205-4b7a-a141-d57bfc2c1782\",\"runId\":\"2aa4b130-5f9b-414b-8e40-ee576c75352a\",\"mode\":\"REAL\",\"cpeInvoked\":true}",
+        "error": null,
+        "completed_at": "2026-09-18T22:36:50.701Z",
+        "available_at": "2026-09-18T22:36:50.701Z",
+        "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T22:36:37.068Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T22:36:38.369Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T22:36:38.937Z\"},{\"status\":\"SUCCEEDED\",\"at\":\"2026-09-18T22:36:50.701Z\"}]",
+        "semantic_key": "bridge-disposable-pass2:APPROVE_GATE:2aa4b130-5f9b-414b-8e40-ee576c75352a:AWAITING_BUILD_APPROVAL",
+        "execution_id": "66dd9af1-f8a9-4918-a6d6-21db0fddfc85",
+        "process_id": 21630,
+        "progress_at": "2026-09-18T22:36:50.135Z",
+        "reconciliation": "COMPLETED_SUCCESS",
+        "reconciled_at": "2026-09-18T22:36:49.531Z"
+      },
+      {
+        "id": "b13a47af-5be2-490e-862a-a7449fdbd637",
+        "project_id": "bridge-disposable-pass2",
+        "command_type": "APPROVE_GATE",
+        "mode": "REAL",
+        "payload": "{\"runId\":\"bf7a35b3-f024-4c9f-8615-6a6c667a440f\",\"expectedStage\":\"AWAITING_BUILD_APPROVAL\",\"approvalType\":\"AWAITING_BUILD_APPROVAL\",\"gate\":\"AWAITING_BUILD_APPROVAL\"}",
+        "requested_by": "bridge-operator",
+        "idempotency_key": "6006a862-60dc-4928-a27b-de06d90ae5a0",
+        "created_at": "2026-09-18T22:35:26.573Z",
+        "status": "FAILED",
+        "claimed_by": "hudson-mac-shadow",
+        "claimed_at": "2026-09-18T22:35:26.783Z",
+        "attempt_count": 1,
+        "acknowledgment": "2026-09-18T22:35:27.632Z",
+        "result": "{\"ok\":false,\"retryable\":false,\"code\":\"FENCE_REJECTED\",\"executionCount\":0,\"executionId\":\"de021745-99c2-423b-a9cf-d4503db80ada\",\"stdout\":\"CPE output captured in private runner evidence.\",\"stderr\":\"FENCE_REJECTED\",\"mode\":\"REAL\",\"cpeInvoked\":false}",
+        "error": "FENCE_REJECTED",
+        "completed_at": "2026-09-18T22:36:11.030Z",
+        "available_at": "2026-09-18T22:36:11.030Z",
+        "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T22:35:26.573Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T22:35:26.783Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T22:35:27.632Z\"},{\"status\":\"FAILED\",\"at\":\"2026-09-18T22:36:11.030Z\"}]",
+        "semantic_key": "bridge-disposable-pass2:APPROVE_GATE:bf7a35b3-f024-4c9f-8615-6a6c667a440f:AWAITING_BUILD_APPROVAL",
+        "execution_id": "de021745-99c2-423b-a9cf-d4503db80ada",
+        "process_id": null,
+        "progress_at": "2026-09-18T22:36:10.462Z",
+        "reconciliation": "SAFE_TO_RETRY",
+        "reconciled_at": "2026-09-18T22:36:09.724Z"
+      },
+      {
+        "id": "0eed6fe2-19df-4ecf-975c-b0fc8caf9282",
+        "project_id": "bridge-disposable-pass2",
+        "command_type": "APPROVE_GATE",
+        "mode": "REAL",
+        "payload": "{\"runId\":\"2aa4b130-5f9b-414b-8e40-ee576c75352a\",\"expectedStage\":\"EXPERIENCE_REVIEW\",\"approvalType\":\"AWAITING_BUILD_APPROVAL\",\"gate\":\"AWAITING_BUILD_APPROVAL\"}",
+        "requested_by": "bridge-operator",
+        "idempotency_key": "ef3ab35e-f4ca-44e9-b55f-490a4576866f",
+        "created_at": "2026-09-18T22:35:14.520Z",
+        "status": "FAILED",
+        "claimed_by": "hudson-mac-shadow",
+        "claimed_at": "2026-09-18T22:35:15.571Z",
+        "attempt_count": 1,
+        "acknowledgment": "2026-09-18T22:35:16.757Z",
+        "result": "{\"ok\":false,\"retryable\":false,\"code\":\"FENCE_REJECTED\",\"executionCount\":0,\"executionId\":\"e40cd638-8964-48dd-9e52-1e90bdce0c21\",\"stdout\":\"CPE output captured in private runner evidence.\",\"stderr\":\"FENCE_REJECTED\",\"mode\":\"REAL\",\"cpeInvoked\":false}",
+        "error": "FENCE_REJECTED",
+        "completed_at": "2026-09-18T22:35:24.337Z",
+        "available_at": "2026-09-18T22:35:24.337Z",
+        "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T22:35:14.520Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T22:35:15.571Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T22:35:16.757Z\"},{\"status\":\"FAILED\",\"at\":\"2026-09-18T22:35:24.337Z\"}]",
+        "semantic_key": "bridge-disposable-pass2:APPROVE_GATE:2aa4b130-5f9b-414b-8e40-ee576c75352a:EXPERIENCE_REVIEW",
+        "execution_id": "e40cd638-8964-48dd-9e52-1e90bdce0c21",
+        "process_id": null,
+        "progress_at": "2026-09-18T22:35:23.837Z",
+        "reconciliation": "SAFE_TO_RETRY",
+        "reconciled_at": "2026-09-18T22:35:23.259Z"
+      }
+    ],
+    "artifacts": [
+      {
+        "id": "fcb86cba-ce80-4da1-b74c-15601314754e",
+        "sourceArtifactId": "5ac31b23-b48b-4f6f-92ce-d997b1e31988",
+        "representation": "original",
+        "mimeType": "application/json",
+        "bytes": 1081,
+        "sha256": "03fb2718e61774f653f1e28aac052d30e11bedf09aa9c1b09b4b63a9fe5a051d",
+        "previewUrl": "/api/bridge/artifacts/fcb86cba-ce80-4da1-b74c-15601314754e",
+        "downloadUrl": "/api/bridge/artifacts/fcb86cba-ce80-4da1-b74c-15601314754e?download=1"
+      },
+      {
+        "id": "6ccb5855-33d7-47a5-a1de-8066eaad406f",
+        "sourceArtifactId": "26a3b6dd-70bd-4c68-b1d2-51c25ac39f18",
+        "representation": "original",
+        "mimeType": "application/json",
+        "bytes": 1945,
+        "sha256": "5e90cf39a0de53e50852b3903c20c25c53c2d480e150afabcc7c2cbe4e9e7926",
+        "previewUrl": "/api/bridge/artifacts/6ccb5855-33d7-47a5-a1de-8066eaad406f",
+        "downloadUrl": "/api/bridge/artifacts/6ccb5855-33d7-47a5-a1de-8066eaad406f?download=1"
+      },
+      {
+        "id": "39705709-2bdf-42b6-93b7-dcfcc0337d8b",
+        "sourceArtifactId": "7044bbb1-da98-43c1-a4a5-3cb40bae3907",
+        "representation": "original",
+        "mimeType": "application/json",
+        "bytes": 839,
+        "sha256": "9fcb51bbb3efe9dd392bf71fd727a7d1c13d12a69991f69b583472613ddc8c3a",
+        "previewUrl": "/api/bridge/artifacts/39705709-2bdf-42b6-93b7-dcfcc0337d8b",
+        "downloadUrl": "/api/bridge/artifacts/39705709-2bdf-42b6-93b7-dcfcc0337d8b?download=1"
+      },
+      {
+        "id": "c748d7e4-cb02-4b26-bba9-0abda4742d63",
+        "sourceArtifactId": "98852bc1-c38a-4583-9e8b-766ea1d8a2a1",
+        "representation": "original",
+        "mimeType": "application/json",
+        "bytes": 19965,
+        "sha256": "a3af9380639fe0d5d87c154b3ee4c8f2e733a81cad455af117f27a0130840d5e",
+        "previewUrl": "/api/bridge/artifacts/c748d7e4-cb02-4b26-bba9-0abda4742d63",
+        "downloadUrl": "/api/bridge/artifacts/c748d7e4-cb02-4b26-bba9-0abda4742d63?download=1"
+      },
+      {
+        "id": "4af0eec8-c34c-4ccd-9081-3c8cd3d0f27b",
+        "sourceArtifactId": "348fa5f5-2766-42fb-ab83-720c57600ccb",
+        "representation": "original",
+        "mimeType": "application/json",
+        "bytes": 1321,
+        "sha256": "c6170f6f3cb5de8d70737b5c56f053cc61eba4093f29e8854bd3dbc9499a01e1",
+        "previewUrl": "/api/bridge/artifacts/4af0eec8-c34c-4ccd-9081-3c8cd3d0f27b",
+        "downloadUrl": "/api/bridge/artifacts/4af0eec8-c34c-4ccd-9081-3c8cd3d0f27b?download=1"
+      },
+      {
+        "id": "c3fa785e-b2df-4c66-8ee4-b4555787d4a4",
+        "sourceArtifactId": "5ac31b23-b48b-4f6f-92ce-d997b1e31988",
+        "representation": "report-html",
+        "mimeType": "text/html",
+        "bytes": 1675,
+        "sha256": "6744d5b86df5fc72125b905ff6ad7a7e8b506a56f0fe84a60b78007eaca16165",
+        "previewUrl": "/api/bridge/artifacts/c3fa785e-b2df-4c66-8ee4-b4555787d4a4",
+        "downloadUrl": "/api/bridge/artifacts/c3fa785e-b2df-4c66-8ee4-b4555787d4a4?download=1"
+      },
+      {
+        "id": "2776183d-9530-49d3-803d-9d31d4d8a18e",
+        "sourceArtifactId": "5ac31b23-b48b-4f6f-92ce-d997b1e31988",
+        "representation": "report-png",
+        "thumbnailUrl": "/api/bridge/artifacts/2776183d-9530-49d3-803d-9d31d4d8a18e",
+        "mimeType": "image/png",
+        "bytes": 125946,
+        "sha256": "b883ef80088ca6a714733d7aad6d85edf703e723e1f0d2d784d32c0d91a0dac2",
+        "previewUrl": "/api/bridge/artifacts/2776183d-9530-49d3-803d-9d31d4d8a18e",
+        "downloadUrl": "/api/bridge/artifacts/2776183d-9530-49d3-803d-9d31d4d8a18e?download=1"
+      }
+    ],
+    "readMs": 1066,
+    "observed": {
+      "project": {
+        "id": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+        "name": "Bridge Disposable Pass 2",
+        "industry": "website",
+        "summary": "A fictional public one-page website for a community reading room named Lantern Room. Audience: adult readers. Primary action: learn opening hours. Use invented public-facing copy only. No forms, payments, accounts, integrations, external assets, client data or backend. Three distinct creative concepts; select the strongest viable direction at review. This is a disposable integration acceptance project.",
+        "status": "blocked",
+        "stageId": "IMPLEMENTATION",
+        "stages": [
+          {
+            "id": "INTAKE",
+            "name": "INTAKE",
+            "status": "complete"
+          },
+          {
+            "id": "INTELLIGENCE",
+            "name": "INTELLIGENCE",
+            "status": "complete"
+          },
+          {
+            "id": "CONCEPTING",
+            "name": "CONCEPTING",
+            "status": "complete"
+          },
+          {
+            "id": "CONCEPT_REVIEW",
+            "name": "CONCEPT_REVIEW",
+            "status": "complete"
+          },
+          {
+            "id": "AWAITING_DIRECTION_APPROVAL",
+            "name": "AWAITING_DIRECTION_APPROVAL",
+            "status": "active"
+          },
+          {
+            "id": "EXPERIENCE_DESIGN",
+            "name": "EXPERIENCE_DESIGN",
+            "status": "complete"
+          },
+          {
+            "id": "EXPERIENCE_REVIEW",
+            "name": "EXPERIENCE_REVIEW",
+            "status": "complete"
+          },
+          {
+            "id": "AWAITING_BUILD_APPROVAL",
+            "name": "AWAITING_BUILD_APPROVAL",
+            "status": "active"
+          },
+          {
+            "id": "IMPLEMENTATION",
+            "name": "IMPLEMENTATION",
+            "status": "active"
+          }
+        ],
+        "createdAt": "2026-09-18T07:34:56.352265+00:00",
+        "updatedAt": "2026-09-18T22:36:42.557457+00:00",
+        "theme": "forma",
+        "context": {
+          "description": "A fictional public one-page website for a community reading room named Lantern Room. Audience: adult readers. Primary action: learn opening hours. Use invented public-facing copy only. No forms, payments, accounts, integrations, external assets, client data or backend. Three distinct creative concepts; select the strongest viable direction at review. This is a disposable integration acceptance project.",
+          "goals": "Verify the Studio bridge on a disposable, non-sensitive project.",
+          "audience": "",
+          "requirements": "",
+          "notes": "",
+          "links": [],
+          "email": "",
+          "phone": "",
+          "address": "",
+          "socials": "",
+          "anythingElse": ""
+        },
+        "archived": false,
+        "referenceIds": [],
+        "actions": [],
+        "slug": "bridge-disposable-pass2",
+        "sourceStatus": "REVISION_REQUIRED"
+      },
+      "run": {
+        "id": "2aa4b130-5f9b-414b-8e40-ee576c75352a",
+        "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+        "status": "REVISION_REQUIRED",
+        "stageId": "IMPLEMENTATION",
+        "startedAt": "2026-09-18T07:36:45.172738+00:00",
+        "updatedAt": "2026-09-18T22:37:54.808+00:00",
+        "mode": "devlab",
+        "iterationNumber": 0,
+        "responsibleAgent": "",
+        "lastAgent": "critic-learning-director"
+      },
+      "approvals": [
+        {
+          "id": "2aa4b130-5f9b-414b-8e40-ee576c75352a:human:0",
+          "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+          "title": "Human decision required",
+          "description": "Authoritative implementation definition is missing; a human must supply the approved implementation contract before execution.",
+          "kind": "HUMAN_DECISION_REQUIRED",
+          "status": "pending",
+          "createdAt": "2026-09-18T22:37:54.808Z"
+        },
+        {
+          "id": "50444bf1-be57-49c3-98ee-94b5b6edd5c5",
+          "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+          "title": "AWAITING_BUILD_APPROVAL",
+          "description": "Recorded human approval in CPE",
+          "kind": "AWAITING_BUILD_APPROVAL",
+          "status": "approved",
+          "createdAt": "2026-09-18T22:36:42.557457+00:00",
+          "resolvedAt": "2026-09-18T22:36:42.557457+00:00"
+        },
+        {
+          "id": "65965688-9aa9-45b7-afa4-7ea582144a0f",
+          "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+          "title": "AWAITING_DIRECTION_APPROVAL",
+          "description": "Recorded human approval in CPE",
+          "kind": "AWAITING_DIRECTION_APPROVAL",
+          "status": "approved",
+          "createdAt": "2026-09-18T07:42:40.649149+00:00",
+          "resolvedAt": "2026-09-18T07:42:40.649149+00:00"
+        }
+      ],
+      "readiness": {
+        "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+        "status": "blocked",
+        "clientReady": false,
+        "blockers": [
+          {
+            "id": "2aa4b130-5f9b-414b-8e40-ee576c75352a:finding:0",
+            "section": "CPE readiness",
+            "message": "Authoritative implementation definition is missing; a human must supply the approved implementation contract before execution.",
+            "severity": "blocker"
+          }
+        ],
+        "summary": "CPE REVISION_REQUIRED; CLIENT_READY=false. 0 recorded readiness reasons.",
+        "assessedAt": "2026-09-18T22:37:54.808+00:00",
+        "mode": "devlab"
+      },
+      "events": [
+        {
+          "id": "d6cc129b-87bf-4c33-9600-24fc964ad189",
+          "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+          "message": "RUN_LOCK_RELEASED",
+          "createdAt": "2026-09-18T22:37:55.724039+00:00",
+          "details": ""
+        },
+        {
+          "id": "81250d4d-3ed6-4192-bf7e-749f80e57dce",
+          "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+          "message": "HUMAN_DECISION_REQUIRED",
+          "createdAt": "2026-09-18T22:37:55.149253+00:00",
+          "details": "stage: IMPLEMENTATION \u00b7 reason: Authoritative implementation definition is missing; a human must supply the approved implementation contract before execution."
+        },
+        {
+          "id": "53f7864d-7739-4c55-9215-2887c6685b1e",
+          "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+          "message": "GATE_APPROVED",
+          "createdAt": "2026-09-18T22:37:54.598779+00:00",
+          "details": "from: AWAITING_BUILD_APPROVAL \u00b7 to: IMPLEMENTATION"
+        },
+        {
+          "id": "a68fc9fe-a485-4796-900b-42b6b9ca24d8",
+          "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+          "message": "RUN_LOCK_ACQUIRED",
+          "createdAt": "2026-09-18T22:37:54.092325+00:00",
+          "details": ""
+        },
+        {
+          "id": "e5a14482-cb5a-44c0-a836-9894888ca7d2",
+          "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+          "message": "RUN_LOCK_RELEASED",
+          "createdAt": "2026-09-18T22:36:43.99242+00:00",
+          "details": ""
+        },
+        {
+          "id": "4c853cc7-19fa-47a7-9ee8-d8814aff9e1f",
+          "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+          "message": "RUN_LOCK_ACQUIRED",
+          "createdAt": "2026-09-18T22:36:41.162443+00:00",
+          "details": ""
+        },
+        {
+          "id": "9232f439-e514-4776-ab71-a414ff47c5a9",
+          "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+          "message": "RUN_LOCK_RELEASED",
+          "createdAt": "2026-09-18T07:46:13.606023+00:00",
+          "details": ""
+        },
+        {
+          "id": "b4129155-ca52-473c-85e2-c1d47cbea15d",
+          "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+          "message": "GATE_REACHED",
+          "createdAt": "2026-09-18T07:46:13.228221+00:00",
+          "details": "stage: AWAITING_BUILD_APPROVAL"
+        },
+        {
+          "id": "68ca2559-e4c9-46bb-ac5d-f83e6615fc51",
+          "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+          "message": "STAGE_ADVANCED",
+          "createdAt": "2026-09-18T07:46:13.10113+00:00",
+          "details": "from: EXPERIENCE_REVIEW \u00b7 to: AWAITING_BUILD_APPROVAL"
+        },
+        {
+          "id": "142c597a-e8e2-4a52-aaf5-c1032b59f775",
+          "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+          "message": "ARTIFACT_VALIDATED",
+          "createdAt": "2026-09-18T07:46:12.474224+00:00",
+          "details": "stage: EXPERIENCE_REVIEW"
+        }
+      ]
+    },
+    "browserErrors": []
+  },
+  "offline": {
+    "phase": "offline",
+    "at": "2026-09-18T22:34:47.251Z",
+    "before": {
+      "real": {
+        "projectSlug": "bridge-disposable-pass2",
+        "allowed": [
+          "CREATE_PROJECT",
+          "START_RUN",
+          "APPROVE_GATE",
+          "RESUME_RUN"
+        ],
+        "proven": [
+          "CREATE_PROJECT",
+          "START_RUN",
+          "APPROVE_GATE",
+          "RESUME_RUN"
+        ],
+        "capabilities": {
+          "canCreateProject": true,
+          "canStartRun": true,
+          "canResumeRun": true,
+          "canApprove": true,
+          "canPauseRun": false,
+          "canCancelRun": false
+        },
+        "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+        "runId": "2aa4b130-5f9b-414b-8e40-ee576c75352a",
+        "stage": "AWAITING_BUILD_APPROVAL",
+        "runStatus": "AWAITING_HUMAN_APPROVAL",
+        "gate": "AWAITING_BUILD_APPROVAL"
+      },
+      "runner": {
+        "runnerId": "hudson-mac-shadow",
+        "mode": "REAL",
+        "lastSeen": "2026-09-18T22:34:17.689Z",
+        "online": false,
+        "staleAfterSeconds": 45
+      }
+    },
+    "offlineControlsDisabled": true,
+    "browserErrors": []
+  },
+  "staleBefore": {
+    "phase": "stale",
+    "at": "2026-09-18T22:35:13.093Z",
+    "before": {
+      "real": {
+        "projectSlug": "bridge-disposable-pass2",
+        "allowed": [
+          "CREATE_PROJECT",
+          "START_RUN",
+          "APPROVE_GATE",
+          "RESUME_RUN"
+        ],
+        "proven": [
+          "CREATE_PROJECT",
+          "START_RUN",
+          "APPROVE_GATE",
+          "RESUME_RUN"
+        ],
+        "capabilities": {
+          "canCreateProject": true,
+          "canStartRun": true,
+          "canResumeRun": true,
+          "canApprove": true,
+          "canPauseRun": false,
+          "canCancelRun": false
+        },
+        "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+        "runId": "2aa4b130-5f9b-414b-8e40-ee576c75352a",
+        "stage": "AWAITING_BUILD_APPROVAL",
+        "runStatus": "AWAITING_HUMAN_APPROVAL",
+        "gate": "AWAITING_BUILD_APPROVAL"
+      },
+      "runner": {
+        "runnerId": "hudson-mac-shadow",
+        "mode": "REAL",
+        "lastSeen": "2026-09-18T22:35:08.719Z",
+        "online": true,
+        "staleAfterSeconds": 45
+      }
+    },
+    "tests": [
+      {
+        "kind": "stage",
+        "command": {
+          "id": "0eed6fe2-19df-4ecf-975c-b0fc8caf9282",
+          "project_id": "bridge-disposable-pass2",
+          "command_type": "APPROVE_GATE",
+          "mode": "REAL",
+          "payload": "{\"runId\":\"2aa4b130-5f9b-414b-8e40-ee576c75352a\",\"expectedStage\":\"EXPERIENCE_REVIEW\",\"approvalType\":\"AWAITING_BUILD_APPROVAL\",\"gate\":\"AWAITING_BUILD_APPROVAL\"}",
+          "requested_by": "bridge-operator",
+          "idempotency_key": "ef3ab35e-f4ca-44e9-b55f-490a4576866f",
+          "created_at": "2026-09-18T22:35:14.520Z",
+          "status": "FAILED",
+          "claimed_by": "hudson-mac-shadow",
+          "claimed_at": "2026-09-18T22:35:15.571Z",
+          "attempt_count": 1,
+          "acknowledgment": "2026-09-18T22:35:16.757Z",
+          "result": "{\"ok\":false,\"retryable\":false,\"code\":\"FENCE_REJECTED\",\"executionCount\":0,\"executionId\":\"e40cd638-8964-48dd-9e52-1e90bdce0c21\",\"stdout\":\"CPE output captured in private runner evidence.\",\"stderr\":\"FENCE_REJECTED\",\"mode\":\"REAL\",\"cpeInvoked\":false}",
+          "error": "FENCE_REJECTED",
+          "completed_at": "2026-09-18T22:35:24.337Z",
+          "available_at": "2026-09-18T22:35:24.337Z",
+          "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T22:35:14.520Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T22:35:15.571Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T22:35:16.757Z\"},{\"status\":\"FAILED\",\"at\":\"2026-09-18T22:35:24.337Z\"}]",
+          "semantic_key": "bridge-disposable-pass2:APPROVE_GATE:2aa4b130-5f9b-414b-8e40-ee576c75352a:EXPERIENCE_REVIEW",
+          "execution_id": "e40cd638-8964-48dd-9e52-1e90bdce0c21",
+          "process_id": null,
+          "progress_at": "2026-09-18T22:35:23.837Z",
+          "reconciliation": "SAFE_TO_RETRY",
+          "reconciled_at": "2026-09-18T22:35:23.259Z"
+        }
+      },
+      {
+        "kind": "run",
+        "command": {
+          "id": "b13a47af-5be2-490e-862a-a7449fdbd637",
+          "project_id": "bridge-disposable-pass2",
+          "command_type": "APPROVE_GATE",
+          "mode": "REAL",
+          "payload": "{\"runId\":\"bf7a35b3-f024-4c9f-8615-6a6c667a440f\",\"expectedStage\":\"AWAITING_BUILD_APPROVAL\",\"approvalType\":\"AWAITING_BUILD_APPROVAL\",\"gate\":\"AWAITING_BUILD_APPROVAL\"}",
+          "requested_by": "bridge-operator",
+          "idempotency_key": "6006a862-60dc-4928-a27b-de06d90ae5a0",
+          "created_at": "2026-09-18T22:35:26.573Z",
+          "status": "FAILED",
+          "claimed_by": "hudson-mac-shadow",
+          "claimed_at": "2026-09-18T22:35:26.783Z",
+          "attempt_count": 1,
+          "acknowledgment": "2026-09-18T22:35:27.632Z",
+          "result": "{\"ok\":false,\"retryable\":false,\"code\":\"FENCE_REJECTED\",\"executionCount\":0,\"executionId\":\"de021745-99c2-423b-a9cf-d4503db80ada\",\"stdout\":\"CPE output captured in private runner evidence.\",\"stderr\":\"FENCE_REJECTED\",\"mode\":\"REAL\",\"cpeInvoked\":false}",
+          "error": "FENCE_REJECTED",
+          "completed_at": "2026-09-18T22:36:11.030Z",
+          "available_at": "2026-09-18T22:36:11.030Z",
+          "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T22:35:26.573Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T22:35:26.783Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T22:35:27.632Z\"},{\"status\":\"FAILED\",\"at\":\"2026-09-18T22:36:11.030Z\"}]",
+          "semantic_key": "bridge-disposable-pass2:APPROVE_GATE:bf7a35b3-f024-4c9f-8615-6a6c667a440f:AWAITING_BUILD_APPROVAL",
+          "execution_id": "de021745-99c2-423b-a9cf-d4503db80ada",
+          "process_id": null,
+          "progress_at": "2026-09-18T22:36:10.462Z",
+          "reconciliation": "SAFE_TO_RETRY",
+          "reconciled_at": "2026-09-18T22:36:09.724Z"
+        }
+      }
+    ],
+    "browserErrors": []
+  },
+  "build": {
+    "phase": "build",
+    "at": "2026-09-18T22:36:35.958Z",
+    "before": {
+      "real": {
+        "projectSlug": "bridge-disposable-pass2",
+        "allowed": [
+          "CREATE_PROJECT",
+          "START_RUN",
+          "APPROVE_GATE",
+          "RESUME_RUN"
+        ],
+        "proven": [
+          "CREATE_PROJECT",
+          "START_RUN",
+          "APPROVE_GATE",
+          "RESUME_RUN"
+        ],
+        "capabilities": {
+          "canCreateProject": true,
+          "canStartRun": true,
+          "canResumeRun": true,
+          "canApprove": true,
+          "canPauseRun": false,
+          "canCancelRun": false
+        },
+        "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+        "runId": "2aa4b130-5f9b-414b-8e40-ee576c75352a",
+        "stage": "AWAITING_BUILD_APPROVAL",
+        "runStatus": "AWAITING_HUMAN_APPROVAL",
+        "gate": "AWAITING_BUILD_APPROVAL"
+      },
+      "runner": {
+        "runnerId": "hudson-mac-shadow",
+        "mode": "REAL",
+        "lastSeen": "2026-09-18T22:36:28.499Z",
+        "online": true,
+        "staleAfterSeconds": 45
+      }
+    },
+    "submitMs": 1261,
+    "command": {
+      "id": "395029bf-eff3-4abf-8a5c-4a85b88642ca",
+      "project_id": "bridge-disposable-pass2",
+      "command_type": "APPROVE_GATE",
+      "mode": "REAL",
+      "payload": "{\"runId\":\"2aa4b130-5f9b-414b-8e40-ee576c75352a\",\"expectedStage\":\"AWAITING_BUILD_APPROVAL\",\"approvalType\":\"AWAITING_BUILD_APPROVAL\",\"gate\":\"AWAITING_BUILD_APPROVAL\"}",
+      "requested_by": "bridge-operator",
+      "idempotency_key": "338736e3-36c5-4fed-b738-862e6cc8c2ae",
+      "created_at": "2026-09-18T22:36:37.068Z",
+      "status": "QUEUED",
+      "claimed_by": null,
+      "claimed_at": null,
+      "attempt_count": 0,
+      "acknowledgment": null,
+      "result": null,
+      "error": null,
+      "completed_at": null,
+      "available_at": "2026-09-18T22:36:37.068Z",
+      "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T22:36:37.068Z\"}]",
+      "semantic_key": "bridge-disposable-pass2:APPROVE_GATE:2aa4b130-5f9b-414b-8e40-ee576c75352a:AWAITING_BUILD_APPROVAL",
+      "execution_id": null,
+      "process_id": null,
+      "progress_at": null,
+      "reconciliation": null,
+      "reconciled_at": null
+    },
+    "roundTripMs": 17516,
+    "after": {
+      "mode": "REAL",
+      "real": {
+        "projectSlug": "bridge-disposable-pass2",
+        "allowed": [
+          "CREATE_PROJECT",
+          "START_RUN",
+          "APPROVE_GATE",
+          "RESUME_RUN"
+        ],
+        "proven": [
+          "CREATE_PROJECT",
+          "START_RUN",
+          "APPROVE_GATE",
+          "RESUME_RUN"
+        ],
+        "capabilities": {
+          "canCreateProject": true,
+          "canStartRun": true,
+          "canResumeRun": true,
+          "canApprove": true,
+          "canPauseRun": false,
+          "canCancelRun": false
+        },
+        "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+        "runId": "2aa4b130-5f9b-414b-8e40-ee576c75352a",
+        "stage": "IMPLEMENTATION",
+        "runStatus": "AWAITING_HUMAN_APPROVAL",
+        "gate": "AWAITING_BUILD_APPROVAL"
+      },
+      "artifacts": [
+        {
+          "id": "fcb86cba-ce80-4da1-b74c-15601314754e",
+          "sourceArtifactId": "5ac31b23-b48b-4f6f-92ce-d997b1e31988",
+          "representation": "original",
+          "mimeType": "application/json",
+          "bytes": 1081,
+          "sha256": "03fb2718e61774f653f1e28aac052d30e11bedf09aa9c1b09b4b63a9fe5a051d",
+          "previewUrl": "/api/bridge/artifacts/fcb86cba-ce80-4da1-b74c-15601314754e",
+          "downloadUrl": "/api/bridge/artifacts/fcb86cba-ce80-4da1-b74c-15601314754e?download=1"
+        },
+        {
+          "id": "6ccb5855-33d7-47a5-a1de-8066eaad406f",
+          "sourceArtifactId": "26a3b6dd-70bd-4c68-b1d2-51c25ac39f18",
+          "representation": "original",
+          "mimeType": "application/json",
+          "bytes": 1945,
+          "sha256": "5e90cf39a0de53e50852b3903c20c25c53c2d480e150afabcc7c2cbe4e9e7926",
+          "previewUrl": "/api/bridge/artifacts/6ccb5855-33d7-47a5-a1de-8066eaad406f",
+          "downloadUrl": "/api/bridge/artifacts/6ccb5855-33d7-47a5-a1de-8066eaad406f?download=1"
+        },
+        {
+          "id": "39705709-2bdf-42b6-93b7-dcfcc0337d8b",
+          "sourceArtifactId": "7044bbb1-da98-43c1-a4a5-3cb40bae3907",
+          "representation": "original",
+          "mimeType": "application/json",
+          "bytes": 839,
+          "sha256": "9fcb51bbb3efe9dd392bf71fd727a7d1c13d12a69991f69b583472613ddc8c3a",
+          "previewUrl": "/api/bridge/artifacts/39705709-2bdf-42b6-93b7-dcfcc0337d8b",
+          "downloadUrl": "/api/bridge/artifacts/39705709-2bdf-42b6-93b7-dcfcc0337d8b?download=1"
+        },
+        {
+          "id": "c748d7e4-cb02-4b26-bba9-0abda4742d63",
+          "sourceArtifactId": "98852bc1-c38a-4583-9e8b-766ea1d8a2a1",
+          "representation": "original",
+          "mimeType": "application/json",
+          "bytes": 19965,
+          "sha256": "a3af9380639fe0d5d87c154b3ee4c8f2e733a81cad455af117f27a0130840d5e",
+          "previewUrl": "/api/bridge/artifacts/c748d7e4-cb02-4b26-bba9-0abda4742d63",
+          "downloadUrl": "/api/bridge/artifacts/c748d7e4-cb02-4b26-bba9-0abda4742d63?download=1"
+        },
+        {
+          "id": "4af0eec8-c34c-4ccd-9081-3c8cd3d0f27b",
+          "sourceArtifactId": "348fa5f5-2766-42fb-ab83-720c57600ccb",
+          "representation": "original",
+          "mimeType": "application/json",
+          "bytes": 1321,
+          "sha256": "c6170f6f3cb5de8d70737b5c56f053cc61eba4093f29e8854bd3dbc9499a01e1",
+          "previewUrl": "/api/bridge/artifacts/4af0eec8-c34c-4ccd-9081-3c8cd3d0f27b",
+          "downloadUrl": "/api/bridge/artifacts/4af0eec8-c34c-4ccd-9081-3c8cd3d0f27b?download=1"
+        },
+        {
+          "id": "c3fa785e-b2df-4c66-8ee4-b4555787d4a4",
+          "sourceArtifactId": "5ac31b23-b48b-4f6f-92ce-d997b1e31988",
+          "representation": "report-html",
+          "mimeType": "text/html",
+          "bytes": 1675,
+          "sha256": "6744d5b86df5fc72125b905ff6ad7a7e8b506a56f0fe84a60b78007eaca16165",
+          "previewUrl": "/api/bridge/artifacts/c3fa785e-b2df-4c66-8ee4-b4555787d4a4",
+          "downloadUrl": "/api/bridge/artifacts/c3fa785e-b2df-4c66-8ee4-b4555787d4a4?download=1"
+        },
+        {
+          "id": "2776183d-9530-49d3-803d-9d31d4d8a18e",
+          "sourceArtifactId": "5ac31b23-b48b-4f6f-92ce-d997b1e31988",
+          "representation": "report-png",
+          "thumbnailUrl": "/api/bridge/artifacts/2776183d-9530-49d3-803d-9d31d4d8a18e",
+          "mimeType": "image/png",
+          "bytes": 125946,
+          "sha256": "b883ef80088ca6a714733d7aad6d85edf703e723e1f0d2d784d32c0d91a0dac2",
+          "previewUrl": "/api/bridge/artifacts/2776183d-9530-49d3-803d-9d31d4d8a18e",
+          "downloadUrl": "/api/bridge/artifacts/2776183d-9530-49d3-803d-9d31d4d8a18e?download=1"
+        }
+      ],
+      "runner": {
+        "runnerId": "hudson-mac-shadow",
+        "mode": "REAL",
+        "lastSeen": "2026-09-18T22:36:43.599Z",
+        "online": true,
+        "staleAfterSeconds": 45
+      },
+      "canSubmit": true
+    },
+    "finalCommand": {
+      "id": "395029bf-eff3-4abf-8a5c-4a85b88642ca",
+      "project_id": "bridge-disposable-pass2",
+      "command_type": "APPROVE_GATE",
+      "mode": "REAL",
+      "payload": "{\"runId\":\"2aa4b130-5f9b-414b-8e40-ee576c75352a\",\"expectedStage\":\"AWAITING_BUILD_APPROVAL\",\"approvalType\":\"AWAITING_BUILD_APPROVAL\",\"gate\":\"AWAITING_BUILD_APPROVAL\"}",
+      "requested_by": "bridge-operator",
+      "idempotency_key": "338736e3-36c5-4fed-b738-862e6cc8c2ae",
+      "created_at": "2026-09-18T22:36:37.068Z",
+      "status": "SUCCEEDED",
+      "claimed_by": "hudson-mac-shadow",
+      "claimed_at": "2026-09-18T22:36:38.369Z",
+      "attempt_count": 1,
+      "acknowledgment": "2026-09-18T22:36:38.937Z",
+      "result": "{\"ok\":true,\"retryable\":false,\"code\":\"REAL_COMPLETED\",\"executionCount\":1,\"executionId\":\"66dd9af1-f8a9-4918-a6d6-21db0fddfc85\",\"processId\":21630,\"stdout\":\"CPE output captured in private runner evidence.\",\"stderr\":\"\",\"projectId\":\"5831d3a0-3205-4b7a-a141-d57bfc2c1782\",\"runId\":\"2aa4b130-5f9b-414b-8e40-ee576c75352a\",\"mode\":\"REAL\",\"cpeInvoked\":true}",
+      "error": null,
+      "completed_at": "2026-09-18T22:36:50.701Z",
+      "available_at": "2026-09-18T22:36:50.701Z",
+      "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T22:36:37.068Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T22:36:38.369Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T22:36:38.937Z\"},{\"status\":\"SUCCEEDED\",\"at\":\"2026-09-18T22:36:50.701Z\"}]",
+      "semantic_key": "bridge-disposable-pass2:APPROVE_GATE:2aa4b130-5f9b-414b-8e40-ee576c75352a:AWAITING_BUILD_APPROVAL",
+      "execution_id": "66dd9af1-f8a9-4918-a6d6-21db0fddfc85",
+      "process_id": 21630,
+      "progress_at": "2026-09-18T22:36:50.135Z",
+      "reconciliation": "COMPLETED_SUCCESS",
+      "reconciled_at": "2026-09-18T22:36:49.531Z"
+    },
+    "duplicates": {
+      "sameKey": true,
+      "newKey": true
+    },
+    "browserErrors": []
+  },
+  "resume": {
+    "phase": "resume",
+    "at": "2026-09-18T22:37:48.764Z",
+    "before": {
+      "real": {
+        "projectSlug": "bridge-disposable-pass2",
+        "allowed": [
+          "CREATE_PROJECT",
+          "START_RUN",
+          "APPROVE_GATE",
+          "RESUME_RUN"
+        ],
+        "proven": [
+          "CREATE_PROJECT",
+          "START_RUN",
+          "APPROVE_GATE",
+          "RESUME_RUN"
+        ],
+        "capabilities": {
+          "canCreateProject": true,
+          "canStartRun": true,
+          "canResumeRun": true,
+          "canApprove": true,
+          "canPauseRun": false,
+          "canCancelRun": false
+        },
+        "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+        "runId": "2aa4b130-5f9b-414b-8e40-ee576c75352a",
+        "stage": "IMPLEMENTATION",
+        "runStatus": "AWAITING_HUMAN_APPROVAL",
+        "gate": "AWAITING_BUILD_APPROVAL"
+      },
+      "runner": {
+        "runnerId": "hudson-mac-shadow",
+        "mode": "REAL",
+        "lastSeen": "2026-09-18T22:37:43.434Z",
+        "online": true,
+        "staleAfterSeconds": 45
+      }
+    },
+    "submitMs": 1441,
+    "command": {
+      "id": "7c699e56-703d-45e4-843c-21c2e5f705e6",
+      "project_id": "bridge-disposable-pass2",
+      "command_type": "RESUME_RUN",
+      "mode": "REAL",
+      "payload": "{\"runId\":\"2aa4b130-5f9b-414b-8e40-ee576c75352a\",\"expectedStage\":\"IMPLEMENTATION\"}",
+      "requested_by": "bridge-operator",
+      "idempotency_key": "c6c11354-d6bf-416e-9a81-861f08b6191d",
+      "created_at": "2026-09-18T22:37:50.028Z",
+      "status": "QUEUED",
+      "claimed_by": null,
+      "claimed_at": null,
+      "attempt_count": 0,
+      "acknowledgment": null,
+      "result": null,
+      "error": null,
+      "completed_at": null,
+      "available_at": "2026-09-18T22:37:50.028Z",
+      "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T22:37:50.028Z\"}]",
+      "semantic_key": "bridge-disposable-pass2:RESUME_RUN:2aa4b130-5f9b-414b-8e40-ee576c75352a:IMPLEMENTATION",
+      "execution_id": null,
+      "process_id": null,
+      "progress_at": null,
+      "reconciliation": null,
+      "reconciled_at": null
+    },
+    "roundTripMs": 10728,
+    "after": {
+      "mode": "REAL",
+      "real": {
+        "projectSlug": "bridge-disposable-pass2",
+        "allowed": [
+          "CREATE_PROJECT",
+          "START_RUN",
+          "APPROVE_GATE",
+          "RESUME_RUN"
+        ],
+        "proven": [
+          "CREATE_PROJECT",
+          "START_RUN",
+          "APPROVE_GATE",
+          "RESUME_RUN"
+        ],
+        "capabilities": {
+          "canCreateProject": true,
+          "canStartRun": true,
+          "canResumeRun": true,
+          "canApprove": true,
+          "canPauseRun": false,
+          "canCancelRun": false
+        },
+        "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+        "runId": "2aa4b130-5f9b-414b-8e40-ee576c75352a",
+        "stage": "IMPLEMENTATION",
+        "runStatus": "REVISION_REQUIRED",
+        "gate": null
+      },
+      "artifacts": [
+        {
+          "id": "fcb86cba-ce80-4da1-b74c-15601314754e",
+          "sourceArtifactId": "5ac31b23-b48b-4f6f-92ce-d997b1e31988",
+          "representation": "original",
+          "mimeType": "application/json",
+          "bytes": 1081,
+          "sha256": "03fb2718e61774f653f1e28aac052d30e11bedf09aa9c1b09b4b63a9fe5a051d",
+          "previewUrl": "/api/bridge/artifacts/fcb86cba-ce80-4da1-b74c-15601314754e",
+          "downloadUrl": "/api/bridge/artifacts/fcb86cba-ce80-4da1-b74c-15601314754e?download=1"
+        },
+        {
+          "id": "6ccb5855-33d7-47a5-a1de-8066eaad406f",
+          "sourceArtifactId": "26a3b6dd-70bd-4c68-b1d2-51c25ac39f18",
+          "representation": "original",
+          "mimeType": "application/json",
+          "bytes": 1945,
+          "sha256": "5e90cf39a0de53e50852b3903c20c25c53c2d480e150afabcc7c2cbe4e9e7926",
+          "previewUrl": "/api/bridge/artifacts/6ccb5855-33d7-47a5-a1de-8066eaad406f",
+          "downloadUrl": "/api/bridge/artifacts/6ccb5855-33d7-47a5-a1de-8066eaad406f?download=1"
+        },
+        {
+          "id": "39705709-2bdf-42b6-93b7-dcfcc0337d8b",
+          "sourceArtifactId": "7044bbb1-da98-43c1-a4a5-3cb40bae3907",
+          "representation": "original",
+          "mimeType": "application/json",
+          "bytes": 839,
+          "sha256": "9fcb51bbb3efe9dd392bf71fd727a7d1c13d12a69991f69b583472613ddc8c3a",
+          "previewUrl": "/api/bridge/artifacts/39705709-2bdf-42b6-93b7-dcfcc0337d8b",
+          "downloadUrl": "/api/bridge/artifacts/39705709-2bdf-42b6-93b7-dcfcc0337d8b?download=1"
+        },
+        {
+          "id": "c748d7e4-cb02-4b26-bba9-0abda4742d63",
+          "sourceArtifactId": "98852bc1-c38a-4583-9e8b-766ea1d8a2a1",
+          "representation": "original",
+          "mimeType": "application/json",
+          "bytes": 19965,
+          "sha256": "a3af9380639fe0d5d87c154b3ee4c8f2e733a81cad455af117f27a0130840d5e",
+          "previewUrl": "/api/bridge/artifacts/c748d7e4-cb02-4b26-bba9-0abda4742d63",
+          "downloadUrl": "/api/bridge/artifacts/c748d7e4-cb02-4b26-bba9-0abda4742d63?download=1"
+        },
+        {
+          "id": "4af0eec8-c34c-4ccd-9081-3c8cd3d0f27b",
+          "sourceArtifactId": "348fa5f5-2766-42fb-ab83-720c57600ccb",
+          "representation": "original",
+          "mimeType": "application/json",
+          "bytes": 1321,
+          "sha256": "c6170f6f3cb5de8d70737b5c56f053cc61eba4093f29e8854bd3dbc9499a01e1",
+          "previewUrl": "/api/bridge/artifacts/4af0eec8-c34c-4ccd-9081-3c8cd3d0f27b",
+          "downloadUrl": "/api/bridge/artifacts/4af0eec8-c34c-4ccd-9081-3c8cd3d0f27b?download=1"
+        },
+        {
+          "id": "c3fa785e-b2df-4c66-8ee4-b4555787d4a4",
+          "sourceArtifactId": "5ac31b23-b48b-4f6f-92ce-d997b1e31988",
+          "representation": "report-html",
+          "mimeType": "text/html",
+          "bytes": 1675,
+          "sha256": "6744d5b86df5fc72125b905ff6ad7a7e8b506a56f0fe84a60b78007eaca16165",
+          "previewUrl": "/api/bridge/artifacts/c3fa785e-b2df-4c66-8ee4-b4555787d4a4",
+          "downloadUrl": "/api/bridge/artifacts/c3fa785e-b2df-4c66-8ee4-b4555787d4a4?download=1"
+        },
+        {
+          "id": "2776183d-9530-49d3-803d-9d31d4d8a18e",
+          "sourceArtifactId": "5ac31b23-b48b-4f6f-92ce-d997b1e31988",
+          "representation": "report-png",
+          "thumbnailUrl": "/api/bridge/artifacts/2776183d-9530-49d3-803d-9d31d4d8a18e",
+          "mimeType": "image/png",
+          "bytes": 125946,
+          "sha256": "b883ef80088ca6a714733d7aad6d85edf703e723e1f0d2d784d32c0d91a0dac2",
+          "previewUrl": "/api/bridge/artifacts/2776183d-9530-49d3-803d-9d31d4d8a18e",
+          "downloadUrl": "/api/bridge/artifacts/2776183d-9530-49d3-803d-9d31d4d8a18e?download=1"
+        }
+      ],
+      "runner": {
+        "runnerId": "hudson-mac-shadow",
+        "mode": "REAL",
+        "lastSeen": "2026-09-18T22:37:58.422Z",
+        "online": true,
+        "staleAfterSeconds": 45
+      },
+      "canSubmit": true
+    },
+    "finalCommand": {
+      "id": "7c699e56-703d-45e4-843c-21c2e5f705e6",
+      "project_id": "bridge-disposable-pass2",
+      "command_type": "RESUME_RUN",
+      "mode": "REAL",
+      "payload": "{\"runId\":\"2aa4b130-5f9b-414b-8e40-ee576c75352a\",\"expectedStage\":\"IMPLEMENTATION\"}",
+      "requested_by": "bridge-operator",
+      "idempotency_key": "c6c11354-d6bf-416e-9a81-861f08b6191d",
+      "created_at": "2026-09-18T22:37:50.028Z",
+      "status": "SUCCEEDED",
+      "claimed_by": "hudson-mac-shadow",
+      "claimed_at": "2026-09-18T22:37:50.557Z",
+      "attempt_count": 1,
+      "acknowledgment": "2026-09-18T22:37:51.165Z",
+      "result": "{\"ok\":true,\"retryable\":false,\"code\":\"REAL_COMPLETED\",\"executionCount\":1,\"executionId\":\"6024d869-49ee-492a-80c6-318599539fa7\",\"processId\":21732,\"stdout\":\"CPE output captured in private runner evidence.\",\"stderr\":\"\",\"projectId\":\"5831d3a0-3205-4b7a-a141-d57bfc2c1782\",\"runId\":\"2aa4b130-5f9b-414b-8e40-ee576c75352a\",\"mode\":\"REAL\",\"cpeInvoked\":true}",
+      "error": null,
+      "completed_at": "2026-09-18T22:37:59.041Z",
+      "available_at": "2026-09-18T22:37:59.041Z",
+      "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T22:37:50.028Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T22:37:50.557Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T22:37:51.165Z\"},{\"status\":\"SUCCEEDED\",\"at\":\"2026-09-18T22:37:59.041Z\"}]",
+      "semantic_key": "bridge-disposable-pass2:RESUME_RUN:2aa4b130-5f9b-414b-8e40-ee576c75352a:IMPLEMENTATION",
+      "execution_id": "6024d869-49ee-492a-80c6-318599539fa7",
+      "process_id": 21732,
+      "progress_at": "2026-09-18T22:37:58.322Z",
+      "reconciliation": "COMPLETED_SUCCESS",
+      "reconciled_at": "2026-09-18T22:37:57.806Z"
+    },
+    "duplicates": {
+      "sameKey": true,
+      "newKey": true
+    },
+    "browserErrors": []
+  },
+  "artifacts": {
+    "phase": "artifacts",
+    "at": "2026-09-18T22:36:36.873Z",
+    "before": {
+      "real": {
+        "projectSlug": "bridge-disposable-pass2",
+        "allowed": [
+          "CREATE_PROJECT",
+          "START_RUN",
+          "APPROVE_GATE",
+          "RESUME_RUN"
+        ],
+        "proven": [
+          "CREATE_PROJECT",
+          "START_RUN",
+          "APPROVE_GATE",
+          "RESUME_RUN"
+        ],
+        "capabilities": {
+          "canCreateProject": true,
+          "canStartRun": true,
+          "canResumeRun": true,
+          "canApprove": true,
+          "canPauseRun": false,
+          "canCancelRun": false
+        },
+        "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+        "runId": "2aa4b130-5f9b-414b-8e40-ee576c75352a",
+        "stage": "AWAITING_BUILD_APPROVAL",
+        "runStatus": "AWAITING_HUMAN_APPROVAL",
+        "gate": "AWAITING_BUILD_APPROVAL"
+      },
+      "runner": {
+        "runnerId": "hudson-mac-shadow",
+        "mode": "REAL",
+        "lastSeen": "2026-09-18T22:36:28.499Z",
+        "online": true,
+        "staleAfterSeconds": 45
+      }
+    },
+    "artifacts": [
+      {
+        "id": "fcb86cba-ce80-4da1-b74c-15601314754e",
+        "sourceArtifactId": "5ac31b23-b48b-4f6f-92ce-d997b1e31988",
+        "representation": "original",
+        "mimeType": "application/json",
+        "bytes": 1081,
+        "sha256": "03fb2718e61774f653f1e28aac052d30e11bedf09aa9c1b09b4b63a9fe5a051d",
+        "previewUrl": "/api/bridge/artifacts/fcb86cba-ce80-4da1-b74c-15601314754e",
+        "downloadUrl": "/api/bridge/artifacts/fcb86cba-ce80-4da1-b74c-15601314754e?download=1",
+        "deliveryMs": 1235
+      },
+      {
+        "id": "6ccb5855-33d7-47a5-a1de-8066eaad406f",
+        "sourceArtifactId": "26a3b6dd-70bd-4c68-b1d2-51c25ac39f18",
+        "representation": "original",
+        "mimeType": "application/json",
+        "bytes": 1945,
+        "sha256": "5e90cf39a0de53e50852b3903c20c25c53c2d480e150afabcc7c2cbe4e9e7926",
+        "previewUrl": "/api/bridge/artifacts/6ccb5855-33d7-47a5-a1de-8066eaad406f",
+        "downloadUrl": "/api/bridge/artifacts/6ccb5855-33d7-47a5-a1de-8066eaad406f?download=1",
+        "deliveryMs": 1293
+      },
+      {
+        "id": "39705709-2bdf-42b6-93b7-dcfcc0337d8b",
+        "sourceArtifactId": "7044bbb1-da98-43c1-a4a5-3cb40bae3907",
+        "representation": "original",
+        "mimeType": "application/json",
+        "bytes": 839,
+        "sha256": "9fcb51bbb3efe9dd392bf71fd727a7d1c13d12a69991f69b583472613ddc8c3a",
+        "previewUrl": "/api/bridge/artifacts/39705709-2bdf-42b6-93b7-dcfcc0337d8b",
+        "downloadUrl": "/api/bridge/artifacts/39705709-2bdf-42b6-93b7-dcfcc0337d8b?download=1",
+        "deliveryMs": 1448
+      },
+      {
+        "id": "c748d7e4-cb02-4b26-bba9-0abda4742d63",
+        "sourceArtifactId": "98852bc1-c38a-4583-9e8b-766ea1d8a2a1",
+        "representation": "original",
+        "mimeType": "application/json",
+        "bytes": 19965,
+        "sha256": "a3af9380639fe0d5d87c154b3ee4c8f2e733a81cad455af117f27a0130840d5e",
+        "previewUrl": "/api/bridge/artifacts/c748d7e4-cb02-4b26-bba9-0abda4742d63",
+        "downloadUrl": "/api/bridge/artifacts/c748d7e4-cb02-4b26-bba9-0abda4742d63?download=1",
+        "deliveryMs": 1918
+      },
+      {
+        "id": "4af0eec8-c34c-4ccd-9081-3c8cd3d0f27b",
+        "sourceArtifactId": "348fa5f5-2766-42fb-ab83-720c57600ccb",
+        "representation": "original",
+        "mimeType": "application/json",
+        "bytes": 1321,
+        "sha256": "c6170f6f3cb5de8d70737b5c56f053cc61eba4093f29e8854bd3dbc9499a01e1",
+        "previewUrl": "/api/bridge/artifacts/4af0eec8-c34c-4ccd-9081-3c8cd3d0f27b",
+        "downloadUrl": "/api/bridge/artifacts/4af0eec8-c34c-4ccd-9081-3c8cd3d0f27b?download=1",
+        "deliveryMs": 1694
+      },
+      {
+        "id": "c3fa785e-b2df-4c66-8ee4-b4555787d4a4",
+        "sourceArtifactId": "5ac31b23-b48b-4f6f-92ce-d997b1e31988",
+        "representation": "report-html",
+        "mimeType": "text/html",
+        "bytes": 1675,
+        "sha256": "6744d5b86df5fc72125b905ff6ad7a7e8b506a56f0fe84a60b78007eaca16165",
+        "previewUrl": "/api/bridge/artifacts/c3fa785e-b2df-4c66-8ee4-b4555787d4a4",
+        "downloadUrl": "/api/bridge/artifacts/c3fa785e-b2df-4c66-8ee4-b4555787d4a4?download=1",
+        "deliveryMs": 1587
+      },
+      {
+        "id": "2776183d-9530-49d3-803d-9d31d4d8a18e",
+        "sourceArtifactId": "5ac31b23-b48b-4f6f-92ce-d997b1e31988",
+        "representation": "report-png",
+        "thumbnailUrl": "/api/bridge/artifacts/2776183d-9530-49d3-803d-9d31d4d8a18e",
+        "mimeType": "image/png",
+        "bytes": 125946,
+        "sha256": "b883ef80088ca6a714733d7aad6d85edf703e723e1f0d2d784d32c0d91a0dac2",
+        "previewUrl": "/api/bridge/artifacts/2776183d-9530-49d3-803d-9d31d4d8a18e",
+        "downloadUrl": "/api/bridge/artifacts/2776183d-9530-49d3-803d-9d31d4d8a18e?download=1",
+        "deliveryMs": 1468
+      }
+    ],
+    "renderedHTML": true,
+    "browserErrors": []
+  },
+  "staleAfter": {
+    "phase": "stale",
+    "at": "2026-09-18T22:40:12.037Z",
+    "before": {
+      "real": {
+        "projectSlug": "bridge-disposable-pass2",
+        "allowed": [
+          "CREATE_PROJECT",
+          "START_RUN",
+          "APPROVE_GATE",
+          "RESUME_RUN"
+        ],
+        "proven": [
+          "CREATE_PROJECT",
+          "START_RUN",
+          "APPROVE_GATE",
+          "RESUME_RUN"
+        ],
+        "capabilities": {
+          "canCreateProject": true,
+          "canStartRun": true,
+          "canResumeRun": true,
+          "canApprove": true,
+          "canPauseRun": false,
+          "canCancelRun": false
+        },
+        "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+        "runId": "2aa4b130-5f9b-414b-8e40-ee576c75352a",
+        "stage": "IMPLEMENTATION",
+        "runStatus": "REVISION_REQUIRED",
+        "gate": null
+      },
+      "runner": {
+        "runnerId": "hudson-mac-shadow",
+        "mode": "REAL",
+        "lastSeen": "2026-09-18T22:39:58.868Z",
+        "online": true,
+        "staleAfterSeconds": 45
+      }
+    },
+    "tests": [
+      {
+        "kind": "stage",
+        "command": {
+          "id": "7d19dc9b-32f7-49d4-a41e-57d03282cfef",
+          "project_id": "bridge-disposable-pass2",
+          "command_type": "APPROVE_GATE",
+          "mode": "REAL",
+          "payload": "{\"runId\":\"2aa4b130-5f9b-414b-8e40-ee576c75352a\",\"expectedStage\":\"EXPERIENCE_REVIEW\",\"approvalType\":\"AWAITING_BUILD_APPROVAL\",\"gate\":\"AWAITING_BUILD_APPROVAL\"}",
+          "requested_by": "bridge-operator",
+          "idempotency_key": "1069562f-e945-4050-8872-c88a98cb60c9",
+          "created_at": "2026-09-18T22:40:13.303Z",
+          "status": "FAILED",
+          "claimed_by": "hudson-mac-shadow",
+          "claimed_at": "2026-09-18T22:40:14.980Z",
+          "attempt_count": 1,
+          "acknowledgment": "2026-09-18T22:40:15.581Z",
+          "result": "{\"ok\":false,\"retryable\":false,\"code\":\"FENCE_REJECTED\",\"executionCount\":0,\"executionId\":\"26891b16-33ec-42ea-b9bb-c3938f5b3519\",\"stdout\":\"CPE output captured in private runner evidence.\",\"stderr\":\"FENCE_REJECTED\",\"mode\":\"REAL\",\"cpeInvoked\":false}",
+          "error": "FENCE_REJECTED",
+          "completed_at": "2026-09-18T22:40:24.562Z",
+          "available_at": "2026-09-18T22:40:24.562Z",
+          "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T22:40:13.303Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T22:40:14.980Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T22:40:15.581Z\"},{\"status\":\"FAILED\",\"at\":\"2026-09-18T22:40:24.562Z\"}]",
+          "semantic_key": "bridge-disposable-pass2:APPROVE_GATE:2aa4b130-5f9b-414b-8e40-ee576c75352a:EXPERIENCE_REVIEW",
+          "execution_id": "26891b16-33ec-42ea-b9bb-c3938f5b3519",
+          "process_id": null,
+          "progress_at": "2026-09-18T22:40:23.930Z",
+          "reconciliation": "SAFE_TO_RETRY",
+          "reconciled_at": "2026-09-18T22:40:23.279Z"
+        }
+      },
+      {
+        "kind": "run",
+        "command": {
+          "id": "2b549f5e-8579-4c6b-b5ef-e065149874cf",
+          "project_id": "bridge-disposable-pass2",
+          "command_type": "APPROVE_GATE",
+          "mode": "REAL",
+          "payload": "{\"runId\":\"3623fd93-fac1-4458-8ecf-a9dab1902569\",\"expectedStage\":\"IMPLEMENTATION\",\"approvalType\":\"AWAITING_BUILD_APPROVAL\",\"gate\":\"AWAITING_BUILD_APPROVAL\"}",
+          "requested_by": "bridge-operator",
+          "idempotency_key": "2b1b7f09-a1b3-4616-8ad7-454cd89629dd",
+          "created_at": "2026-09-18T22:40:29.149Z",
+          "status": "FAILED",
+          "claimed_by": "hudson-mac-shadow",
+          "claimed_at": "2026-09-18T22:40:30.791Z",
+          "attempt_count": 1,
+          "acknowledgment": "2026-09-18T22:40:31.478Z",
+          "result": "{\"ok\":false,\"retryable\":false,\"code\":\"FENCE_REJECTED\",\"executionCount\":0,\"executionId\":\"c2021ae6-bb81-45ce-ae9c-a6048a818cba\",\"stdout\":\"CPE output captured in private runner evidence.\",\"stderr\":\"FENCE_REJECTED\",\"mode\":\"REAL\",\"cpeInvoked\":false}",
+          "error": "FENCE_REJECTED",
+          "completed_at": "2026-09-18T22:40:39.282Z",
+          "available_at": "2026-09-18T22:40:39.282Z",
+          "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T22:40:29.149Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T22:40:30.791Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T22:40:31.478Z\"},{\"status\":\"FAILED\",\"at\":\"2026-09-18T22:40:39.282Z\"}]",
+          "semantic_key": "bridge-disposable-pass2:APPROVE_GATE:3623fd93-fac1-4458-8ecf-a9dab1902569:IMPLEMENTATION",
+          "execution_id": "c2021ae6-bb81-45ce-ae9c-a6048a818cba",
+          "process_id": null,
+          "progress_at": "2026-09-18T22:40:38.646Z",
+          "reconciliation": "SAFE_TO_RETRY",
+          "reconciled_at": "2026-09-18T22:40:38.130Z"
+        }
+      }
+    ],
+    "browserErrors": []
+  },
+  "atomic": {
+    "fixture": "bridge-disposable-pass3",
+    "projectId": "f016ddf3-3a62-4e26-b943-6ea26b05825f",
+    "runId": "db5ac26a-b11d-4129-a940-775c62549ef9",
+    "proof": [
+      {
+        "case": "stale run",
+        "ok": false,
+        "error": "Supabase POST rpc/studio_approve_gate -> HTTP 409: {\"code\":\"PT409\",\"details\":null,\"hint\":null,\"message\":\"STALE_RUN\"}"
+      },
+      {
+        "case": "stale stage",
+        "ok": false,
+        "error": "Supabase POST rpc/studio_approve_gate -> HTTP 409: {\"code\":\"PT409\",\"details\":null,\"hint\":null,\"message\":\"STALE_STAGE_OR_GATE\"}"
+      },
+      {
+        "case": "identical race",
+        "results": [
+          {
+            "ok": true,
+            "result": {
+              "id": "06733511-7e95-4434-b1d8-aa59ad1290e9",
+              "run_id": "db5ac26a-b11d-4129-a940-775c62549ef9",
+              "duplicate": false,
+              "next_stage": "EXPERIENCE_DESIGN",
+              "approval_id": "bee17518-ccd5-439a-9ffa-a6b88f83a926"
+            }
+          },
+          {
+            "ok": true,
+            "result": {
+              "id": "06733511-7e95-4434-b1d8-aa59ad1290e9",
+              "run_id": "db5ac26a-b11d-4129-a940-775c62549ef9",
+              "duplicate": true,
+              "next_stage": "EXPERIENCE_DESIGN",
+              "approval_id": "bee17518-ccd5-439a-9ffa-a6b88f83a926"
+            }
+          }
+        ]
+      },
+      {
+        "case": "already approved",
+        "result": {
+          "ok": true,
+          "result": {
+            "id": "06733511-7e95-4434-b1d8-aa59ad1290e9",
+            "run_id": "db5ac26a-b11d-4129-a940-775c62549ef9",
+            "duplicate": true,
+            "next_stage": "EXPERIENCE_DESIGN",
+            "approval_id": "bee17518-ccd5-439a-9ffa-a6b88f83a926"
+          }
+        }
+      },
+      {
+        "case": "state changed after read",
+        "ok": false,
+        "error": "Supabase POST rpc/studio_approve_gate -> HTTP 409: {\"code\":\"PT409\",\"details\":null,\"hint\":null,\"message\":\"STALE_STAGE_OR_GATE\"}"
+      },
+      {
+        "case": "legacy CLI competes",
+        "results": [
+          {
+            "ok": true,
+            "result": {
+              "id": "09e54b1c-0ad1-4665-a176-a885a654e48e",
+              "run_id": "db5ac26a-b11d-4129-a940-775c62549ef9",
+              "duplicate": false,
+              "next_stage": "IMPLEMENTATION",
+              "approval_id": "bfca07e1-913d-4f8a-a0b4-99868dfa2de2"
+            }
+          },
+          {
+            "returncode": 1,
+            "rejected": true
+          }
+        ]
+      },
+      {
+        "case": "final requires CLIENT_READY",
+        "ok": false,
+        "error": "Supabase POST rpc/studio_approve_gate -> HTTP 409: {\"code\":\"PT409\",\"details\":null,\"hint\":null,\"message\":\"CLIENT_READY_REQUIRED\"}"
+      },
+      {
+        "case": "final gate fixture",
+        "result": {
+          "ok": true,
+          "result": {
+            "id": "afc05f99-47c4-47b4-86c3-0f8539a88072",
+            "run_id": "db5ac26a-b11d-4129-a940-775c62549ef9",
+            "duplicate": false,
+            "next_stage": "COMPLETE",
+            "approval_id": "22047b51-924a-4c4f-93dc-2c43d54210db"
+          }
+        },
+        "duplicate": {
+          "ok": true,
+          "result": {
+            "id": "afc05f99-47c4-47b4-86c3-0f8539a88072",
+            "run_id": "db5ac26a-b11d-4129-a940-775c62549ef9",
+            "duplicate": true,
+            "next_stage": "COMPLETE",
+            "approval_id": "22047b51-924a-4c4f-93dc-2c43d54210db"
+          }
+        }
+      }
+    ]
+  },
+  "projectWriter": {
+    "fixture": "bridge-disposable-pass3",
+    "projectId": "1d2feb45-e7e6-48ea-8b85-ce526df2a254",
+    "runId": "d2015094-317f-4a67-8a3a-aabd7396ad3f",
+    "readStage": "AWAITING_BUILD_APPROVAL",
+    "afterCompetingWriterStage": "IMPLEMENTATION",
+    "competingApproval": {
+      "id": "f70882d5-2805-4e44-968b-f3490e3bac44",
+      "run_id": "d2015094-317f-4a67-8a3a-aabd7396ad3f",
+      "duplicate": false,
+      "next_stage": "IMPLEMENTATION",
+      "approval_id": "feeead14-f2e6-4ff4-8f11-50528f19f211"
+    },
+    "originalRequestRejected": "Supabase POST rpc/studio_approve_gate -> HTTP 409: {\"code\":\"PT409\",\"details\":null,\"hint\":null,\"message\":\"STALE_GATE_APPROVED_BY_ANOTHER_WRITER\"}"
+  },
+  "finalRace": {
+    "fixture": "bridge-disposable-pass3",
+    "projectId": "1d2feb45-e7e6-48ea-8b85-ce526df2a254",
+    "runId": "d2015094-317f-4a67-8a3a-aabd7396ad3f",
+    "case": "final gate race on final deployed RPC",
+    "results": [
+      {
+        "id": "ac477179-c7a2-40a9-8e75-3f454cd40ed9",
+        "run_id": "d2015094-317f-4a67-8a3a-aabd7396ad3f",
+        "duplicate": true,
+        "next_stage": "COMPLETE",
+        "approval_id": "046758d4-2e4f-469a-b7ef-b2c0a2069375"
+      },
+      {
+        "id": "ac477179-c7a2-40a9-8e75-3f454cd40ed9",
+        "run_id": "d2015094-317f-4a67-8a3a-aabd7396ad3f",
+        "duplicate": false,
+        "next_stage": "COMPLETE",
+        "approval_id": "046758d4-2e4f-469a-b7ef-b2c0a2069375"
+      }
+    ]
+  },
+  "readSecurity": {
+    "at": "2026-09-18T22:27:19.388Z",
+    "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+    "stage": "AWAITING_BUILD_APPROVAL",
+    "runId": "2aa4b130-5f9b-414b-8e40-ee576c75352a",
+    "negativeProbes": [
+      {
+        "name": "missing token",
+        "status": 401
+      },
+      {
+        "name": "invalid token",
+        "status": 403
+      },
+      {
+        "name": "write method",
+        "status": 405
+      },
+      {
+        "name": "arbitrary table",
+        "status": 403
+      },
+      {
+        "name": "local path column",
+        "status": 403
+      },
+      {
+        "name": "arbitrary operator",
+        "status": 403
+      },
+      {
+        "name": "approval endpoint",
+        "status": 403
+      }
+    ],
+    "unscopedFixtureRows": 0,
+    "readAndSecurityProbesMs": 4329.373375
+  },
+  "concurrency": {
+    "liveHeadUnchanged": true,
+    "trackedDirtyFilesUnchanged": false,
+    "trackedFilesChecked": 5,
+    "gitStatusUnchanged": true,
+    "liveHead": "6e781aaca1bae409aa11f66baa191fa6af2b15f8",
+    "bridgeBranch": "codex/studio-bridge",
+    "externallyChangedFiles": [
+      {
+        "path": "dashboard/scripts/creative-studio-orchestrator.ts",
+        "mtime": 1789769577.8566082,
+        "sameAsBridge": false
+      }
+    ]
+  },
+  "network": {
+    "at": "2026-09-18T22:48:26.771957+00:00",
+    "runnerPid": 21543,
+    "publicInboundPortOpened": false,
+    "runnerTCPListeners": 0,
+    "lsofExit": 1
+  },
+  "readCredentialExpiration": "90 days from provisioning; runtime enforces expiration"
+}

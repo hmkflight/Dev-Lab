@@ -45,10 +45,11 @@ function RealControls({state,refresh}:{state:BridgeSnapshot;refresh:()=>Promise<
  }catch(e){setError((e as Error).message);await refresh();}finally{setBusy(false);}}
  const online=!!state.runner?.online&&Date.now()-Date.parse(state.runner.lastSeen)<45000;
  const active=state.commands.some(c=>c.mode==='REAL'&&['QUEUED','CLAIMED','RUNNING'].includes(c.status));
- const enabled=(type:string)=>state.canSubmit&&online&&!busy&&!active&&real.allowed.includes(type)&&real.proven.includes(type);
+ const capability={CREATE_PROJECT:'canCreateProject',START_RUN:'canStartRun',RESUME_RUN:'canResumeRun',APPROVE_GATE:'canApprove'} as const;
+ const enabled=(type:CommandType)=>state.canSubmit&&online&&!busy&&!active&&real.allowed.includes(type)&&!!real.capabilities?.[capability[type]];
  return <section className="panel bridge-controls"><span className="eyebrow">REAL · DISPOSABLE ACCEPTANCE ONLY</span><h2>Disposable factory control</h2><p>Only <code>{real.projectSlug}</code> is authorized. Every other project is blocked by the Worker and Mac runner.</p>
  <p>Project stage: <strong>{real.stage||'Not created'}</strong> · Run: <strong>{real.runStatus||'None'}</strong></p>{real.runId&&<p>Run ID <code>{real.runId}</code></p>}
- <p>Approval gate: {real.gate||'None'} · Proven commands: {real.proven.join(', ')||'None yet — acceptance testing'}</p>
+ <p>Studio enrollment: {real.studioEnabled?'Enabled':'Disabled'} · Production fence active</p><p>Approval gate: {real.gate||'None'} · Proven commands: {real.proven.join(', ')||'None yet — acceptance testing'}</p>
  {real.projectId&&<p><Link to={'/projects/'+real.projectId}>Observe disposable project</Link></p>}
  <div className="button-row">
  <button className="button secondary" disabled={!enabled('CREATE_PROJECT')||!!real.projectId} onClick={()=>void send('CREATE_PROJECT')}>Create disposable project</button>

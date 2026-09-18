@@ -19,7 +19,7 @@ test('reconciliation distinguishes all five outcomes without granting uncertain 
  assert.equal(classifyReconciliation({...evidence,receipt:{executionId,state:'complete',result},authoritativeRunId:crypto.randomUUID()}),'MANUAL_REVIEW_REQUIRED');
  assert.equal(classifyReconciliation({...evidence,receipt:{executionId,state:'complete',result},processMatches:true}),'MANUAL_REVIEW_REQUIRED');
  assert.equal(classifyReconciliation({...evidence,authoritativeAvailable:false}),'MANUAL_REVIEW_REQUIRED');
- assert.equal(classifyReconciliation({...evidence,receipt:{executionId,state:'complete',result:{...result,ok:false,executionCount:0,code:'FENCE_REJECTED'}}}),'SAFE_TO_RETRY');
+ assert.equal(classifyReconciliation({...evidence,receipt:{executionId,state:'complete',result:{...result,ok:false,executionCount:0,code:'FENCE_REJECTED'}},expectedRunId:crypto.randomUUID()}),'SAFE_TO_RETRY');
 });
 test('process identity includes kernel start time and does not accept nonexistent or arbitrary PID values',()=>{assert.match(processIdentity(process.pid)!,/^[a-f0-9]{64}$/);assert.equal(processIdentity(-1),null);assert.equal(processIdentity(NaN),null);});
 test('enrollment, historical deny, protected namespaces and clean room cannot override the disposable fence',()=>{
@@ -43,6 +43,7 @@ test('scoped reads use only the read gateway; token is not an arbitrary database
 test('artifact MIME, size, passive HTML and local-path boundaries reject malicious representations',()=>{
  const bytes=(s:string)=>new TextEncoder().encode(s);validateArtifactBytes(bytes('{"public":true}'),'application/json');validateArtifactBytes(bytes(reportHTML('{"value":"<script>"}')),'text/html');
  for(const html of ['<!doctype html><script>alert(1)</script>','<!doctype html><img onerror="x">','<!doctype html><iframe src="https://bad">'])assert.throws(()=>validateArtifactBytes(bytes(html),'text/html'));
+ for(const secret of ['sk-exampleverylongsecret','eyJhbGciOiJIUzI1NiJ9.payload.signature','outputs/dev-lab/client-projects/private'])assert.throws(()=>validateArtifactBytes(bytes(JSON.stringify({value:secret})),'application/json'));
  assert.throws(()=>validateArtifactBytes(bytes('/Users/private'),'application/json'));assert.throws(()=>validateArtifactBytes(bytes('not png'),'image/png'));assert.throws(()=>validateArtifactBytes(new Uint8Array(500001),'image/png'));
 });
 test('reconciliation writes require original runner, claim and execution identity and never requeue work',async()=>{

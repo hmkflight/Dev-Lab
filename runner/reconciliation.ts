@@ -13,8 +13,10 @@ export interface ReconciliationEvidence {
 }
 export function classifyReconciliation(e:ReconciliationEvidence):ReconciliationState {
  if(!e.authoritativeAvailable)return 'MANUAL_REVIEW_REQUIRED';
- if(e.expectedRunId&&e.authoritativeRunId!==e.expectedRunId)return 'MANUAL_REVIEW_REQUIRED';
  const r=e.receipt;
+ // A completed preflight rejection proves no CPE invocation even when the request's run ID was stale.
+ if(r?.executionId===e.executionId&&r.state==='complete'&&r.result?.executionId===e.executionId&&r.result.executionCount===0&&r.result.code==='FENCE_REJECTED'&&!e.processMatches)return 'SAFE_TO_RETRY';
+ if(e.expectedRunId&&e.authoritativeRunId!==e.expectedRunId)return 'MANUAL_REVIEW_REQUIRED';
  if(!r){return !e.dispatchIntent&&['QUEUED','CLAIMED'].includes(e.queueStatus)?'SAFE_TO_RETRY':'MANUAL_REVIEW_REQUIRED';}
  if(r.executionId!==e.executionId)return 'MANUAL_REVIEW_REQUIRED';
  if(r.state==='complete'&&r.result?.executionId===e.executionId){
