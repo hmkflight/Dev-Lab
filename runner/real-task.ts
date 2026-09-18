@@ -24,7 +24,7 @@ let result:ExecutorResult;let lock:any,lockedRun:string|undefined,leaseTimer:Nod
 const timer=setInterval(tick,5000);tick();
 try{
  const before=await fence.validate(data);
- if(data.type==='CREATE_PROJECT'&&before.project){result={ok:true,retryable:false,code:'REAL_COMPLETED',executionCount:1,projectId:before.project.id,stdout:'Existing authoritative disposable project verified; no create executed.'};}
+ if(data.type==='CREATE_PROJECT'&&before.project){throw Error('Disposable project already exists; no create executed. Reuse its completed queue request.');}
  else {
   if(data.type==='APPROVE_GATE'){
    lock=await import(pathToFileURL(resolve(FACTORY_ROOT,'dashboard/lib/creative-studio/orchestrator/dataAccess.ts')).href);

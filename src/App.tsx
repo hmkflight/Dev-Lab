@@ -199,7 +199,7 @@ export default function App() {
             <span
               className={`demo-label ${data?.mode === "devlab" ? "live-label" : ""}`}
             >
-              {data?.mode === "devlab" ? "DEV LAB · READ ONLY" : "DEMO MODE"}
+              {data?.mode === "devlab" ? "DEV LAB · CONNECTED" : "DEMO MODE"}
             </span>
             <Link
               to="/approvals"

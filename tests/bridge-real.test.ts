@@ -65,3 +65,4 @@ test('only explicit new requests can retry a proven zero-execution rejection; un
  assert.equal((await q.submit(original,'owner')).id,c.id);const retry=await q.submit(input(),'owner');assert.notEqual(retry.id,c.id);
  const k=(await q.claim('mac','REAL'))!;await q.start(k.id,k.claim_token,'mac');const second=crypto.randomUUID();await q.progress(k.id,k.claim_token,'mac',second);await q.finish(k.id,k.claim_token,'mac',{ok:false,retryable:false,code:'REAL_FAILED',executionCount:1,executionId:second});assert.equal((await q.submit(input(),'owner')).id,retry.id);e.db.close();
 });
+test('even unclaimed REAL transport commands cannot use the mock cancellation endpoint',async()=>{const e=environment(),q=new BridgeQueue(e.DB);const c=await q.submit(input(),'owner');await assert.rejects(()=>q.cancelQueued(c.id),/mock transport/);assert.equal((await q.list())[0].status,'QUEUED');e.db.close();});

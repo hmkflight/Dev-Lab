@@ -1,0 +1,3161 @@
+{
+  "hosted": {
+    "startedAt": "2026-09-18T07:34:23.597Z",
+    "phases": {
+      "create": {
+        "at": "2026-09-18T07:34:29.590Z",
+        "before": {
+          "runner": {
+            "runnerId": "hudson-mac-shadow",
+            "mode": "MOCK",
+            "lastSeen": "2026-09-18T07:33:33.275Z",
+            "online": false,
+            "staleAfterSeconds": 45
+          },
+          "real": {
+            "projectSlug": "bridge-disposable-pass2",
+            "allowed": [
+              "CREATE_PROJECT"
+            ],
+            "proven": [],
+            "capabilities": {
+              "canCreateProject": false,
+              "canStartRun": false,
+              "canResumeRun": false,
+              "canApprove": false,
+              "canPauseRun": false,
+              "canCancelRun": false
+            }
+          }
+        },
+        "submitMs": 554,
+        "command": {
+          "id": "a6069c88-a995-498e-b7cc-00c52bcd6947",
+          "project_id": "bridge-disposable-pass2",
+          "command_type": "CREATE_PROJECT",
+          "mode": "REAL",
+          "payload": "{}",
+          "requested_by": "bridge-operator",
+          "idempotency_key": "0b6be37e-46b3-4d5d-b377-ef09e1babb29",
+          "created_at": "2026-09-18T07:34:29.981Z",
+          "status": "QUEUED",
+          "claimed_by": null,
+          "claimed_at": null,
+          "attempt_count": 0,
+          "acknowledgment": null,
+          "result": null,
+          "error": null,
+          "completed_at": null,
+          "available_at": "2026-09-18T07:34:29.981Z",
+          "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T07:34:29.981Z\"}]",
+          "semantic_key": "bridge-disposable-pass2:CREATE_PROJECT::",
+          "execution_id": null,
+          "process_id": null,
+          "progress_at": null
+        },
+        "duplicate": {
+          "sameKeySameId": true,
+          "differentKeySameId": true,
+          "commandId": "a6069c88-a995-498e-b7cc-00c52bcd6947"
+        },
+        "disconnectedQueueProof": true,
+        "browserErrors": []
+      },
+      "probes": {
+        "at": "2026-09-18T07:34:57.700Z",
+        "before": {
+          "runner": {
+            "runnerId": "hudson-mac-shadow",
+            "mode": "REAL",
+            "lastSeen": "2026-09-18T07:34:52.667Z",
+            "online": true,
+            "staleAfterSeconds": 45
+          },
+          "real": {
+            "projectSlug": "bridge-disposable-pass2",
+            "allowed": [
+              "CREATE_PROJECT"
+            ],
+            "proven": [],
+            "capabilities": {
+              "canCreateProject": false,
+              "canStartRun": false,
+              "canResumeRun": false,
+              "canApprove": false,
+              "canPauseRun": false,
+              "canCancelRun": false
+            },
+            "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+            "stage": "INTAKE"
+          }
+        },
+        "rejections": [
+          {
+            "projectId": "eagleswings-cpe2-trial",
+            "status": 400
+          },
+          {
+            "projectId": "eagleswings",
+            "status": 400
+          },
+          {
+            "projectId": "eagleswings-v2",
+            "status": 400
+          },
+          {
+            "projectId": "bridge-disposable-other",
+            "status": 400
+          },
+          {
+            "type": "SHELL",
+            "status": 400
+          },
+          {
+            "type": "PAUSE_RUN",
+            "status": 400
+          },
+          {
+            "type": "CANCEL_RUN",
+            "status": 400
+          }
+        ],
+        "browserErrors": []
+      },
+      "start": {
+        "at": "2026-09-18T07:36:38.174Z",
+        "before": {
+          "runner": {
+            "runnerId": "hudson-mac-shadow",
+            "mode": "REAL",
+            "lastSeen": "2026-09-18T07:36:37.631Z",
+            "online": true,
+            "staleAfterSeconds": 45
+          },
+          "real": {
+            "projectSlug": "bridge-disposable-pass2",
+            "allowed": [
+              "CREATE_PROJECT",
+              "START_RUN"
+            ],
+            "proven": [
+              "CREATE_PROJECT"
+            ],
+            "capabilities": {
+              "canCreateProject": true,
+              "canStartRun": false,
+              "canResumeRun": false,
+              "canApprove": false,
+              "canPauseRun": false,
+              "canCancelRun": false
+            },
+            "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+            "stage": "INTAKE"
+          }
+        },
+        "submitMs": 559,
+        "command": {
+          "id": "be226fee-5205-41a0-9c14-ec3cc4cc19a6",
+          "project_id": "bridge-disposable-pass2",
+          "command_type": "START_RUN",
+          "mode": "REAL",
+          "payload": "{}",
+          "requested_by": "bridge-operator",
+          "idempotency_key": "40c00947-7d4d-45a1-9ea3-34f7bd975103",
+          "created_at": "2026-09-18T07:36:38.571Z",
+          "status": "QUEUED",
+          "claimed_by": null,
+          "claimed_at": null,
+          "attempt_count": 0,
+          "acknowledgment": null,
+          "result": null,
+          "error": null,
+          "completed_at": null,
+          "available_at": "2026-09-18T07:36:38.571Z",
+          "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T07:36:38.571Z\"}]",
+          "semantic_key": "bridge-disposable-pass2:START_RUN::",
+          "execution_id": null,
+          "process_id": null,
+          "progress_at": null
+        },
+        "duplicate": {
+          "sameKeySameId": true,
+          "differentKeySameId": true,
+          "commandId": "be226fee-5205-41a0-9c14-ec3cc4cc19a6"
+        },
+        "browserErrors": []
+      },
+      "stale": {
+        "at": "2026-09-18T07:39:19.346Z",
+        "before": {
+          "runner": {
+            "runnerId": "hudson-mac-shadow",
+            "mode": "REAL",
+            "lastSeen": "2026-09-18T07:39:07.959Z",
+            "online": true,
+            "staleAfterSeconds": 45
+          },
+          "real": {
+            "projectSlug": "bridge-disposable-pass2",
+            "allowed": [
+              "CREATE_PROJECT",
+              "START_RUN",
+              "APPROVE_GATE"
+            ],
+            "proven": [
+              "CREATE_PROJECT",
+              "START_RUN"
+            ],
+            "capabilities": {
+              "canCreateProject": true,
+              "canStartRun": true,
+              "canResumeRun": false,
+              "canApprove": false,
+              "canPauseRun": false,
+              "canCancelRun": false
+            },
+            "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+            "runId": "2aa4b130-5f9b-414b-8e40-ee576c75352a",
+            "stage": "AWAITING_DIRECTION_APPROVAL",
+            "runStatus": "AWAITING_HUMAN_APPROVAL",
+            "gate": "AWAITING_DIRECTION_APPROVAL"
+          }
+        },
+        "tests": [
+          {
+            "scenario": "stale-run",
+            "command": {
+              "id": "3fbce124-fc53-42ad-8272-8ef3b689ec6a",
+              "project_id": "bridge-disposable-pass2",
+              "command_type": "APPROVE_GATE",
+              "mode": "REAL",
+              "payload": "{\"runId\":\"23dd5e1d-96ae-4555-bdb1-9d50dd3e04b6\",\"expectedStage\":\"AWAITING_DIRECTION_APPROVAL\",\"approvalType\":\"AWAITING_DIRECTION_APPROVAL\",\"gate\":\"AWAITING_DIRECTION_APPROVAL\"}",
+              "requested_by": "bridge-operator",
+              "idempotency_key": "6b3c17ee-c9e1-4aa5-9c75-8d820c903fd6",
+              "created_at": "2026-09-18T07:39:19.699Z",
+              "status": "FAILED",
+              "claimed_by": "hudson-mac-shadow",
+              "claimed_at": "2026-09-18T07:39:20.892Z",
+              "attempt_count": 1,
+              "acknowledgment": "2026-09-18T07:39:21.816Z",
+              "result": "{\"ok\":false,\"retryable\":false,\"code\":\"FENCE_REJECTED\",\"executionCount\":0,\"executionId\":\"7b0283b2-cd5e-4972-ad15-b29eedd2f117\",\"stdout\":\"CPE output captured in private runner evidence.\",\"stderr\":\"FENCE_REJECTED\",\"mode\":\"REAL\",\"cpeInvoked\":false}",
+              "error": "FENCE_REJECTED",
+              "completed_at": "2026-09-18T07:39:26.500Z",
+              "available_at": "2026-09-18T07:39:26.500Z",
+              "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T07:39:19.699Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T07:39:20.892Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T07:39:21.816Z\"},{\"status\":\"FAILED\",\"at\":\"2026-09-18T07:39:26.500Z\"}]",
+              "semantic_key": "bridge-disposable-pass2:APPROVE_GATE:23dd5e1d-96ae-4555-bdb1-9d50dd3e04b6:AWAITING_DIRECTION_APPROVAL",
+              "execution_id": "7b0283b2-cd5e-4972-ad15-b29eedd2f117",
+              "process_id": null,
+              "progress_at": "2026-09-18T07:39:25.629Z"
+            }
+          },
+          {
+            "scenario": "stale-stage",
+            "command": {
+              "id": "5478334f-79c6-4c5e-a0cd-bf8c5a2c74c3",
+              "project_id": "bridge-disposable-pass2",
+              "command_type": "APPROVE_GATE",
+              "mode": "REAL",
+              "payload": "{\"runId\":\"2aa4b130-5f9b-414b-8e40-ee576c75352a\",\"expectedStage\":\"CONCEPT_REVIEW\",\"approvalType\":\"AWAITING_DIRECTION_APPROVAL\",\"gate\":\"AWAITING_DIRECTION_APPROVAL\"}",
+              "requested_by": "bridge-operator",
+              "idempotency_key": "d0f74d16-5bc9-4a33-8e49-efa9704c379a",
+              "created_at": "2026-09-18T07:39:29.052Z",
+              "status": "FAILED",
+              "claimed_by": "hudson-mac-shadow",
+              "claimed_at": "2026-09-18T07:39:29.992Z",
+              "attempt_count": 1,
+              "acknowledgment": "2026-09-18T07:39:30.964Z",
+              "result": "{\"ok\":false,\"retryable\":false,\"code\":\"FENCE_REJECTED\",\"executionCount\":0,\"executionId\":\"980cf89d-85d6-49aa-8c5c-977dc685760e\",\"stdout\":\"CPE output captured in private runner evidence.\",\"stderr\":\"FENCE_REJECTED\",\"mode\":\"REAL\",\"cpeInvoked\":false}",
+              "error": "FENCE_REJECTED",
+              "completed_at": "2026-09-18T07:39:35.402Z",
+              "available_at": "2026-09-18T07:39:35.402Z",
+              "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T07:39:29.052Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T07:39:29.992Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T07:39:30.964Z\"},{\"status\":\"FAILED\",\"at\":\"2026-09-18T07:39:35.402Z\"}]",
+              "semantic_key": "bridge-disposable-pass2:APPROVE_GATE:2aa4b130-5f9b-414b-8e40-ee576c75352a:CONCEPT_REVIEW",
+              "execution_id": "980cf89d-85d6-49aa-8c5c-977dc685760e",
+              "process_id": null,
+              "progress_at": "2026-09-18T07:39:34.915Z"
+            }
+          }
+        ],
+        "browserErrors": []
+      },
+      "approve": {
+        "at": "2026-09-18T07:42:35.024Z",
+        "before": {
+          "runner": {
+            "runnerId": "hudson-mac-shadow",
+            "mode": "REAL",
+            "lastSeen": "2026-09-18T07:42:29.665Z",
+            "online": true,
+            "staleAfterSeconds": 45
+          },
+          "real": {
+            "projectSlug": "bridge-disposable-pass2",
+            "allowed": [
+              "CREATE_PROJECT",
+              "START_RUN",
+              "APPROVE_GATE"
+            ],
+            "proven": [
+              "CREATE_PROJECT",
+              "START_RUN"
+            ],
+            "capabilities": {
+              "canCreateProject": true,
+              "canStartRun": true,
+              "canResumeRun": false,
+              "canApprove": false,
+              "canPauseRun": false,
+              "canCancelRun": false
+            },
+            "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+            "runId": "2aa4b130-5f9b-414b-8e40-ee576c75352a",
+            "stage": "AWAITING_DIRECTION_APPROVAL",
+            "runStatus": "AWAITING_HUMAN_APPROVAL",
+            "gate": "AWAITING_DIRECTION_APPROVAL"
+          }
+        },
+        "submitMs": 610,
+        "command": {
+          "id": "8aa99db4-47fb-4209-8b35-472aa2c7903d",
+          "project_id": "bridge-disposable-pass2",
+          "command_type": "APPROVE_GATE",
+          "mode": "REAL",
+          "payload": "{\"runId\":\"2aa4b130-5f9b-414b-8e40-ee576c75352a\",\"expectedStage\":\"AWAITING_DIRECTION_APPROVAL\",\"approvalType\":\"AWAITING_DIRECTION_APPROVAL\",\"gate\":\"AWAITING_DIRECTION_APPROVAL\"}",
+          "requested_by": "bridge-operator",
+          "idempotency_key": "9714895a-b61e-43e5-a5b9-da41e6fa3e2b",
+          "created_at": "2026-09-18T07:42:35.486Z",
+          "status": "QUEUED",
+          "claimed_by": null,
+          "claimed_at": null,
+          "attempt_count": 0,
+          "acknowledgment": null,
+          "result": null,
+          "error": null,
+          "completed_at": null,
+          "available_at": "2026-09-18T07:42:35.486Z",
+          "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T07:42:35.486Z\"}]",
+          "semantic_key": "bridge-disposable-pass2:APPROVE_GATE:2aa4b130-5f9b-414b-8e40-ee576c75352a:AWAITING_DIRECTION_APPROVAL",
+          "execution_id": null,
+          "process_id": null,
+          "progress_at": null
+        },
+        "duplicate": {
+          "sameKeySameId": true,
+          "differentKeySameId": true,
+          "commandId": "8aa99db4-47fb-4209-8b35-472aa2c7903d"
+        },
+        "browserErrors": []
+      },
+      "resume": {
+        "at": "2026-09-18T07:43:45.635Z",
+        "before": {
+          "runner": {
+            "runnerId": "hudson-mac-shadow",
+            "mode": "REAL",
+            "lastSeen": "2026-09-18T07:43:44.535Z",
+            "online": true,
+            "staleAfterSeconds": 45
+          },
+          "real": {
+            "projectSlug": "bridge-disposable-pass2",
+            "allowed": [
+              "CREATE_PROJECT",
+              "START_RUN",
+              "APPROVE_GATE",
+              "RESUME_RUN"
+            ],
+            "proven": [
+              "CREATE_PROJECT",
+              "START_RUN",
+              "APPROVE_GATE"
+            ],
+            "capabilities": {
+              "canCreateProject": true,
+              "canStartRun": true,
+              "canResumeRun": false,
+              "canApprove": true,
+              "canPauseRun": false,
+              "canCancelRun": false
+            },
+            "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+            "runId": "2aa4b130-5f9b-414b-8e40-ee576c75352a",
+            "stage": "EXPERIENCE_DESIGN",
+            "runStatus": "AWAITING_HUMAN_APPROVAL",
+            "gate": "AWAITING_DIRECTION_APPROVAL"
+          }
+        },
+        "submitMs": 742,
+        "command": {
+          "id": "0fe2be2b-8571-4ed9-8b1c-e697c963a009",
+          "project_id": "bridge-disposable-pass2",
+          "command_type": "RESUME_RUN",
+          "mode": "REAL",
+          "payload": "{\"runId\":\"2aa4b130-5f9b-414b-8e40-ee576c75352a\",\"expectedStage\":\"EXPERIENCE_DESIGN\"}",
+          "requested_by": "bridge-operator",
+          "idempotency_key": "b422cf37-cad0-4599-9630-5cc087829c8b",
+          "created_at": "2026-09-18T07:43:46.161Z",
+          "status": "QUEUED",
+          "claimed_by": null,
+          "claimed_at": null,
+          "attempt_count": 0,
+          "acknowledgment": null,
+          "result": null,
+          "error": null,
+          "completed_at": null,
+          "available_at": "2026-09-18T07:43:46.161Z",
+          "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T07:43:46.161Z\"}]",
+          "semantic_key": "bridge-disposable-pass2:RESUME_RUN:2aa4b130-5f9b-414b-8e40-ee576c75352a:EXPERIENCE_DESIGN",
+          "execution_id": null,
+          "process_id": null,
+          "progress_at": null
+        },
+        "duplicate": {
+          "sameKeySameId": true,
+          "differentKeySameId": true,
+          "commandId": "0fe2be2b-8571-4ed9-8b1c-e697c963a009"
+        },
+        "browserErrors": []
+      },
+      "duplicates": {
+        "at": "2026-09-18T07:47:28.453Z",
+        "before": {
+          "runner": {
+            "runnerId": "hudson-mac-shadow",
+            "mode": "REAL",
+            "lastSeen": "2026-09-18T07:47:14.708Z",
+            "online": true,
+            "staleAfterSeconds": 45
+          },
+          "real": {
+            "projectSlug": "bridge-disposable-pass2",
+            "allowed": [
+              "CREATE_PROJECT",
+              "START_RUN",
+              "APPROVE_GATE",
+              "RESUME_RUN"
+            ],
+            "proven": [
+              "CREATE_PROJECT",
+              "START_RUN",
+              "APPROVE_GATE"
+            ],
+            "capabilities": {
+              "canCreateProject": true,
+              "canStartRun": true,
+              "canResumeRun": false,
+              "canApprove": true,
+              "canPauseRun": false,
+              "canCancelRun": false
+            },
+            "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+            "runId": "2aa4b130-5f9b-414b-8e40-ee576c75352a",
+            "stage": "AWAITING_BUILD_APPROVAL",
+            "runStatus": "AWAITING_HUMAN_APPROVAL",
+            "gate": "AWAITING_BUILD_APPROVAL"
+          }
+        },
+        "tests": [
+          {
+            "commandId": "a6069c88-a995-498e-b7cc-00c52bcd6947",
+            "type": "CREATE_PROJECT",
+            "repeat": "same-key",
+            "status": "SUCCEEDED",
+            "attempts": 1
+          },
+          {
+            "commandId": "a6069c88-a995-498e-b7cc-00c52bcd6947",
+            "type": "CREATE_PROJECT",
+            "repeat": "new-key",
+            "status": "SUCCEEDED",
+            "attempts": 1
+          },
+          {
+            "commandId": "be226fee-5205-41a0-9c14-ec3cc4cc19a6",
+            "type": "START_RUN",
+            "repeat": "same-key",
+            "status": "SUCCEEDED",
+            "attempts": 1
+          },
+          {
+            "commandId": "be226fee-5205-41a0-9c14-ec3cc4cc19a6",
+            "type": "START_RUN",
+            "repeat": "new-key",
+            "status": "SUCCEEDED",
+            "attempts": 1
+          },
+          {
+            "commandId": "8aa99db4-47fb-4209-8b35-472aa2c7903d",
+            "type": "APPROVE_GATE",
+            "repeat": "same-key",
+            "status": "SUCCEEDED",
+            "attempts": 1
+          },
+          {
+            "commandId": "8aa99db4-47fb-4209-8b35-472aa2c7903d",
+            "type": "APPROVE_GATE",
+            "repeat": "new-key",
+            "status": "SUCCEEDED",
+            "attempts": 1
+          },
+          {
+            "commandId": "0fe2be2b-8571-4ed9-8b1c-e697c963a009",
+            "type": "RESUME_RUN",
+            "repeat": "same-key",
+            "status": "SUCCEEDED",
+            "attempts": 1
+          },
+          {
+            "commandId": "0fe2be2b-8571-4ed9-8b1c-e697c963a009",
+            "type": "RESUME_RUN",
+            "repeat": "new-key",
+            "status": "SUCCEEDED",
+            "attempts": 1
+          }
+        ],
+        "browserErrors": []
+      },
+      "artifact": {
+        "at": "2026-09-18T07:49:40.673Z",
+        "before": {
+          "runner": {
+            "runnerId": "hudson-mac-shadow",
+            "mode": "REAL",
+            "lastSeen": "2026-09-18T07:49:30.743Z",
+            "online": true,
+            "staleAfterSeconds": 45
+          },
+          "real": {
+            "projectSlug": "bridge-disposable-pass2",
+            "allowed": [
+              "CREATE_PROJECT",
+              "START_RUN",
+              "APPROVE_GATE",
+              "RESUME_RUN"
+            ],
+            "proven": [
+              "CREATE_PROJECT",
+              "START_RUN",
+              "APPROVE_GATE"
+            ],
+            "capabilities": {
+              "canCreateProject": true,
+              "canStartRun": true,
+              "canResumeRun": false,
+              "canApprove": true,
+              "canPauseRun": false,
+              "canCancelRun": false
+            },
+            "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+            "runId": "2aa4b130-5f9b-414b-8e40-ee576c75352a",
+            "stage": "AWAITING_BUILD_APPROVAL",
+            "runStatus": "AWAITING_HUMAN_APPROVAL",
+            "gate": "AWAITING_BUILD_APPROVAL"
+          }
+        },
+        "artifact": {
+          "id": "fcb86cba-ce80-4da1-b74c-15601314754e",
+          "sourceArtifactId": "5ac31b23-b48b-4f6f-92ce-d997b1e31988",
+          "mimeType": "application/json",
+          "bytes": 1081,
+          "sha256": "03fb2718e61774f653f1e28aac052d30e11bedf09aa9c1b09b4b63a9fe5a051d",
+          "previewUrl": "/api/bridge/artifacts/fcb86cba-ce80-4da1-b74c-15601314754e",
+          "downloadUrl": "/api/bridge/artifacts/fcb86cba-ce80-4da1-b74c-15601314754e?download=1"
+        },
+        "previewRendered": true,
+        "downloadBytes": 1081,
+        "downloadSha256": "03fb2718e61774f653f1e28aac052d30e11bedf09aa9c1b09b4b63a9fe5a051d",
+        "browserErrors": []
+      }
+    },
+    "observations": [
+      {
+        "at": "2026-09-18T07:35:06.482Z",
+        "before": {
+          "runner": {
+            "runnerId": "hudson-mac-shadow",
+            "mode": "REAL",
+            "lastSeen": "2026-09-18T07:34:52.667Z",
+            "online": true,
+            "staleAfterSeconds": 45
+          },
+          "real": {
+            "projectSlug": "bridge-disposable-pass2",
+            "allowed": [
+              "CREATE_PROJECT"
+            ],
+            "proven": [],
+            "capabilities": {
+              "canCreateProject": false,
+              "canStartRun": false,
+              "canResumeRun": false,
+              "canApprove": false,
+              "canPauseRun": false,
+              "canCancelRun": false
+            },
+            "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+            "stage": "INTAKE"
+          }
+        },
+        "commands": [
+          {
+            "id": "a6069c88-a995-498e-b7cc-00c52bcd6947",
+            "project_id": "bridge-disposable-pass2",
+            "command_type": "CREATE_PROJECT",
+            "mode": "REAL",
+            "payload": "{}",
+            "requested_by": "bridge-operator",
+            "idempotency_key": "0b6be37e-46b3-4d5d-b377-ef09e1babb29",
+            "created_at": "2026-09-18T07:34:29.981Z",
+            "status": "SUCCEEDED",
+            "claimed_by": "hudson-mac-shadow",
+            "claimed_at": "2026-09-18T07:34:53.749Z",
+            "attempt_count": 1,
+            "acknowledgment": "2026-09-18T07:34:54.720Z",
+            "result": "{\"ok\": true, \"retryable\": false, \"code\": \"REAL_COMPLETED\", \"executionCount\": 1, \"executionId\": \"e06cf050-464d-479b-b39d-6a40350a1d51\", \"processId\": 8742, \"stdout\": \"CPE output retained privately\", \"stderr\": \"\", \"projectId\": \"5831d3a0-3205-4b7a-a141-d57bfc2c1782\", \"mode\": \"REAL\", \"cpeInvoked\": true}",
+            "error": null,
+            "completed_at": "2026-09-18T07:34:59.030Z",
+            "available_at": "2026-09-18T07:34:59.030Z",
+            "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T07:34:29.981Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T07:34:53.749Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T07:34:54.720Z\"},{\"status\":\"SUCCEEDED\",\"at\":\"2026-09-18T07:34:59.030Z\"}]",
+            "semantic_key": "bridge-disposable-pass2:CREATE_PROJECT::",
+            "execution_id": "e06cf050-464d-479b-b39d-6a40350a1d51",
+            "process_id": 8742,
+            "progress_at": "2026-09-18T07:34:58.402Z"
+          }
+        ],
+        "artifacts": [],
+        "readMs": 1302,
+        "observed": {
+          "project": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+          "slug": "bridge-disposable-pass2",
+          "stage": "INTAKE",
+          "productionRun": null,
+          "approvals": [],
+          "readiness": {
+            "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+            "status": "unknown",
+            "clientReady": false,
+            "blockers": [],
+            "summary": "No production run recorded.",
+            "assessedAt": "2026-09-18T07:34:56.352265+00:00",
+            "mode": "devlab"
+          },
+          "events": [],
+          "artifacts": []
+        },
+        "browserErrors": []
+      },
+      {
+        "at": "2026-09-18T07:37:06.367Z",
+        "before": {
+          "runner": {
+            "runnerId": "hudson-mac-shadow",
+            "mode": "REAL",
+            "lastSeen": "2026-09-18T07:36:52.747Z",
+            "online": true,
+            "staleAfterSeconds": 45
+          },
+          "real": {
+            "projectSlug": "bridge-disposable-pass2",
+            "allowed": [
+              "CREATE_PROJECT",
+              "START_RUN"
+            ],
+            "proven": [
+              "CREATE_PROJECT"
+            ],
+            "capabilities": {
+              "canCreateProject": true,
+              "canStartRun": false,
+              "canResumeRun": false,
+              "canApprove": false,
+              "canPauseRun": false,
+              "canCancelRun": false
+            },
+            "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+            "runId": "2aa4b130-5f9b-414b-8e40-ee576c75352a",
+            "stage": "CONCEPTING",
+            "runStatus": "RUNNING",
+            "gate": null
+          }
+        },
+        "commands": [
+          {
+            "id": "be226fee-5205-41a0-9c14-ec3cc4cc19a6",
+            "project_id": "bridge-disposable-pass2",
+            "command_type": "START_RUN",
+            "mode": "REAL",
+            "payload": "{}",
+            "requested_by": "bridge-operator",
+            "idempotency_key": "40c00947-7d4d-45a1-9ea3-34f7bd975103",
+            "created_at": "2026-09-18T07:36:38.571Z",
+            "status": "RUNNING",
+            "claimed_by": "hudson-mac-shadow",
+            "claimed_at": "2026-09-18T07:36:40.813Z",
+            "attempt_count": 1,
+            "acknowledgment": "2026-09-18T07:36:41.365Z",
+            "result": null,
+            "error": null,
+            "completed_at": null,
+            "available_at": "2026-09-18T07:36:38.571Z",
+            "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T07:36:38.571Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T07:36:40.813Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T07:36:41.365Z\"}]",
+            "semantic_key": "bridge-disposable-pass2:START_RUN::",
+            "execution_id": "c787dea8-b486-43e0-bd86-388fc8a65886",
+            "process_id": 8995,
+            "progress_at": "2026-09-18T07:37:05.501Z"
+          },
+          {
+            "id": "a6069c88-a995-498e-b7cc-00c52bcd6947",
+            "project_id": "bridge-disposable-pass2",
+            "command_type": "CREATE_PROJECT",
+            "mode": "REAL",
+            "payload": "{}",
+            "requested_by": "bridge-operator",
+            "idempotency_key": "0b6be37e-46b3-4d5d-b377-ef09e1babb29",
+            "created_at": "2026-09-18T07:34:29.981Z",
+            "status": "SUCCEEDED",
+            "claimed_by": "hudson-mac-shadow",
+            "claimed_at": "2026-09-18T07:34:53.749Z",
+            "attempt_count": 1,
+            "acknowledgment": "2026-09-18T07:34:54.720Z",
+            "result": "{\"ok\": true, \"retryable\": false, \"code\": \"REAL_COMPLETED\", \"executionCount\": 1, \"executionId\": \"e06cf050-464d-479b-b39d-6a40350a1d51\", \"processId\": 8742, \"stdout\": \"CPE output retained privately\", \"stderr\": \"\", \"projectId\": \"5831d3a0-3205-4b7a-a141-d57bfc2c1782\", \"mode\": \"REAL\", \"cpeInvoked\": true}",
+            "error": null,
+            "completed_at": "2026-09-18T07:34:59.030Z",
+            "available_at": "2026-09-18T07:34:59.030Z",
+            "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T07:34:29.981Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T07:34:53.749Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T07:34:54.720Z\"},{\"status\":\"SUCCEEDED\",\"at\":\"2026-09-18T07:34:59.030Z\"}]",
+            "semantic_key": "bridge-disposable-pass2:CREATE_PROJECT::",
+            "execution_id": "e06cf050-464d-479b-b39d-6a40350a1d51",
+            "process_id": 8742,
+            "progress_at": "2026-09-18T07:34:58.402Z"
+          }
+        ],
+        "artifacts": [
+          {
+            "id": "fcb86cba-ce80-4da1-b74c-15601314754e",
+            "sourceArtifactId": "5ac31b23-b48b-4f6f-92ce-d997b1e31988",
+            "mimeType": "application/json",
+            "bytes": 1081,
+            "sha256": "03fb2718e61774f653f1e28aac052d30e11bedf09aa9c1b09b4b63a9fe5a051d",
+            "previewUrl": "/api/bridge/artifacts/fcb86cba-ce80-4da1-b74c-15601314754e",
+            "downloadUrl": "/api/bridge/artifacts/fcb86cba-ce80-4da1-b74c-15601314754e?download=1"
+          }
+        ],
+        "readMs": 1452,
+        "observed": {
+          "project": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+          "slug": "bridge-disposable-pass2",
+          "stage": "CONCEPTING",
+          "productionRun": {
+            "id": "2aa4b130-5f9b-414b-8e40-ee576c75352a",
+            "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+            "status": "RUNNING",
+            "stageId": "CONCEPTING",
+            "startedAt": "2026-09-18T07:36:45.172738+00:00",
+            "updatedAt": "2026-09-18T07:36:59.193+00:00",
+            "mode": "devlab",
+            "iterationNumber": 0,
+            "responsibleAgent": "Creative Director"
+          },
+          "approvals": [],
+          "readiness": {
+            "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+            "status": "not-ready",
+            "clientReady": false,
+            "blockers": [],
+            "summary": "CPE RUNNING; CLIENT_READY=false. 0 recorded readiness reasons.",
+            "assessedAt": "2026-09-18T07:36:59.193+00:00",
+            "mode": "devlab"
+          },
+          "events": [
+            {
+              "id": "8dd1ac65-70b4-4946-8b65-044fa801b6e6",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "AGENT_INVOKED",
+              "createdAt": "2026-09-18T07:36:59.82598+00:00",
+              "agentName": "creative-director",
+              "details": "stage: CONCEPTING"
+            },
+            {
+              "id": "2a9ffb11-e93c-45f7-9720-52e6cb8b3051",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "STAGE_ADVANCED",
+              "createdAt": "2026-09-18T07:36:59.57558+00:00",
+              "details": "from: INTELLIGENCE \u00b7 to: CONCEPTING"
+            },
+            {
+              "id": "edd41e2d-1736-48b7-8b43-a7f70bddbdbc",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "ARTIFACT_VALIDATED",
+              "createdAt": "2026-09-18T07:36:58.909214+00:00",
+              "details": "stage: INTELLIGENCE"
+            },
+            {
+              "id": "c12f57eb-0dbe-4cfc-a69d-e52ba5ecca2d",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "AGENT_SUCCEEDED",
+              "createdAt": "2026-09-18T07:36:58.65364+00:00",
+              "agentName": "studio-director",
+              "details": "stage: INTELLIGENCE"
+            },
+            {
+              "id": "3d312974-62bd-419d-bc54-640423487ff5",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "AGENT_INVOKED",
+              "createdAt": "2026-09-18T07:36:47.003822+00:00",
+              "agentName": "studio-director",
+              "details": "stage: INTELLIGENCE"
+            },
+            {
+              "id": "24e837e8-63cb-442a-a5fb-580a59395183",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "STAGE_ADVANCED",
+              "createdAt": "2026-09-18T07:36:46.725976+00:00",
+              "details": "from: INTAKE \u00b7 to: INTELLIGENCE \u00b7 reason: artifact already present \u2014 idempotent resume"
+            },
+            {
+              "id": "3db8a27d-dfa5-4430-9fbb-ec0e862d5bda",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "RUN_LOCK_ACQUIRED",
+              "createdAt": "2026-09-18T07:36:46.076091+00:00",
+              "details": ""
+            },
+            {
+              "id": "eeebc6d4-7dfd-415b-af09-cc37b8f2a7d0",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "RUN_CREATED",
+              "createdAt": "2026-09-18T07:36:45.52637+00:00",
+              "details": ""
+            }
+          ],
+          "artifacts": [
+            {
+              "previewUrl": "/api/bridge/artifacts/fcb86cba-ce80-4da1-b74c-15601314754e",
+              "downloadUrl": "/api/bridge/artifacts/fcb86cba-ce80-4da1-b74c-15601314754e?download=1",
+              "id": "5ac31b23-b48b-4f6f-92ce-d997b1e31988",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "title": "creative_intelligence_pack for bridge-disposable-pass2 (run 1, orchestrator)",
+              "type": "creative_intelligence_pack",
+              "createdAt": "2026-09-18T07:36:59.160267+00:00",
+              "metadata": {
+                "version": 1,
+                "createdBy": "Studio Director",
+                "transport": "private-r2"
+              }
+            }
+          ]
+        },
+        "artifactDeliveryMs": 662,
+        "artifactHash": "03fb2718e61774f653f1e28aac052d30e11bedf09aa9c1b09b4b63a9fe5a051d",
+        "browserErrors": []
+      },
+      {
+        "at": "2026-09-18T07:38:14.514Z",
+        "before": {
+          "runner": {
+            "runnerId": "hudson-mac-shadow",
+            "mode": "REAL",
+            "lastSeen": "2026-09-18T07:37:15.053Z",
+            "online": false,
+            "staleAfterSeconds": 45
+          },
+          "real": {
+            "projectSlug": "bridge-disposable-pass2",
+            "allowed": [
+              "CREATE_PROJECT",
+              "START_RUN"
+            ],
+            "proven": [
+              "CREATE_PROJECT"
+            ],
+            "capabilities": {
+              "canCreateProject": true,
+              "canStartRun": false,
+              "canResumeRun": false,
+              "canApprove": false,
+              "canPauseRun": false,
+              "canCancelRun": false
+            },
+            "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+            "runId": "2aa4b130-5f9b-414b-8e40-ee576c75352a",
+            "stage": "AWAITING_DIRECTION_APPROVAL",
+            "runStatus": "AWAITING_HUMAN_APPROVAL",
+            "gate": "AWAITING_DIRECTION_APPROVAL"
+          }
+        },
+        "commands": [
+          {
+            "id": "be226fee-5205-41a0-9c14-ec3cc4cc19a6",
+            "project_id": "bridge-disposable-pass2",
+            "command_type": "START_RUN",
+            "mode": "REAL",
+            "payload": "{}",
+            "requested_by": "bridge-operator",
+            "idempotency_key": "40c00947-7d4d-45a1-9ea3-34f7bd975103",
+            "created_at": "2026-09-18T07:36:38.571Z",
+            "status": "RUNNING",
+            "claimed_by": "hudson-mac-shadow",
+            "claimed_at": "2026-09-18T07:36:40.813Z",
+            "attempt_count": 1,
+            "acknowledgment": "2026-09-18T07:36:41.365Z",
+            "result": null,
+            "error": null,
+            "completed_at": null,
+            "available_at": "2026-09-18T07:36:38.571Z",
+            "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T07:36:38.571Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T07:36:40.813Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T07:36:41.365Z\"}]",
+            "semantic_key": "bridge-disposable-pass2:START_RUN::",
+            "execution_id": "c787dea8-b486-43e0-bd86-388fc8a65886",
+            "process_id": 8995,
+            "progress_at": "2026-09-18T07:37:11.984Z"
+          },
+          {
+            "id": "a6069c88-a995-498e-b7cc-00c52bcd6947",
+            "project_id": "bridge-disposable-pass2",
+            "command_type": "CREATE_PROJECT",
+            "mode": "REAL",
+            "payload": "{}",
+            "requested_by": "bridge-operator",
+            "idempotency_key": "0b6be37e-46b3-4d5d-b377-ef09e1babb29",
+            "created_at": "2026-09-18T07:34:29.981Z",
+            "status": "SUCCEEDED",
+            "claimed_by": "hudson-mac-shadow",
+            "claimed_at": "2026-09-18T07:34:53.749Z",
+            "attempt_count": 1,
+            "acknowledgment": "2026-09-18T07:34:54.720Z",
+            "result": "{\"ok\": true, \"retryable\": false, \"code\": \"REAL_COMPLETED\", \"executionCount\": 1, \"executionId\": \"e06cf050-464d-479b-b39d-6a40350a1d51\", \"processId\": 8742, \"stdout\": \"CPE output retained privately\", \"stderr\": \"\", \"projectId\": \"5831d3a0-3205-4b7a-a141-d57bfc2c1782\", \"mode\": \"REAL\", \"cpeInvoked\": true}",
+            "error": null,
+            "completed_at": "2026-09-18T07:34:59.030Z",
+            "available_at": "2026-09-18T07:34:59.030Z",
+            "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T07:34:29.981Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T07:34:53.749Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T07:34:54.720Z\"},{\"status\":\"SUCCEEDED\",\"at\":\"2026-09-18T07:34:59.030Z\"}]",
+            "semantic_key": "bridge-disposable-pass2:CREATE_PROJECT::",
+            "execution_id": "e06cf050-464d-479b-b39d-6a40350a1d51",
+            "process_id": 8742,
+            "progress_at": "2026-09-18T07:34:58.402Z"
+          }
+        ],
+        "artifacts": [
+          {
+            "id": "fcb86cba-ce80-4da1-b74c-15601314754e",
+            "sourceArtifactId": "5ac31b23-b48b-4f6f-92ce-d997b1e31988",
+            "mimeType": "application/json",
+            "bytes": 1081,
+            "sha256": "03fb2718e61774f653f1e28aac052d30e11bedf09aa9c1b09b4b63a9fe5a051d",
+            "previewUrl": "/api/bridge/artifacts/fcb86cba-ce80-4da1-b74c-15601314754e",
+            "downloadUrl": "/api/bridge/artifacts/fcb86cba-ce80-4da1-b74c-15601314754e?download=1"
+          }
+        ],
+        "readMs": 970,
+        "observed": {
+          "project": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+          "slug": "bridge-disposable-pass2",
+          "stage": "AWAITING_DIRECTION_APPROVAL",
+          "productionRun": {
+            "id": "2aa4b130-5f9b-414b-8e40-ee576c75352a",
+            "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+            "status": "AWAITING_HUMAN_APPROVAL",
+            "stageId": "AWAITING_DIRECTION_APPROVAL",
+            "startedAt": "2026-09-18T07:36:45.172738+00:00",
+            "updatedAt": "2026-09-18T07:37:29.248+00:00",
+            "mode": "devlab",
+            "iterationNumber": 0,
+            "responsibleAgent": ""
+          },
+          "approvals": [
+            {
+              "id": "2aa4b130-5f9b-414b-8e40-ee576c75352a:AWAITING_DIRECTION_APPROVAL",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "title": "AWAITING_DIRECTION_APPROVAL",
+              "description": "CPE is waiting for human approval. Studio controls are disabled.",
+              "kind": "AWAITING_DIRECTION_APPROVAL",
+              "status": "pending",
+              "createdAt": "2026-09-18T07:37:29.248+00:00"
+            }
+          ],
+          "readiness": {
+            "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+            "status": "not-ready",
+            "clientReady": false,
+            "blockers": [],
+            "summary": "CPE AWAITING_HUMAN_APPROVAL; CLIENT_READY=false. 0 recorded readiness reasons.",
+            "assessedAt": "2026-09-18T07:37:29.248+00:00",
+            "mode": "devlab"
+          },
+          "events": [
+            {
+              "id": "82fe3aa9-15fa-41aa-9990-66287432e7fb",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "RUN_LOCK_RELEASED",
+              "createdAt": "2026-09-18T07:37:30.101574+00:00",
+              "details": ""
+            },
+            {
+              "id": "f7a3a283-2f04-4a19-96e6-c7751f78cfdc",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "GATE_REACHED",
+              "createdAt": "2026-09-18T07:37:29.722639+00:00",
+              "details": "stage: AWAITING_DIRECTION_APPROVAL"
+            },
+            {
+              "id": "335f6c7d-64f3-4177-9a3a-a7e3184a633b",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "STAGE_ADVANCED",
+              "createdAt": "2026-09-18T07:37:29.5883+00:00",
+              "details": "from: CONCEPT_REVIEW \u00b7 to: AWAITING_DIRECTION_APPROVAL"
+            },
+            {
+              "id": "ab26d103-2be9-4455-a630-4cabc47cd54a",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "ARTIFACT_VALIDATED",
+              "createdAt": "2026-09-18T07:37:28.980715+00:00",
+              "details": "stage: CONCEPT_REVIEW"
+            },
+            {
+              "id": "7a1739d6-3d8b-4767-940d-775af578ba79",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "AGENT_SUCCEEDED",
+              "createdAt": "2026-09-18T07:37:28.723758+00:00",
+              "agentName": "critic-learning-director",
+              "details": "stage: CONCEPT_REVIEW"
+            },
+            {
+              "id": "f01a3557-17b7-4ad1-b798-7760d773d472",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "AGENT_INVOKED",
+              "createdAt": "2026-09-18T07:37:17.932151+00:00",
+              "agentName": "critic-learning-director",
+              "details": "stage: CONCEPT_REVIEW"
+            },
+            {
+              "id": "5731706c-95b1-4e6f-bc3b-b94439275d32",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "STAGE_ADVANCED",
+              "createdAt": "2026-09-18T07:37:17.62759+00:00",
+              "details": "from: CONCEPTING \u00b7 to: CONCEPT_REVIEW"
+            },
+            {
+              "id": "0021cc97-d317-40c3-b974-cbefec44325c",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "ARTIFACT_VALIDATED",
+              "createdAt": "2026-09-18T07:37:17.015141+00:00",
+              "details": "stage: CONCEPTING"
+            },
+            {
+              "id": "d5d0a5ae-69e3-4701-ad06-19123e486944",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "AGENT_SUCCEEDED",
+              "createdAt": "2026-09-18T07:37:16.753278+00:00",
+              "agentName": "creative-director",
+              "details": "stage: CONCEPTING"
+            },
+            {
+              "id": "8dd1ac65-70b4-4946-8b65-044fa801b6e6",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "AGENT_INVOKED",
+              "createdAt": "2026-09-18T07:36:59.82598+00:00",
+              "agentName": "creative-director",
+              "details": "stage: CONCEPTING"
+            }
+          ],
+          "artifacts": [
+            {
+              "id": "7044bbb1-da98-43c1-a4a5-3cb40bae3907",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "title": "concept_review for bridge-disposable-pass2 (run 1, orchestrator)",
+              "type": "concept_review",
+              "createdAt": "2026-09-18T07:37:29.216796+00:00",
+              "metadata": {
+                "version": 1,
+                "createdBy": "Critic & Learning Director",
+                "transport": "not-published"
+              }
+            },
+            {
+              "id": "26a3b6dd-70bd-4c68-b1d2-51c25ac39f18",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "title": "concept for bridge-disposable-pass2 (run 1, orchestrator)",
+              "type": "concept",
+              "createdAt": "2026-09-18T07:37:17.273896+00:00",
+              "metadata": {
+                "version": 1,
+                "createdBy": "Creative Director",
+                "transport": "not-published"
+              }
+            },
+            {
+              "previewUrl": "/api/bridge/artifacts/fcb86cba-ce80-4da1-b74c-15601314754e",
+              "downloadUrl": "/api/bridge/artifacts/fcb86cba-ce80-4da1-b74c-15601314754e?download=1",
+              "id": "5ac31b23-b48b-4f6f-92ce-d997b1e31988",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "title": "creative_intelligence_pack for bridge-disposable-pass2 (run 1, orchestrator)",
+              "type": "creative_intelligence_pack",
+              "createdAt": "2026-09-18T07:36:59.160267+00:00",
+              "metadata": {
+                "version": 1,
+                "createdBy": "Studio Director",
+                "transport": "private-r2"
+              }
+            }
+          ]
+        },
+        "artifactDeliveryMs": 533,
+        "artifactHash": "03fb2718e61774f653f1e28aac052d30e11bedf09aa9c1b09b4b63a9fe5a051d",
+        "browserErrors": []
+      },
+      {
+        "at": "2026-09-18T07:38:42.753Z",
+        "before": {
+          "runner": {
+            "runnerId": "hudson-mac-shadow",
+            "mode": "REAL",
+            "lastSeen": "2026-09-18T07:38:38.140Z",
+            "online": true,
+            "staleAfterSeconds": 45
+          },
+          "real": {
+            "projectSlug": "bridge-disposable-pass2",
+            "allowed": [
+              "CREATE_PROJECT",
+              "START_RUN"
+            ],
+            "proven": [
+              "CREATE_PROJECT"
+            ],
+            "capabilities": {
+              "canCreateProject": true,
+              "canStartRun": false,
+              "canResumeRun": false,
+              "canApprove": false,
+              "canPauseRun": false,
+              "canCancelRun": false
+            },
+            "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+            "runId": "2aa4b130-5f9b-414b-8e40-ee576c75352a",
+            "stage": "AWAITING_DIRECTION_APPROVAL",
+            "runStatus": "AWAITING_HUMAN_APPROVAL",
+            "gate": "AWAITING_DIRECTION_APPROVAL"
+          }
+        },
+        "commands": [
+          {
+            "id": "be226fee-5205-41a0-9c14-ec3cc4cc19a6",
+            "project_id": "bridge-disposable-pass2",
+            "command_type": "START_RUN",
+            "mode": "REAL",
+            "payload": "{}",
+            "requested_by": "bridge-operator",
+            "idempotency_key": "40c00947-7d4d-45a1-9ea3-34f7bd975103",
+            "created_at": "2026-09-18T07:36:38.571Z",
+            "status": "SUCCEEDED",
+            "claimed_by": "hudson-mac-shadow",
+            "claimed_at": "2026-09-18T07:36:40.813Z",
+            "attempt_count": 1,
+            "acknowledgment": "2026-09-18T07:36:41.365Z",
+            "result": "{\"ok\": true, \"retryable\": false, \"code\": \"REAL_COMPLETED\", \"executionCount\": 1, \"executionId\": \"c787dea8-b486-43e0-bd86-388fc8a65886\", \"processId\": 8995, \"stdout\": \"CPE output retained privately\", \"stderr\": \"\", \"projectId\": \"5831d3a0-3205-4b7a-a141-d57bfc2c1782\", \"runId\": \"2aa4b130-5f9b-414b-8e40-ee576c75352a\", \"mode\": \"REAL\", \"cpeInvoked\": true}",
+            "error": null,
+            "completed_at": "2026-09-18T07:38:40.561Z",
+            "available_at": "2026-09-18T07:38:40.561Z",
+            "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T07:36:38.571Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T07:36:40.813Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T07:36:41.365Z\"},{\"status\":\"SUCCEEDED\",\"at\":\"2026-09-18T07:38:40.561Z\"}]",
+            "semantic_key": "bridge-disposable-pass2:START_RUN::",
+            "execution_id": "c787dea8-b486-43e0-bd86-388fc8a65886",
+            "process_id": 8995,
+            "progress_at": "2026-09-18T07:38:40.049Z"
+          },
+          {
+            "id": "a6069c88-a995-498e-b7cc-00c52bcd6947",
+            "project_id": "bridge-disposable-pass2",
+            "command_type": "CREATE_PROJECT",
+            "mode": "REAL",
+            "payload": "{}",
+            "requested_by": "bridge-operator",
+            "idempotency_key": "0b6be37e-46b3-4d5d-b377-ef09e1babb29",
+            "created_at": "2026-09-18T07:34:29.981Z",
+            "status": "SUCCEEDED",
+            "claimed_by": "hudson-mac-shadow",
+            "claimed_at": "2026-09-18T07:34:53.749Z",
+            "attempt_count": 1,
+            "acknowledgment": "2026-09-18T07:34:54.720Z",
+            "result": "{\"ok\": true, \"retryable\": false, \"code\": \"REAL_COMPLETED\", \"executionCount\": 1, \"executionId\": \"e06cf050-464d-479b-b39d-6a40350a1d51\", \"processId\": 8742, \"stdout\": \"CPE output retained privately\", \"stderr\": \"\", \"projectId\": \"5831d3a0-3205-4b7a-a141-d57bfc2c1782\", \"mode\": \"REAL\", \"cpeInvoked\": true}",
+            "error": null,
+            "completed_at": "2026-09-18T07:34:59.030Z",
+            "available_at": "2026-09-18T07:34:59.030Z",
+            "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T07:34:29.981Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T07:34:53.749Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T07:34:54.720Z\"},{\"status\":\"SUCCEEDED\",\"at\":\"2026-09-18T07:34:59.030Z\"}]",
+            "semantic_key": "bridge-disposable-pass2:CREATE_PROJECT::",
+            "execution_id": "e06cf050-464d-479b-b39d-6a40350a1d51",
+            "process_id": 8742,
+            "progress_at": "2026-09-18T07:34:58.402Z"
+          }
+        ],
+        "artifacts": [
+          {
+            "id": "fcb86cba-ce80-4da1-b74c-15601314754e",
+            "sourceArtifactId": "5ac31b23-b48b-4f6f-92ce-d997b1e31988",
+            "mimeType": "application/json",
+            "bytes": 1081,
+            "sha256": "03fb2718e61774f653f1e28aac052d30e11bedf09aa9c1b09b4b63a9fe5a051d",
+            "previewUrl": "/api/bridge/artifacts/fcb86cba-ce80-4da1-b74c-15601314754e",
+            "downloadUrl": "/api/bridge/artifacts/fcb86cba-ce80-4da1-b74c-15601314754e?download=1"
+          }
+        ],
+        "readMs": 1056,
+        "observed": {
+          "project": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+          "slug": "bridge-disposable-pass2",
+          "stage": "AWAITING_DIRECTION_APPROVAL",
+          "productionRun": {
+            "id": "2aa4b130-5f9b-414b-8e40-ee576c75352a",
+            "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+            "status": "AWAITING_HUMAN_APPROVAL",
+            "stageId": "AWAITING_DIRECTION_APPROVAL",
+            "startedAt": "2026-09-18T07:36:45.172738+00:00",
+            "updatedAt": "2026-09-18T07:37:29.248+00:00",
+            "mode": "devlab",
+            "iterationNumber": 0,
+            "responsibleAgent": ""
+          },
+          "approvals": [
+            {
+              "id": "2aa4b130-5f9b-414b-8e40-ee576c75352a:AWAITING_DIRECTION_APPROVAL",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "title": "AWAITING_DIRECTION_APPROVAL",
+              "description": "CPE is waiting for human approval. Studio controls are disabled.",
+              "kind": "AWAITING_DIRECTION_APPROVAL",
+              "status": "pending",
+              "createdAt": "2026-09-18T07:37:29.248+00:00"
+            }
+          ],
+          "readiness": {
+            "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+            "status": "not-ready",
+            "clientReady": false,
+            "blockers": [],
+            "summary": "CPE AWAITING_HUMAN_APPROVAL; CLIENT_READY=false. 0 recorded readiness reasons.",
+            "assessedAt": "2026-09-18T07:37:29.248+00:00",
+            "mode": "devlab"
+          },
+          "events": [
+            {
+              "id": "82fe3aa9-15fa-41aa-9990-66287432e7fb",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "RUN_LOCK_RELEASED",
+              "createdAt": "2026-09-18T07:37:30.101574+00:00",
+              "details": ""
+            },
+            {
+              "id": "f7a3a283-2f04-4a19-96e6-c7751f78cfdc",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "GATE_REACHED",
+              "createdAt": "2026-09-18T07:37:29.722639+00:00",
+              "details": "stage: AWAITING_DIRECTION_APPROVAL"
+            },
+            {
+              "id": "335f6c7d-64f3-4177-9a3a-a7e3184a633b",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "STAGE_ADVANCED",
+              "createdAt": "2026-09-18T07:37:29.5883+00:00",
+              "details": "from: CONCEPT_REVIEW \u00b7 to: AWAITING_DIRECTION_APPROVAL"
+            },
+            {
+              "id": "ab26d103-2be9-4455-a630-4cabc47cd54a",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "ARTIFACT_VALIDATED",
+              "createdAt": "2026-09-18T07:37:28.980715+00:00",
+              "details": "stage: CONCEPT_REVIEW"
+            },
+            {
+              "id": "7a1739d6-3d8b-4767-940d-775af578ba79",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "AGENT_SUCCEEDED",
+              "createdAt": "2026-09-18T07:37:28.723758+00:00",
+              "agentName": "critic-learning-director",
+              "details": "stage: CONCEPT_REVIEW"
+            },
+            {
+              "id": "f01a3557-17b7-4ad1-b798-7760d773d472",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "AGENT_INVOKED",
+              "createdAt": "2026-09-18T07:37:17.932151+00:00",
+              "agentName": "critic-learning-director",
+              "details": "stage: CONCEPT_REVIEW"
+            },
+            {
+              "id": "5731706c-95b1-4e6f-bc3b-b94439275d32",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "STAGE_ADVANCED",
+              "createdAt": "2026-09-18T07:37:17.62759+00:00",
+              "details": "from: CONCEPTING \u00b7 to: CONCEPT_REVIEW"
+            },
+            {
+              "id": "0021cc97-d317-40c3-b974-cbefec44325c",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "ARTIFACT_VALIDATED",
+              "createdAt": "2026-09-18T07:37:17.015141+00:00",
+              "details": "stage: CONCEPTING"
+            },
+            {
+              "id": "d5d0a5ae-69e3-4701-ad06-19123e486944",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "AGENT_SUCCEEDED",
+              "createdAt": "2026-09-18T07:37:16.753278+00:00",
+              "agentName": "creative-director",
+              "details": "stage: CONCEPTING"
+            },
+            {
+              "id": "8dd1ac65-70b4-4946-8b65-044fa801b6e6",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "AGENT_INVOKED",
+              "createdAt": "2026-09-18T07:36:59.82598+00:00",
+              "agentName": "creative-director",
+              "details": "stage: CONCEPTING"
+            }
+          ],
+          "artifacts": [
+            {
+              "id": "7044bbb1-da98-43c1-a4a5-3cb40bae3907",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "title": "concept_review for bridge-disposable-pass2 (run 1, orchestrator)",
+              "type": "concept_review",
+              "createdAt": "2026-09-18T07:37:29.216796+00:00",
+              "metadata": {
+                "version": 1,
+                "createdBy": "Critic & Learning Director",
+                "transport": "not-published"
+              }
+            },
+            {
+              "id": "26a3b6dd-70bd-4c68-b1d2-51c25ac39f18",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "title": "concept for bridge-disposable-pass2 (run 1, orchestrator)",
+              "type": "concept",
+              "createdAt": "2026-09-18T07:37:17.273896+00:00",
+              "metadata": {
+                "version": 1,
+                "createdBy": "Creative Director",
+                "transport": "not-published"
+              }
+            },
+            {
+              "previewUrl": "/api/bridge/artifacts/fcb86cba-ce80-4da1-b74c-15601314754e",
+              "downloadUrl": "/api/bridge/artifacts/fcb86cba-ce80-4da1-b74c-15601314754e?download=1",
+              "id": "5ac31b23-b48b-4f6f-92ce-d997b1e31988",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "title": "creative_intelligence_pack for bridge-disposable-pass2 (run 1, orchestrator)",
+              "type": "creative_intelligence_pack",
+              "createdAt": "2026-09-18T07:36:59.160267+00:00",
+              "metadata": {
+                "version": 1,
+                "createdBy": "Studio Director",
+                "transport": "private-r2"
+              }
+            }
+          ]
+        },
+        "artifactDeliveryMs": 824,
+        "artifactHash": "03fb2718e61774f653f1e28aac052d30e11bedf09aa9c1b09b4b63a9fe5a051d",
+        "browserErrors": []
+      },
+      {
+        "at": "2026-09-18T07:43:22.478Z",
+        "before": {
+          "runner": {
+            "runnerId": "hudson-mac-shadow",
+            "mode": "REAL",
+            "lastSeen": "2026-09-18T07:43:14.505Z",
+            "online": true,
+            "staleAfterSeconds": 45
+          },
+          "real": {
+            "projectSlug": "bridge-disposable-pass2",
+            "allowed": [
+              "CREATE_PROJECT",
+              "START_RUN",
+              "APPROVE_GATE",
+              "RESUME_RUN"
+            ],
+            "proven": [
+              "CREATE_PROJECT",
+              "START_RUN",
+              "APPROVE_GATE"
+            ],
+            "capabilities": {
+              "canCreateProject": true,
+              "canStartRun": true,
+              "canResumeRun": false,
+              "canApprove": true,
+              "canPauseRun": false,
+              "canCancelRun": false
+            },
+            "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+            "runId": "2aa4b130-5f9b-414b-8e40-ee576c75352a",
+            "stage": "EXPERIENCE_DESIGN",
+            "runStatus": "AWAITING_HUMAN_APPROVAL",
+            "gate": "AWAITING_DIRECTION_APPROVAL"
+          }
+        },
+        "commands": [
+          {
+            "id": "8aa99db4-47fb-4209-8b35-472aa2c7903d",
+            "project_id": "bridge-disposable-pass2",
+            "command_type": "APPROVE_GATE",
+            "mode": "REAL",
+            "payload": "{\"runId\":\"2aa4b130-5f9b-414b-8e40-ee576c75352a\",\"expectedStage\":\"AWAITING_DIRECTION_APPROVAL\",\"approvalType\":\"AWAITING_DIRECTION_APPROVAL\",\"gate\":\"AWAITING_DIRECTION_APPROVAL\"}",
+            "requested_by": "bridge-operator",
+            "idempotency_key": "9714895a-b61e-43e5-a5b9-da41e6fa3e2b",
+            "created_at": "2026-09-18T07:42:35.486Z",
+            "status": "SUCCEEDED",
+            "claimed_by": "hudson-mac-shadow",
+            "claimed_at": "2026-09-18T07:42:36.961Z",
+            "attempt_count": 1,
+            "acknowledgment": "2026-09-18T07:42:37.641Z",
+            "result": "{\"ok\": true, \"retryable\": false, \"code\": \"REAL_COMPLETED\", \"executionCount\": 1, \"executionId\": \"7942cb78-61e5-4bb5-a57d-9ad4c002b89f\", \"processId\": 9619, \"stdout\": \"CPE output retained privately\", \"stderr\": \"\", \"projectId\": \"5831d3a0-3205-4b7a-a141-d57bfc2c1782\", \"runId\": \"2aa4b130-5f9b-414b-8e40-ee576c75352a\", \"mode\": \"REAL\", \"cpeInvoked\": true}",
+            "error": null,
+            "completed_at": "2026-09-18T07:42:44.760Z",
+            "available_at": "2026-09-18T07:42:44.760Z",
+            "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T07:42:35.486Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T07:42:36.961Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T07:42:37.641Z\"},{\"status\":\"SUCCEEDED\",\"at\":\"2026-09-18T07:42:44.760Z\"}]",
+            "semantic_key": "bridge-disposable-pass2:APPROVE_GATE:2aa4b130-5f9b-414b-8e40-ee576c75352a:AWAITING_DIRECTION_APPROVAL",
+            "execution_id": "7942cb78-61e5-4bb5-a57d-9ad4c002b89f",
+            "process_id": 9619,
+            "progress_at": "2026-09-18T07:42:44.263Z"
+          },
+          {
+            "id": "ee843b38-c2b3-46d4-a1e3-348105bc3210",
+            "project_id": "bridge-disposable-pass2",
+            "command_type": "APPROVE_GATE",
+            "mode": "REAL",
+            "payload": "{\"runId\":\"2aa4b130-5f9b-414b-8e40-ee576c75352a\",\"expectedStage\":\"AWAITING_DIRECTION_APPROVAL\",\"approvalType\":\"AWAITING_DIRECTION_APPROVAL\",\"gate\":\"AWAITING_DIRECTION_APPROVAL\"}",
+            "requested_by": "bridge-operator",
+            "idempotency_key": "027cdd17-b620-418f-84f2-4aea9e94f8fe",
+            "created_at": "2026-09-18T07:40:01.194Z",
+            "status": "FAILED",
+            "claimed_by": "hudson-mac-shadow",
+            "claimed_at": "2026-09-18T07:40:02.367Z",
+            "attempt_count": 1,
+            "acknowledgment": "2026-09-18T07:40:03.032Z",
+            "result": "{\"ok\": false, \"retryable\": false, \"code\": \"FENCE_REJECTED\", \"executionCount\": 0, \"executionId\": \"852d211e-6205-4f86-aad5-537ce2d18049\", \"stdout\": \"CPE output retained privately\", \"stderr\": \"FENCE_REJECTED\", \"mode\": \"REAL\", \"cpeInvoked\": false}",
+            "error": "FENCE_REJECTED",
+            "completed_at": "2026-09-18T07:40:07.928Z",
+            "available_at": "2026-09-18T07:40:07.928Z",
+            "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T07:40:01.194Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T07:40:02.367Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T07:40:03.032Z\"},{\"status\":\"FAILED\",\"at\":\"2026-09-18T07:40:07.928Z\"}]",
+            "semantic_key": null,
+            "execution_id": "852d211e-6205-4f86-aad5-537ce2d18049",
+            "process_id": null,
+            "progress_at": "2026-09-18T07:40:07.387Z"
+          },
+          {
+            "id": "5478334f-79c6-4c5e-a0cd-bf8c5a2c74c3",
+            "project_id": "bridge-disposable-pass2",
+            "command_type": "APPROVE_GATE",
+            "mode": "REAL",
+            "payload": "{\"runId\":\"2aa4b130-5f9b-414b-8e40-ee576c75352a\",\"expectedStage\":\"CONCEPT_REVIEW\",\"approvalType\":\"AWAITING_DIRECTION_APPROVAL\",\"gate\":\"AWAITING_DIRECTION_APPROVAL\"}",
+            "requested_by": "bridge-operator",
+            "idempotency_key": "d0f74d16-5bc9-4a33-8e49-efa9704c379a",
+            "created_at": "2026-09-18T07:39:29.052Z",
+            "status": "FAILED",
+            "claimed_by": "hudson-mac-shadow",
+            "claimed_at": "2026-09-18T07:39:29.992Z",
+            "attempt_count": 1,
+            "acknowledgment": "2026-09-18T07:39:30.964Z",
+            "result": "{\"ok\": false, \"retryable\": false, \"code\": \"FENCE_REJECTED\", \"executionCount\": 0, \"executionId\": \"980cf89d-85d6-49aa-8c5c-977dc685760e\", \"stdout\": \"CPE output retained privately\", \"stderr\": \"FENCE_REJECTED\", \"mode\": \"REAL\", \"cpeInvoked\": false}",
+            "error": "FENCE_REJECTED",
+            "completed_at": "2026-09-18T07:39:35.402Z",
+            "available_at": "2026-09-18T07:39:35.402Z",
+            "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T07:39:29.052Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T07:39:29.992Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T07:39:30.964Z\"},{\"status\":\"FAILED\",\"at\":\"2026-09-18T07:39:35.402Z\"}]",
+            "semantic_key": "bridge-disposable-pass2:APPROVE_GATE:2aa4b130-5f9b-414b-8e40-ee576c75352a:CONCEPT_REVIEW",
+            "execution_id": "980cf89d-85d6-49aa-8c5c-977dc685760e",
+            "process_id": null,
+            "progress_at": "2026-09-18T07:39:34.915Z"
+          },
+          {
+            "id": "3fbce124-fc53-42ad-8272-8ef3b689ec6a",
+            "project_id": "bridge-disposable-pass2",
+            "command_type": "APPROVE_GATE",
+            "mode": "REAL",
+            "payload": "{\"runId\":\"23dd5e1d-96ae-4555-bdb1-9d50dd3e04b6\",\"expectedStage\":\"AWAITING_DIRECTION_APPROVAL\",\"approvalType\":\"AWAITING_DIRECTION_APPROVAL\",\"gate\":\"AWAITING_DIRECTION_APPROVAL\"}",
+            "requested_by": "bridge-operator",
+            "idempotency_key": "6b3c17ee-c9e1-4aa5-9c75-8d820c903fd6",
+            "created_at": "2026-09-18T07:39:19.699Z",
+            "status": "FAILED",
+            "claimed_by": "hudson-mac-shadow",
+            "claimed_at": "2026-09-18T07:39:20.892Z",
+            "attempt_count": 1,
+            "acknowledgment": "2026-09-18T07:39:21.816Z",
+            "result": "{\"ok\": false, \"retryable\": false, \"code\": \"FENCE_REJECTED\", \"executionCount\": 0, \"executionId\": \"7b0283b2-cd5e-4972-ad15-b29eedd2f117\", \"stdout\": \"CPE output retained privately\", \"stderr\": \"FENCE_REJECTED\", \"mode\": \"REAL\", \"cpeInvoked\": false}",
+            "error": "FENCE_REJECTED",
+            "completed_at": "2026-09-18T07:39:26.500Z",
+            "available_at": "2026-09-18T07:39:26.500Z",
+            "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T07:39:19.699Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T07:39:20.892Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T07:39:21.816Z\"},{\"status\":\"FAILED\",\"at\":\"2026-09-18T07:39:26.500Z\"}]",
+            "semantic_key": "bridge-disposable-pass2:APPROVE_GATE:23dd5e1d-96ae-4555-bdb1-9d50dd3e04b6:AWAITING_DIRECTION_APPROVAL",
+            "execution_id": "7b0283b2-cd5e-4972-ad15-b29eedd2f117",
+            "process_id": null,
+            "progress_at": "2026-09-18T07:39:25.629Z"
+          },
+          {
+            "id": "be226fee-5205-41a0-9c14-ec3cc4cc19a6",
+            "project_id": "bridge-disposable-pass2",
+            "command_type": "START_RUN",
+            "mode": "REAL",
+            "payload": "{}",
+            "requested_by": "bridge-operator",
+            "idempotency_key": "40c00947-7d4d-45a1-9ea3-34f7bd975103",
+            "created_at": "2026-09-18T07:36:38.571Z",
+            "status": "SUCCEEDED",
+            "claimed_by": "hudson-mac-shadow",
+            "claimed_at": "2026-09-18T07:36:40.813Z",
+            "attempt_count": 1,
+            "acknowledgment": "2026-09-18T07:36:41.365Z",
+            "result": "{\"ok\": true, \"retryable\": false, \"code\": \"REAL_COMPLETED\", \"executionCount\": 1, \"executionId\": \"c787dea8-b486-43e0-bd86-388fc8a65886\", \"processId\": 8995, \"stdout\": \"CPE output retained privately\", \"stderr\": \"\", \"projectId\": \"5831d3a0-3205-4b7a-a141-d57bfc2c1782\", \"runId\": \"2aa4b130-5f9b-414b-8e40-ee576c75352a\", \"mode\": \"REAL\", \"cpeInvoked\": true}",
+            "error": null,
+            "completed_at": "2026-09-18T07:38:40.561Z",
+            "available_at": "2026-09-18T07:38:40.561Z",
+            "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T07:36:38.571Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T07:36:40.813Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T07:36:41.365Z\"},{\"status\":\"SUCCEEDED\",\"at\":\"2026-09-18T07:38:40.561Z\"}]",
+            "semantic_key": "bridge-disposable-pass2:START_RUN::",
+            "execution_id": "c787dea8-b486-43e0-bd86-388fc8a65886",
+            "process_id": 8995,
+            "progress_at": "2026-09-18T07:38:40.049Z"
+          },
+          {
+            "id": "a6069c88-a995-498e-b7cc-00c52bcd6947",
+            "project_id": "bridge-disposable-pass2",
+            "command_type": "CREATE_PROJECT",
+            "mode": "REAL",
+            "payload": "{}",
+            "requested_by": "bridge-operator",
+            "idempotency_key": "0b6be37e-46b3-4d5d-b377-ef09e1babb29",
+            "created_at": "2026-09-18T07:34:29.981Z",
+            "status": "SUCCEEDED",
+            "claimed_by": "hudson-mac-shadow",
+            "claimed_at": "2026-09-18T07:34:53.749Z",
+            "attempt_count": 1,
+            "acknowledgment": "2026-09-18T07:34:54.720Z",
+            "result": "{\"ok\": true, \"retryable\": false, \"code\": \"REAL_COMPLETED\", \"executionCount\": 1, \"executionId\": \"e06cf050-464d-479b-b39d-6a40350a1d51\", \"processId\": 8742, \"stdout\": \"CPE output retained privately\", \"stderr\": \"\", \"projectId\": \"5831d3a0-3205-4b7a-a141-d57bfc2c1782\", \"mode\": \"REAL\", \"cpeInvoked\": true}",
+            "error": null,
+            "completed_at": "2026-09-18T07:34:59.030Z",
+            "available_at": "2026-09-18T07:34:59.030Z",
+            "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T07:34:29.981Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T07:34:53.749Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T07:34:54.720Z\"},{\"status\":\"SUCCEEDED\",\"at\":\"2026-09-18T07:34:59.030Z\"}]",
+            "semantic_key": "bridge-disposable-pass2:CREATE_PROJECT::",
+            "execution_id": "e06cf050-464d-479b-b39d-6a40350a1d51",
+            "process_id": 8742,
+            "progress_at": "2026-09-18T07:34:58.402Z"
+          }
+        ],
+        "artifacts": [
+          {
+            "id": "fcb86cba-ce80-4da1-b74c-15601314754e",
+            "sourceArtifactId": "5ac31b23-b48b-4f6f-92ce-d997b1e31988",
+            "mimeType": "application/json",
+            "bytes": 1081,
+            "sha256": "03fb2718e61774f653f1e28aac052d30e11bedf09aa9c1b09b4b63a9fe5a051d",
+            "previewUrl": "/api/bridge/artifacts/fcb86cba-ce80-4da1-b74c-15601314754e",
+            "downloadUrl": "/api/bridge/artifacts/fcb86cba-ce80-4da1-b74c-15601314754e?download=1"
+          }
+        ],
+        "readMs": 1063,
+        "observed": {
+          "project": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+          "slug": "bridge-disposable-pass2",
+          "stage": "EXPERIENCE_DESIGN",
+          "productionRun": {
+            "id": "2aa4b130-5f9b-414b-8e40-ee576c75352a",
+            "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+            "status": "AWAITING_HUMAN_APPROVAL",
+            "stageId": "AWAITING_DIRECTION_APPROVAL",
+            "startedAt": "2026-09-18T07:36:45.172738+00:00",
+            "updatedAt": "2026-09-18T07:37:29.248+00:00",
+            "mode": "devlab",
+            "iterationNumber": 0,
+            "responsibleAgent": "",
+            "lastAgent": "critic-learning-director"
+          },
+          "approvals": [
+            {
+              "id": "2aa4b130-5f9b-414b-8e40-ee576c75352a:AWAITING_DIRECTION_APPROVAL",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "title": "AWAITING_DIRECTION_APPROVAL",
+              "description": "CPE is waiting for human approval. Studio controls are disabled.",
+              "kind": "AWAITING_DIRECTION_APPROVAL",
+              "status": "pending",
+              "createdAt": "2026-09-18T07:37:29.248+00:00"
+            },
+            {
+              "id": "65965688-9aa9-45b7-afa4-7ea582144a0f",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "title": "AWAITING_DIRECTION_APPROVAL",
+              "description": "Recorded human approval in CPE",
+              "kind": "AWAITING_DIRECTION_APPROVAL",
+              "status": "approved",
+              "createdAt": "2026-09-18T07:42:40.649149+00:00",
+              "resolvedAt": "2026-09-18T07:42:40.649149+00:00"
+            }
+          ],
+          "readiness": {
+            "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+            "status": "not-ready",
+            "clientReady": false,
+            "blockers": [],
+            "summary": "CPE AWAITING_HUMAN_APPROVAL; CLIENT_READY=false. 0 recorded readiness reasons.",
+            "assessedAt": "2026-09-18T07:37:29.248+00:00",
+            "mode": "devlab"
+          },
+          "events": [
+            {
+              "id": "392dc335-963b-457a-a078-5ac18a2f716f",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "RUN_LOCK_RELEASED",
+              "createdAt": "2026-09-18T07:42:41.737583+00:00",
+              "details": ""
+            },
+            {
+              "id": "7aa8a8d4-4a31-4741-9ae2-f62dcc19d965",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "RUN_LOCK_ACQUIRED",
+              "createdAt": "2026-09-18T07:42:39.468484+00:00",
+              "details": ""
+            },
+            {
+              "id": "82fe3aa9-15fa-41aa-9990-66287432e7fb",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "RUN_LOCK_RELEASED",
+              "createdAt": "2026-09-18T07:37:30.101574+00:00",
+              "details": ""
+            },
+            {
+              "id": "f7a3a283-2f04-4a19-96e6-c7751f78cfdc",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "GATE_REACHED",
+              "createdAt": "2026-09-18T07:37:29.722639+00:00",
+              "details": "stage: AWAITING_DIRECTION_APPROVAL"
+            },
+            {
+              "id": "335f6c7d-64f3-4177-9a3a-a7e3184a633b",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "STAGE_ADVANCED",
+              "createdAt": "2026-09-18T07:37:29.5883+00:00",
+              "details": "from: CONCEPT_REVIEW \u00b7 to: AWAITING_DIRECTION_APPROVAL"
+            },
+            {
+              "id": "ab26d103-2be9-4455-a630-4cabc47cd54a",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "ARTIFACT_VALIDATED",
+              "createdAt": "2026-09-18T07:37:28.980715+00:00",
+              "details": "stage: CONCEPT_REVIEW"
+            },
+            {
+              "id": "7a1739d6-3d8b-4767-940d-775af578ba79",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "AGENT_SUCCEEDED",
+              "createdAt": "2026-09-18T07:37:28.723758+00:00",
+              "agentName": "critic-learning-director",
+              "details": "stage: CONCEPT_REVIEW"
+            },
+            {
+              "id": "f01a3557-17b7-4ad1-b798-7760d773d472",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "AGENT_INVOKED",
+              "createdAt": "2026-09-18T07:37:17.932151+00:00",
+              "agentName": "critic-learning-director",
+              "details": "stage: CONCEPT_REVIEW"
+            },
+            {
+              "id": "5731706c-95b1-4e6f-bc3b-b94439275d32",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "STAGE_ADVANCED",
+              "createdAt": "2026-09-18T07:37:17.62759+00:00",
+              "details": "from: CONCEPTING \u00b7 to: CONCEPT_REVIEW"
+            },
+            {
+              "id": "0021cc97-d317-40c3-b974-cbefec44325c",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "ARTIFACT_VALIDATED",
+              "createdAt": "2026-09-18T07:37:17.015141+00:00",
+              "details": "stage: CONCEPTING"
+            }
+          ],
+          "artifacts": [
+            {
+              "id": "d01b67f7-a4e2-4dcb-abbf-05bc1f7f966c",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "title": "Approved creative direction for bridge-disposable-pass2",
+              "type": "creative_direction",
+              "createdAt": "2026-09-18T07:42:40.41363+00:00",
+              "metadata": {
+                "version": 1,
+                "createdBy": "Hudson (human approval)",
+                "transport": "not-published"
+              }
+            },
+            {
+              "id": "7044bbb1-da98-43c1-a4a5-3cb40bae3907",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "title": "concept_review for bridge-disposable-pass2 (run 1, orchestrator)",
+              "type": "concept_review",
+              "createdAt": "2026-09-18T07:37:29.216796+00:00",
+              "metadata": {
+                "version": 1,
+                "createdBy": "Critic & Learning Director",
+                "transport": "not-published"
+              }
+            },
+            {
+              "id": "26a3b6dd-70bd-4c68-b1d2-51c25ac39f18",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "title": "concept for bridge-disposable-pass2 (run 1, orchestrator)",
+              "type": "concept",
+              "createdAt": "2026-09-18T07:37:17.273896+00:00",
+              "metadata": {
+                "version": 1,
+                "createdBy": "Creative Director",
+                "transport": "not-published"
+              }
+            },
+            {
+              "previewUrl": "/api/bridge/artifacts/fcb86cba-ce80-4da1-b74c-15601314754e",
+              "downloadUrl": "/api/bridge/artifacts/fcb86cba-ce80-4da1-b74c-15601314754e?download=1",
+              "id": "5ac31b23-b48b-4f6f-92ce-d997b1e31988",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "title": "creative_intelligence_pack for bridge-disposable-pass2 (run 1, orchestrator)",
+              "type": "creative_intelligence_pack",
+              "createdAt": "2026-09-18T07:36:59.160267+00:00",
+              "metadata": {
+                "version": 1,
+                "createdBy": "Studio Director",
+                "transport": "private-r2"
+              }
+            }
+          ]
+        },
+        "artifactDeliveryMs": 635,
+        "artifactHash": "03fb2718e61774f653f1e28aac052d30e11bedf09aa9c1b09b4b63a9fe5a051d",
+        "browserErrors": []
+      },
+      {
+        "at": "2026-09-18T07:44:34.239Z",
+        "before": {
+          "runner": {
+            "runnerId": "hudson-mac-shadow",
+            "mode": "REAL",
+            "lastSeen": "2026-09-18T07:44:30.140Z",
+            "online": true,
+            "staleAfterSeconds": 45
+          },
+          "real": {
+            "projectSlug": "bridge-disposable-pass2",
+            "allowed": [
+              "CREATE_PROJECT",
+              "START_RUN",
+              "APPROVE_GATE",
+              "RESUME_RUN"
+            ],
+            "proven": [
+              "CREATE_PROJECT",
+              "START_RUN",
+              "APPROVE_GATE"
+            ],
+            "capabilities": {
+              "canCreateProject": true,
+              "canStartRun": true,
+              "canResumeRun": false,
+              "canApprove": true,
+              "canPauseRun": false,
+              "canCancelRun": false
+            },
+            "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+            "runId": "2aa4b130-5f9b-414b-8e40-ee576c75352a",
+            "stage": "EXPERIENCE_DESIGN",
+            "runStatus": "RUNNING",
+            "gate": null
+          }
+        },
+        "commands": [
+          {
+            "id": "0fe2be2b-8571-4ed9-8b1c-e697c963a009",
+            "project_id": "bridge-disposable-pass2",
+            "command_type": "RESUME_RUN",
+            "mode": "REAL",
+            "payload": "{\"runId\":\"2aa4b130-5f9b-414b-8e40-ee576c75352a\",\"expectedStage\":\"EXPERIENCE_DESIGN\"}",
+            "requested_by": "bridge-operator",
+            "idempotency_key": "b422cf37-cad0-4599-9630-5cc087829c8b",
+            "created_at": "2026-09-18T07:43:46.161Z",
+            "status": "RUNNING",
+            "claimed_by": "hudson-mac-shadow",
+            "claimed_at": "2026-09-18T07:43:48.614Z",
+            "attempt_count": 1,
+            "acknowledgment": "2026-09-18T07:43:49.182Z",
+            "result": null,
+            "error": null,
+            "completed_at": null,
+            "available_at": "2026-09-18T07:43:46.161Z",
+            "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T07:43:46.161Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T07:43:48.614Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T07:43:49.182Z\"}]",
+            "semantic_key": "bridge-disposable-pass2:RESUME_RUN:2aa4b130-5f9b-414b-8e40-ee576c75352a:EXPERIENCE_DESIGN",
+            "execution_id": "63d3e97c-553b-4d10-acea-587877243b8f",
+            "process_id": 9745,
+            "progress_at": "2026-09-18T07:44:31.302Z"
+          },
+          {
+            "id": "8aa99db4-47fb-4209-8b35-472aa2c7903d",
+            "project_id": "bridge-disposable-pass2",
+            "command_type": "APPROVE_GATE",
+            "mode": "REAL",
+            "payload": "{\"runId\":\"2aa4b130-5f9b-414b-8e40-ee576c75352a\",\"expectedStage\":\"AWAITING_DIRECTION_APPROVAL\",\"approvalType\":\"AWAITING_DIRECTION_APPROVAL\",\"gate\":\"AWAITING_DIRECTION_APPROVAL\"}",
+            "requested_by": "bridge-operator",
+            "idempotency_key": "9714895a-b61e-43e5-a5b9-da41e6fa3e2b",
+            "created_at": "2026-09-18T07:42:35.486Z",
+            "status": "SUCCEEDED",
+            "claimed_by": "hudson-mac-shadow",
+            "claimed_at": "2026-09-18T07:42:36.961Z",
+            "attempt_count": 1,
+            "acknowledgment": "2026-09-18T07:42:37.641Z",
+            "result": "{\"ok\": true, \"retryable\": false, \"code\": \"REAL_COMPLETED\", \"executionCount\": 1, \"executionId\": \"7942cb78-61e5-4bb5-a57d-9ad4c002b89f\", \"processId\": 9619, \"stdout\": \"CPE output retained privately\", \"stderr\": \"\", \"projectId\": \"5831d3a0-3205-4b7a-a141-d57bfc2c1782\", \"runId\": \"2aa4b130-5f9b-414b-8e40-ee576c75352a\", \"mode\": \"REAL\", \"cpeInvoked\": true}",
+            "error": null,
+            "completed_at": "2026-09-18T07:42:44.760Z",
+            "available_at": "2026-09-18T07:42:44.760Z",
+            "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T07:42:35.486Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T07:42:36.961Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T07:42:37.641Z\"},{\"status\":\"SUCCEEDED\",\"at\":\"2026-09-18T07:42:44.760Z\"}]",
+            "semantic_key": "bridge-disposable-pass2:APPROVE_GATE:2aa4b130-5f9b-414b-8e40-ee576c75352a:AWAITING_DIRECTION_APPROVAL",
+            "execution_id": "7942cb78-61e5-4bb5-a57d-9ad4c002b89f",
+            "process_id": 9619,
+            "progress_at": "2026-09-18T07:42:44.263Z"
+          },
+          {
+            "id": "ee843b38-c2b3-46d4-a1e3-348105bc3210",
+            "project_id": "bridge-disposable-pass2",
+            "command_type": "APPROVE_GATE",
+            "mode": "REAL",
+            "payload": "{\"runId\":\"2aa4b130-5f9b-414b-8e40-ee576c75352a\",\"expectedStage\":\"AWAITING_DIRECTION_APPROVAL\",\"approvalType\":\"AWAITING_DIRECTION_APPROVAL\",\"gate\":\"AWAITING_DIRECTION_APPROVAL\"}",
+            "requested_by": "bridge-operator",
+            "idempotency_key": "027cdd17-b620-418f-84f2-4aea9e94f8fe",
+            "created_at": "2026-09-18T07:40:01.194Z",
+            "status": "FAILED",
+            "claimed_by": "hudson-mac-shadow",
+            "claimed_at": "2026-09-18T07:40:02.367Z",
+            "attempt_count": 1,
+            "acknowledgment": "2026-09-18T07:40:03.032Z",
+            "result": "{\"ok\": false, \"retryable\": false, \"code\": \"FENCE_REJECTED\", \"executionCount\": 0, \"executionId\": \"852d211e-6205-4f86-aad5-537ce2d18049\", \"stdout\": \"CPE output retained privately\", \"stderr\": \"FENCE_REJECTED\", \"mode\": \"REAL\", \"cpeInvoked\": false}",
+            "error": "FENCE_REJECTED",
+            "completed_at": "2026-09-18T07:40:07.928Z",
+            "available_at": "2026-09-18T07:40:07.928Z",
+            "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T07:40:01.194Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T07:40:02.367Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T07:40:03.032Z\"},{\"status\":\"FAILED\",\"at\":\"2026-09-18T07:40:07.928Z\"}]",
+            "semantic_key": null,
+            "execution_id": "852d211e-6205-4f86-aad5-537ce2d18049",
+            "process_id": null,
+            "progress_at": "2026-09-18T07:40:07.387Z"
+          },
+          {
+            "id": "5478334f-79c6-4c5e-a0cd-bf8c5a2c74c3",
+            "project_id": "bridge-disposable-pass2",
+            "command_type": "APPROVE_GATE",
+            "mode": "REAL",
+            "payload": "{\"runId\":\"2aa4b130-5f9b-414b-8e40-ee576c75352a\",\"expectedStage\":\"CONCEPT_REVIEW\",\"approvalType\":\"AWAITING_DIRECTION_APPROVAL\",\"gate\":\"AWAITING_DIRECTION_APPROVAL\"}",
+            "requested_by": "bridge-operator",
+            "idempotency_key": "d0f74d16-5bc9-4a33-8e49-efa9704c379a",
+            "created_at": "2026-09-18T07:39:29.052Z",
+            "status": "FAILED",
+            "claimed_by": "hudson-mac-shadow",
+            "claimed_at": "2026-09-18T07:39:29.992Z",
+            "attempt_count": 1,
+            "acknowledgment": "2026-09-18T07:39:30.964Z",
+            "result": "{\"ok\": false, \"retryable\": false, \"code\": \"FENCE_REJECTED\", \"executionCount\": 0, \"executionId\": \"980cf89d-85d6-49aa-8c5c-977dc685760e\", \"stdout\": \"CPE output retained privately\", \"stderr\": \"FENCE_REJECTED\", \"mode\": \"REAL\", \"cpeInvoked\": false}",
+            "error": "FENCE_REJECTED",
+            "completed_at": "2026-09-18T07:39:35.402Z",
+            "available_at": "2026-09-18T07:39:35.402Z",
+            "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T07:39:29.052Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T07:39:29.992Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T07:39:30.964Z\"},{\"status\":\"FAILED\",\"at\":\"2026-09-18T07:39:35.402Z\"}]",
+            "semantic_key": "bridge-disposable-pass2:APPROVE_GATE:2aa4b130-5f9b-414b-8e40-ee576c75352a:CONCEPT_REVIEW",
+            "execution_id": "980cf89d-85d6-49aa-8c5c-977dc685760e",
+            "process_id": null,
+            "progress_at": "2026-09-18T07:39:34.915Z"
+          },
+          {
+            "id": "3fbce124-fc53-42ad-8272-8ef3b689ec6a",
+            "project_id": "bridge-disposable-pass2",
+            "command_type": "APPROVE_GATE",
+            "mode": "REAL",
+            "payload": "{\"runId\":\"23dd5e1d-96ae-4555-bdb1-9d50dd3e04b6\",\"expectedStage\":\"AWAITING_DIRECTION_APPROVAL\",\"approvalType\":\"AWAITING_DIRECTION_APPROVAL\",\"gate\":\"AWAITING_DIRECTION_APPROVAL\"}",
+            "requested_by": "bridge-operator",
+            "idempotency_key": "6b3c17ee-c9e1-4aa5-9c75-8d820c903fd6",
+            "created_at": "2026-09-18T07:39:19.699Z",
+            "status": "FAILED",
+            "claimed_by": "hudson-mac-shadow",
+            "claimed_at": "2026-09-18T07:39:20.892Z",
+            "attempt_count": 1,
+            "acknowledgment": "2026-09-18T07:39:21.816Z",
+            "result": "{\"ok\": false, \"retryable\": false, \"code\": \"FENCE_REJECTED\", \"executionCount\": 0, \"executionId\": \"7b0283b2-cd5e-4972-ad15-b29eedd2f117\", \"stdout\": \"CPE output retained privately\", \"stderr\": \"FENCE_REJECTED\", \"mode\": \"REAL\", \"cpeInvoked\": false}",
+            "error": "FENCE_REJECTED",
+            "completed_at": "2026-09-18T07:39:26.500Z",
+            "available_at": "2026-09-18T07:39:26.500Z",
+            "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T07:39:19.699Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T07:39:20.892Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T07:39:21.816Z\"},{\"status\":\"FAILED\",\"at\":\"2026-09-18T07:39:26.500Z\"}]",
+            "semantic_key": "bridge-disposable-pass2:APPROVE_GATE:23dd5e1d-96ae-4555-bdb1-9d50dd3e04b6:AWAITING_DIRECTION_APPROVAL",
+            "execution_id": "7b0283b2-cd5e-4972-ad15-b29eedd2f117",
+            "process_id": null,
+            "progress_at": "2026-09-18T07:39:25.629Z"
+          },
+          {
+            "id": "be226fee-5205-41a0-9c14-ec3cc4cc19a6",
+            "project_id": "bridge-disposable-pass2",
+            "command_type": "START_RUN",
+            "mode": "REAL",
+            "payload": "{}",
+            "requested_by": "bridge-operator",
+            "idempotency_key": "40c00947-7d4d-45a1-9ea3-34f7bd975103",
+            "created_at": "2026-09-18T07:36:38.571Z",
+            "status": "SUCCEEDED",
+            "claimed_by": "hudson-mac-shadow",
+            "claimed_at": "2026-09-18T07:36:40.813Z",
+            "attempt_count": 1,
+            "acknowledgment": "2026-09-18T07:36:41.365Z",
+            "result": "{\"ok\": true, \"retryable\": false, \"code\": \"REAL_COMPLETED\", \"executionCount\": 1, \"executionId\": \"c787dea8-b486-43e0-bd86-388fc8a65886\", \"processId\": 8995, \"stdout\": \"CPE output retained privately\", \"stderr\": \"\", \"projectId\": \"5831d3a0-3205-4b7a-a141-d57bfc2c1782\", \"runId\": \"2aa4b130-5f9b-414b-8e40-ee576c75352a\", \"mode\": \"REAL\", \"cpeInvoked\": true}",
+            "error": null,
+            "completed_at": "2026-09-18T07:38:40.561Z",
+            "available_at": "2026-09-18T07:38:40.561Z",
+            "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T07:36:38.571Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T07:36:40.813Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T07:36:41.365Z\"},{\"status\":\"SUCCEEDED\",\"at\":\"2026-09-18T07:38:40.561Z\"}]",
+            "semantic_key": "bridge-disposable-pass2:START_RUN::",
+            "execution_id": "c787dea8-b486-43e0-bd86-388fc8a65886",
+            "process_id": 8995,
+            "progress_at": "2026-09-18T07:38:40.049Z"
+          },
+          {
+            "id": "a6069c88-a995-498e-b7cc-00c52bcd6947",
+            "project_id": "bridge-disposable-pass2",
+            "command_type": "CREATE_PROJECT",
+            "mode": "REAL",
+            "payload": "{}",
+            "requested_by": "bridge-operator",
+            "idempotency_key": "0b6be37e-46b3-4d5d-b377-ef09e1babb29",
+            "created_at": "2026-09-18T07:34:29.981Z",
+            "status": "SUCCEEDED",
+            "claimed_by": "hudson-mac-shadow",
+            "claimed_at": "2026-09-18T07:34:53.749Z",
+            "attempt_count": 1,
+            "acknowledgment": "2026-09-18T07:34:54.720Z",
+            "result": "{\"ok\": true, \"retryable\": false, \"code\": \"REAL_COMPLETED\", \"executionCount\": 1, \"executionId\": \"e06cf050-464d-479b-b39d-6a40350a1d51\", \"processId\": 8742, \"stdout\": \"CPE output retained privately\", \"stderr\": \"\", \"projectId\": \"5831d3a0-3205-4b7a-a141-d57bfc2c1782\", \"mode\": \"REAL\", \"cpeInvoked\": true}",
+            "error": null,
+            "completed_at": "2026-09-18T07:34:59.030Z",
+            "available_at": "2026-09-18T07:34:59.030Z",
+            "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T07:34:29.981Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T07:34:53.749Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T07:34:54.720Z\"},{\"status\":\"SUCCEEDED\",\"at\":\"2026-09-18T07:34:59.030Z\"}]",
+            "semantic_key": "bridge-disposable-pass2:CREATE_PROJECT::",
+            "execution_id": "e06cf050-464d-479b-b39d-6a40350a1d51",
+            "process_id": 8742,
+            "progress_at": "2026-09-18T07:34:58.402Z"
+          }
+        ],
+        "artifacts": [
+          {
+            "id": "fcb86cba-ce80-4da1-b74c-15601314754e",
+            "sourceArtifactId": "5ac31b23-b48b-4f6f-92ce-d997b1e31988",
+            "mimeType": "application/json",
+            "bytes": 1081,
+            "sha256": "03fb2718e61774f653f1e28aac052d30e11bedf09aa9c1b09b4b63a9fe5a051d",
+            "previewUrl": "/api/bridge/artifacts/fcb86cba-ce80-4da1-b74c-15601314754e",
+            "downloadUrl": "/api/bridge/artifacts/fcb86cba-ce80-4da1-b74c-15601314754e?download=1"
+          }
+        ],
+        "readMs": 883,
+        "observed": {
+          "project": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+          "slug": "bridge-disposable-pass2",
+          "stage": "EXPERIENCE_DESIGN",
+          "productionRun": {
+            "id": "2aa4b130-5f9b-414b-8e40-ee576c75352a",
+            "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+            "status": "RUNNING",
+            "stageId": "EXPERIENCE_DESIGN",
+            "startedAt": "2026-09-18T07:36:45.172738+00:00",
+            "updatedAt": "2026-09-18T07:43:53.278+00:00",
+            "mode": "devlab",
+            "iterationNumber": 0,
+            "responsibleAgent": "",
+            "lastAgent": "experience-designer"
+          },
+          "approvals": [
+            {
+              "id": "65965688-9aa9-45b7-afa4-7ea582144a0f",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "title": "AWAITING_DIRECTION_APPROVAL",
+              "description": "Recorded human approval in CPE",
+              "kind": "AWAITING_DIRECTION_APPROVAL",
+              "status": "approved",
+              "createdAt": "2026-09-18T07:42:40.649149+00:00",
+              "resolvedAt": "2026-09-18T07:42:40.649149+00:00"
+            }
+          ],
+          "readiness": {
+            "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+            "status": "not-ready",
+            "clientReady": false,
+            "blockers": [],
+            "summary": "CPE RUNNING; CLIENT_READY=false. 0 recorded readiness reasons.",
+            "assessedAt": "2026-09-18T07:43:53.278+00:00",
+            "mode": "devlab"
+          },
+          "events": [
+            {
+              "id": "70bc465f-e5e8-4d8f-9aaf-78d865dd53f3",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "AGENT_INVOKED",
+              "createdAt": "2026-09-18T07:43:54.684894+00:00",
+              "agentName": "experience-designer",
+              "details": "stage: EXPERIENCE_DESIGN"
+            },
+            {
+              "id": "d0b24a6f-c4c1-414f-bbcc-d0eaf560e98f",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "GATE_APPROVED",
+              "createdAt": "2026-09-18T07:43:53.563733+00:00",
+              "details": "from: AWAITING_DIRECTION_APPROVAL \u00b7 to: EXPERIENCE_DESIGN"
+            },
+            {
+              "id": "f00f4950-352e-4158-bc18-1a78ab1e2a55",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "RUN_LOCK_ACQUIRED",
+              "createdAt": "2026-09-18T07:43:53.037554+00:00",
+              "details": ""
+            },
+            {
+              "id": "392dc335-963b-457a-a078-5ac18a2f716f",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "RUN_LOCK_RELEASED",
+              "createdAt": "2026-09-18T07:42:41.737583+00:00",
+              "details": ""
+            },
+            {
+              "id": "7aa8a8d4-4a31-4741-9ae2-f62dcc19d965",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "RUN_LOCK_ACQUIRED",
+              "createdAt": "2026-09-18T07:42:39.468484+00:00",
+              "details": ""
+            },
+            {
+              "id": "82fe3aa9-15fa-41aa-9990-66287432e7fb",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "RUN_LOCK_RELEASED",
+              "createdAt": "2026-09-18T07:37:30.101574+00:00",
+              "details": ""
+            },
+            {
+              "id": "f7a3a283-2f04-4a19-96e6-c7751f78cfdc",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "GATE_REACHED",
+              "createdAt": "2026-09-18T07:37:29.722639+00:00",
+              "details": "stage: AWAITING_DIRECTION_APPROVAL"
+            },
+            {
+              "id": "335f6c7d-64f3-4177-9a3a-a7e3184a633b",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "STAGE_ADVANCED",
+              "createdAt": "2026-09-18T07:37:29.5883+00:00",
+              "details": "from: CONCEPT_REVIEW \u00b7 to: AWAITING_DIRECTION_APPROVAL"
+            },
+            {
+              "id": "ab26d103-2be9-4455-a630-4cabc47cd54a",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "ARTIFACT_VALIDATED",
+              "createdAt": "2026-09-18T07:37:28.980715+00:00",
+              "details": "stage: CONCEPT_REVIEW"
+            },
+            {
+              "id": "7a1739d6-3d8b-4767-940d-775af578ba79",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "AGENT_SUCCEEDED",
+              "createdAt": "2026-09-18T07:37:28.723758+00:00",
+              "agentName": "critic-learning-director",
+              "details": "stage: CONCEPT_REVIEW"
+            }
+          ],
+          "artifacts": [
+            {
+              "id": "d01b67f7-a4e2-4dcb-abbf-05bc1f7f966c",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "title": "Approved creative direction for bridge-disposable-pass2",
+              "type": "creative_direction",
+              "createdAt": "2026-09-18T07:42:40.41363+00:00",
+              "metadata": {
+                "version": 1,
+                "createdBy": "Hudson (human approval)",
+                "transport": "not-published"
+              }
+            },
+            {
+              "id": "7044bbb1-da98-43c1-a4a5-3cb40bae3907",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "title": "concept_review for bridge-disposable-pass2 (run 1, orchestrator)",
+              "type": "concept_review",
+              "createdAt": "2026-09-18T07:37:29.216796+00:00",
+              "metadata": {
+                "version": 1,
+                "createdBy": "Critic & Learning Director",
+                "transport": "not-published"
+              }
+            },
+            {
+              "id": "26a3b6dd-70bd-4c68-b1d2-51c25ac39f18",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "title": "concept for bridge-disposable-pass2 (run 1, orchestrator)",
+              "type": "concept",
+              "createdAt": "2026-09-18T07:37:17.273896+00:00",
+              "metadata": {
+                "version": 1,
+                "createdBy": "Creative Director",
+                "transport": "not-published"
+              }
+            },
+            {
+              "previewUrl": "/api/bridge/artifacts/fcb86cba-ce80-4da1-b74c-15601314754e",
+              "downloadUrl": "/api/bridge/artifacts/fcb86cba-ce80-4da1-b74c-15601314754e?download=1",
+              "id": "5ac31b23-b48b-4f6f-92ce-d997b1e31988",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "title": "creative_intelligence_pack for bridge-disposable-pass2 (run 1, orchestrator)",
+              "type": "creative_intelligence_pack",
+              "createdAt": "2026-09-18T07:36:59.160267+00:00",
+              "metadata": {
+                "version": 1,
+                "createdBy": "Studio Director",
+                "transport": "private-r2"
+              }
+            }
+          ]
+        },
+        "artifactDeliveryMs": 546,
+        "artifactHash": "03fb2718e61774f653f1e28aac052d30e11bedf09aa9c1b09b4b63a9fe5a051d",
+        "browserErrors": []
+      },
+      {
+        "at": "2026-09-18T07:45:37.218Z",
+        "before": {
+          "runner": {
+            "runnerId": "hudson-mac-shadow",
+            "mode": "REAL",
+            "lastSeen": "2026-09-18T07:45:29.534Z",
+            "online": true,
+            "staleAfterSeconds": 45
+          },
+          "real": {
+            "projectSlug": "bridge-disposable-pass2",
+            "allowed": [
+              "CREATE_PROJECT",
+              "START_RUN",
+              "APPROVE_GATE",
+              "RESUME_RUN"
+            ],
+            "proven": [
+              "CREATE_PROJECT",
+              "START_RUN",
+              "APPROVE_GATE"
+            ],
+            "capabilities": {
+              "canCreateProject": true,
+              "canStartRun": true,
+              "canResumeRun": false,
+              "canApprove": true,
+              "canPauseRun": false,
+              "canCancelRun": false
+            },
+            "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+            "runId": "2aa4b130-5f9b-414b-8e40-ee576c75352a",
+            "stage": "EXPERIENCE_DESIGN",
+            "runStatus": "RUNNING",
+            "gate": null
+          }
+        },
+        "commands": [
+          {
+            "id": "0fe2be2b-8571-4ed9-8b1c-e697c963a009",
+            "project_id": "bridge-disposable-pass2",
+            "command_type": "RESUME_RUN",
+            "mode": "REAL",
+            "payload": "{\"runId\":\"2aa4b130-5f9b-414b-8e40-ee576c75352a\",\"expectedStage\":\"EXPERIENCE_DESIGN\"}",
+            "requested_by": "bridge-operator",
+            "idempotency_key": "b422cf37-cad0-4599-9630-5cc087829c8b",
+            "created_at": "2026-09-18T07:43:46.161Z",
+            "status": "RUNNING",
+            "claimed_by": "hudson-mac-shadow",
+            "claimed_at": "2026-09-18T07:43:48.614Z",
+            "attempt_count": 1,
+            "acknowledgment": "2026-09-18T07:43:49.182Z",
+            "result": null,
+            "error": null,
+            "completed_at": null,
+            "available_at": "2026-09-18T07:43:46.161Z",
+            "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T07:43:46.161Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T07:43:48.614Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T07:43:49.182Z\"}]",
+            "semantic_key": "bridge-disposable-pass2:RESUME_RUN:2aa4b130-5f9b-414b-8e40-ee576c75352a:EXPERIENCE_DESIGN",
+            "execution_id": "63d3e97c-553b-4d10-acea-587877243b8f",
+            "process_id": 9745,
+            "progress_at": "2026-09-18T07:45:35.224Z"
+          },
+          {
+            "id": "8aa99db4-47fb-4209-8b35-472aa2c7903d",
+            "project_id": "bridge-disposable-pass2",
+            "command_type": "APPROVE_GATE",
+            "mode": "REAL",
+            "payload": "{\"runId\":\"2aa4b130-5f9b-414b-8e40-ee576c75352a\",\"expectedStage\":\"AWAITING_DIRECTION_APPROVAL\",\"approvalType\":\"AWAITING_DIRECTION_APPROVAL\",\"gate\":\"AWAITING_DIRECTION_APPROVAL\"}",
+            "requested_by": "bridge-operator",
+            "idempotency_key": "9714895a-b61e-43e5-a5b9-da41e6fa3e2b",
+            "created_at": "2026-09-18T07:42:35.486Z",
+            "status": "SUCCEEDED",
+            "claimed_by": "hudson-mac-shadow",
+            "claimed_at": "2026-09-18T07:42:36.961Z",
+            "attempt_count": 1,
+            "acknowledgment": "2026-09-18T07:42:37.641Z",
+            "result": "{\"ok\": true, \"retryable\": false, \"code\": \"REAL_COMPLETED\", \"executionCount\": 1, \"executionId\": \"7942cb78-61e5-4bb5-a57d-9ad4c002b89f\", \"processId\": 9619, \"stdout\": \"CPE output retained privately\", \"stderr\": \"\", \"projectId\": \"5831d3a0-3205-4b7a-a141-d57bfc2c1782\", \"runId\": \"2aa4b130-5f9b-414b-8e40-ee576c75352a\", \"mode\": \"REAL\", \"cpeInvoked\": true}",
+            "error": null,
+            "completed_at": "2026-09-18T07:42:44.760Z",
+            "available_at": "2026-09-18T07:42:44.760Z",
+            "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T07:42:35.486Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T07:42:36.961Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T07:42:37.641Z\"},{\"status\":\"SUCCEEDED\",\"at\":\"2026-09-18T07:42:44.760Z\"}]",
+            "semantic_key": "bridge-disposable-pass2:APPROVE_GATE:2aa4b130-5f9b-414b-8e40-ee576c75352a:AWAITING_DIRECTION_APPROVAL",
+            "execution_id": "7942cb78-61e5-4bb5-a57d-9ad4c002b89f",
+            "process_id": 9619,
+            "progress_at": "2026-09-18T07:42:44.263Z"
+          },
+          {
+            "id": "ee843b38-c2b3-46d4-a1e3-348105bc3210",
+            "project_id": "bridge-disposable-pass2",
+            "command_type": "APPROVE_GATE",
+            "mode": "REAL",
+            "payload": "{\"runId\":\"2aa4b130-5f9b-414b-8e40-ee576c75352a\",\"expectedStage\":\"AWAITING_DIRECTION_APPROVAL\",\"approvalType\":\"AWAITING_DIRECTION_APPROVAL\",\"gate\":\"AWAITING_DIRECTION_APPROVAL\"}",
+            "requested_by": "bridge-operator",
+            "idempotency_key": "027cdd17-b620-418f-84f2-4aea9e94f8fe",
+            "created_at": "2026-09-18T07:40:01.194Z",
+            "status": "FAILED",
+            "claimed_by": "hudson-mac-shadow",
+            "claimed_at": "2026-09-18T07:40:02.367Z",
+            "attempt_count": 1,
+            "acknowledgment": "2026-09-18T07:40:03.032Z",
+            "result": "{\"ok\": false, \"retryable\": false, \"code\": \"FENCE_REJECTED\", \"executionCount\": 0, \"executionId\": \"852d211e-6205-4f86-aad5-537ce2d18049\", \"stdout\": \"CPE output retained privately\", \"stderr\": \"FENCE_REJECTED\", \"mode\": \"REAL\", \"cpeInvoked\": false}",
+            "error": "FENCE_REJECTED",
+            "completed_at": "2026-09-18T07:40:07.928Z",
+            "available_at": "2026-09-18T07:40:07.928Z",
+            "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T07:40:01.194Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T07:40:02.367Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T07:40:03.032Z\"},{\"status\":\"FAILED\",\"at\":\"2026-09-18T07:40:07.928Z\"}]",
+            "semantic_key": null,
+            "execution_id": "852d211e-6205-4f86-aad5-537ce2d18049",
+            "process_id": null,
+            "progress_at": "2026-09-18T07:40:07.387Z"
+          },
+          {
+            "id": "5478334f-79c6-4c5e-a0cd-bf8c5a2c74c3",
+            "project_id": "bridge-disposable-pass2",
+            "command_type": "APPROVE_GATE",
+            "mode": "REAL",
+            "payload": "{\"runId\":\"2aa4b130-5f9b-414b-8e40-ee576c75352a\",\"expectedStage\":\"CONCEPT_REVIEW\",\"approvalType\":\"AWAITING_DIRECTION_APPROVAL\",\"gate\":\"AWAITING_DIRECTION_APPROVAL\"}",
+            "requested_by": "bridge-operator",
+            "idempotency_key": "d0f74d16-5bc9-4a33-8e49-efa9704c379a",
+            "created_at": "2026-09-18T07:39:29.052Z",
+            "status": "FAILED",
+            "claimed_by": "hudson-mac-shadow",
+            "claimed_at": "2026-09-18T07:39:29.992Z",
+            "attempt_count": 1,
+            "acknowledgment": "2026-09-18T07:39:30.964Z",
+            "result": "{\"ok\": false, \"retryable\": false, \"code\": \"FENCE_REJECTED\", \"executionCount\": 0, \"executionId\": \"980cf89d-85d6-49aa-8c5c-977dc685760e\", \"stdout\": \"CPE output retained privately\", \"stderr\": \"FENCE_REJECTED\", \"mode\": \"REAL\", \"cpeInvoked\": false}",
+            "error": "FENCE_REJECTED",
+            "completed_at": "2026-09-18T07:39:35.402Z",
+            "available_at": "2026-09-18T07:39:35.402Z",
+            "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T07:39:29.052Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T07:39:29.992Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T07:39:30.964Z\"},{\"status\":\"FAILED\",\"at\":\"2026-09-18T07:39:35.402Z\"}]",
+            "semantic_key": "bridge-disposable-pass2:APPROVE_GATE:2aa4b130-5f9b-414b-8e40-ee576c75352a:CONCEPT_REVIEW",
+            "execution_id": "980cf89d-85d6-49aa-8c5c-977dc685760e",
+            "process_id": null,
+            "progress_at": "2026-09-18T07:39:34.915Z"
+          },
+          {
+            "id": "3fbce124-fc53-42ad-8272-8ef3b689ec6a",
+            "project_id": "bridge-disposable-pass2",
+            "command_type": "APPROVE_GATE",
+            "mode": "REAL",
+            "payload": "{\"runId\":\"23dd5e1d-96ae-4555-bdb1-9d50dd3e04b6\",\"expectedStage\":\"AWAITING_DIRECTION_APPROVAL\",\"approvalType\":\"AWAITING_DIRECTION_APPROVAL\",\"gate\":\"AWAITING_DIRECTION_APPROVAL\"}",
+            "requested_by": "bridge-operator",
+            "idempotency_key": "6b3c17ee-c9e1-4aa5-9c75-8d820c903fd6",
+            "created_at": "2026-09-18T07:39:19.699Z",
+            "status": "FAILED",
+            "claimed_by": "hudson-mac-shadow",
+            "claimed_at": "2026-09-18T07:39:20.892Z",
+            "attempt_count": 1,
+            "acknowledgment": "2026-09-18T07:39:21.816Z",
+            "result": "{\"ok\": false, \"retryable\": false, \"code\": \"FENCE_REJECTED\", \"executionCount\": 0, \"executionId\": \"7b0283b2-cd5e-4972-ad15-b29eedd2f117\", \"stdout\": \"CPE output retained privately\", \"stderr\": \"FENCE_REJECTED\", \"mode\": \"REAL\", \"cpeInvoked\": false}",
+            "error": "FENCE_REJECTED",
+            "completed_at": "2026-09-18T07:39:26.500Z",
+            "available_at": "2026-09-18T07:39:26.500Z",
+            "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T07:39:19.699Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T07:39:20.892Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T07:39:21.816Z\"},{\"status\":\"FAILED\",\"at\":\"2026-09-18T07:39:26.500Z\"}]",
+            "semantic_key": "bridge-disposable-pass2:APPROVE_GATE:23dd5e1d-96ae-4555-bdb1-9d50dd3e04b6:AWAITING_DIRECTION_APPROVAL",
+            "execution_id": "7b0283b2-cd5e-4972-ad15-b29eedd2f117",
+            "process_id": null,
+            "progress_at": "2026-09-18T07:39:25.629Z"
+          },
+          {
+            "id": "be226fee-5205-41a0-9c14-ec3cc4cc19a6",
+            "project_id": "bridge-disposable-pass2",
+            "command_type": "START_RUN",
+            "mode": "REAL",
+            "payload": "{}",
+            "requested_by": "bridge-operator",
+            "idempotency_key": "40c00947-7d4d-45a1-9ea3-34f7bd975103",
+            "created_at": "2026-09-18T07:36:38.571Z",
+            "status": "SUCCEEDED",
+            "claimed_by": "hudson-mac-shadow",
+            "claimed_at": "2026-09-18T07:36:40.813Z",
+            "attempt_count": 1,
+            "acknowledgment": "2026-09-18T07:36:41.365Z",
+            "result": "{\"ok\": true, \"retryable\": false, \"code\": \"REAL_COMPLETED\", \"executionCount\": 1, \"executionId\": \"c787dea8-b486-43e0-bd86-388fc8a65886\", \"processId\": 8995, \"stdout\": \"CPE output retained privately\", \"stderr\": \"\", \"projectId\": \"5831d3a0-3205-4b7a-a141-d57bfc2c1782\", \"runId\": \"2aa4b130-5f9b-414b-8e40-ee576c75352a\", \"mode\": \"REAL\", \"cpeInvoked\": true}",
+            "error": null,
+            "completed_at": "2026-09-18T07:38:40.561Z",
+            "available_at": "2026-09-18T07:38:40.561Z",
+            "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T07:36:38.571Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T07:36:40.813Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T07:36:41.365Z\"},{\"status\":\"SUCCEEDED\",\"at\":\"2026-09-18T07:38:40.561Z\"}]",
+            "semantic_key": "bridge-disposable-pass2:START_RUN::",
+            "execution_id": "c787dea8-b486-43e0-bd86-388fc8a65886",
+            "process_id": 8995,
+            "progress_at": "2026-09-18T07:38:40.049Z"
+          },
+          {
+            "id": "a6069c88-a995-498e-b7cc-00c52bcd6947",
+            "project_id": "bridge-disposable-pass2",
+            "command_type": "CREATE_PROJECT",
+            "mode": "REAL",
+            "payload": "{}",
+            "requested_by": "bridge-operator",
+            "idempotency_key": "0b6be37e-46b3-4d5d-b377-ef09e1babb29",
+            "created_at": "2026-09-18T07:34:29.981Z",
+            "status": "SUCCEEDED",
+            "claimed_by": "hudson-mac-shadow",
+            "claimed_at": "2026-09-18T07:34:53.749Z",
+            "attempt_count": 1,
+            "acknowledgment": "2026-09-18T07:34:54.720Z",
+            "result": "{\"ok\": true, \"retryable\": false, \"code\": \"REAL_COMPLETED\", \"executionCount\": 1, \"executionId\": \"e06cf050-464d-479b-b39d-6a40350a1d51\", \"processId\": 8742, \"stdout\": \"CPE output retained privately\", \"stderr\": \"\", \"projectId\": \"5831d3a0-3205-4b7a-a141-d57bfc2c1782\", \"mode\": \"REAL\", \"cpeInvoked\": true}",
+            "error": null,
+            "completed_at": "2026-09-18T07:34:59.030Z",
+            "available_at": "2026-09-18T07:34:59.030Z",
+            "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T07:34:29.981Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T07:34:53.749Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T07:34:54.720Z\"},{\"status\":\"SUCCEEDED\",\"at\":\"2026-09-18T07:34:59.030Z\"}]",
+            "semantic_key": "bridge-disposable-pass2:CREATE_PROJECT::",
+            "execution_id": "e06cf050-464d-479b-b39d-6a40350a1d51",
+            "process_id": 8742,
+            "progress_at": "2026-09-18T07:34:58.402Z"
+          }
+        ],
+        "artifacts": [
+          {
+            "id": "fcb86cba-ce80-4da1-b74c-15601314754e",
+            "sourceArtifactId": "5ac31b23-b48b-4f6f-92ce-d997b1e31988",
+            "mimeType": "application/json",
+            "bytes": 1081,
+            "sha256": "03fb2718e61774f653f1e28aac052d30e11bedf09aa9c1b09b4b63a9fe5a051d",
+            "previewUrl": "/api/bridge/artifacts/fcb86cba-ce80-4da1-b74c-15601314754e",
+            "downloadUrl": "/api/bridge/artifacts/fcb86cba-ce80-4da1-b74c-15601314754e?download=1"
+          }
+        ],
+        "readMs": 900,
+        "observed": {
+          "project": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+          "slug": "bridge-disposable-pass2",
+          "stage": "EXPERIENCE_DESIGN",
+          "productionRun": {
+            "id": "2aa4b130-5f9b-414b-8e40-ee576c75352a",
+            "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+            "status": "RUNNING",
+            "stageId": "EXPERIENCE_DESIGN",
+            "startedAt": "2026-09-18T07:36:45.172738+00:00",
+            "updatedAt": "2026-09-18T07:43:53.278+00:00",
+            "mode": "devlab",
+            "iterationNumber": 0,
+            "responsibleAgent": "",
+            "lastAgent": "experience-designer"
+          },
+          "approvals": [
+            {
+              "id": "65965688-9aa9-45b7-afa4-7ea582144a0f",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "title": "AWAITING_DIRECTION_APPROVAL",
+              "description": "Recorded human approval in CPE",
+              "kind": "AWAITING_DIRECTION_APPROVAL",
+              "status": "approved",
+              "createdAt": "2026-09-18T07:42:40.649149+00:00",
+              "resolvedAt": "2026-09-18T07:42:40.649149+00:00"
+            }
+          ],
+          "readiness": {
+            "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+            "status": "not-ready",
+            "clientReady": false,
+            "blockers": [],
+            "summary": "CPE RUNNING; CLIENT_READY=false. 0 recorded readiness reasons.",
+            "assessedAt": "2026-09-18T07:43:53.278+00:00",
+            "mode": "devlab"
+          },
+          "events": [
+            {
+              "id": "70bc465f-e5e8-4d8f-9aaf-78d865dd53f3",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "AGENT_INVOKED",
+              "createdAt": "2026-09-18T07:43:54.684894+00:00",
+              "agentName": "experience-designer",
+              "details": "stage: EXPERIENCE_DESIGN"
+            },
+            {
+              "id": "d0b24a6f-c4c1-414f-bbcc-d0eaf560e98f",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "GATE_APPROVED",
+              "createdAt": "2026-09-18T07:43:53.563733+00:00",
+              "details": "from: AWAITING_DIRECTION_APPROVAL \u00b7 to: EXPERIENCE_DESIGN"
+            },
+            {
+              "id": "f00f4950-352e-4158-bc18-1a78ab1e2a55",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "RUN_LOCK_ACQUIRED",
+              "createdAt": "2026-09-18T07:43:53.037554+00:00",
+              "details": ""
+            },
+            {
+              "id": "392dc335-963b-457a-a078-5ac18a2f716f",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "RUN_LOCK_RELEASED",
+              "createdAt": "2026-09-18T07:42:41.737583+00:00",
+              "details": ""
+            },
+            {
+              "id": "7aa8a8d4-4a31-4741-9ae2-f62dcc19d965",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "RUN_LOCK_ACQUIRED",
+              "createdAt": "2026-09-18T07:42:39.468484+00:00",
+              "details": ""
+            },
+            {
+              "id": "82fe3aa9-15fa-41aa-9990-66287432e7fb",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "RUN_LOCK_RELEASED",
+              "createdAt": "2026-09-18T07:37:30.101574+00:00",
+              "details": ""
+            },
+            {
+              "id": "f7a3a283-2f04-4a19-96e6-c7751f78cfdc",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "GATE_REACHED",
+              "createdAt": "2026-09-18T07:37:29.722639+00:00",
+              "details": "stage: AWAITING_DIRECTION_APPROVAL"
+            },
+            {
+              "id": "335f6c7d-64f3-4177-9a3a-a7e3184a633b",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "STAGE_ADVANCED",
+              "createdAt": "2026-09-18T07:37:29.5883+00:00",
+              "details": "from: CONCEPT_REVIEW \u00b7 to: AWAITING_DIRECTION_APPROVAL"
+            },
+            {
+              "id": "ab26d103-2be9-4455-a630-4cabc47cd54a",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "ARTIFACT_VALIDATED",
+              "createdAt": "2026-09-18T07:37:28.980715+00:00",
+              "details": "stage: CONCEPT_REVIEW"
+            },
+            {
+              "id": "7a1739d6-3d8b-4767-940d-775af578ba79",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "AGENT_SUCCEEDED",
+              "createdAt": "2026-09-18T07:37:28.723758+00:00",
+              "agentName": "critic-learning-director",
+              "details": "stage: CONCEPT_REVIEW"
+            }
+          ],
+          "artifacts": [
+            {
+              "id": "d01b67f7-a4e2-4dcb-abbf-05bc1f7f966c",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "title": "Approved creative direction for bridge-disposable-pass2",
+              "type": "creative_direction",
+              "createdAt": "2026-09-18T07:42:40.41363+00:00",
+              "metadata": {
+                "version": 1,
+                "createdBy": "Hudson (human approval)",
+                "transport": "not-published"
+              }
+            },
+            {
+              "id": "7044bbb1-da98-43c1-a4a5-3cb40bae3907",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "title": "concept_review for bridge-disposable-pass2 (run 1, orchestrator)",
+              "type": "concept_review",
+              "createdAt": "2026-09-18T07:37:29.216796+00:00",
+              "metadata": {
+                "version": 1,
+                "createdBy": "Critic & Learning Director",
+                "transport": "not-published"
+              }
+            },
+            {
+              "id": "26a3b6dd-70bd-4c68-b1d2-51c25ac39f18",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "title": "concept for bridge-disposable-pass2 (run 1, orchestrator)",
+              "type": "concept",
+              "createdAt": "2026-09-18T07:37:17.273896+00:00",
+              "metadata": {
+                "version": 1,
+                "createdBy": "Creative Director",
+                "transport": "not-published"
+              }
+            },
+            {
+              "previewUrl": "/api/bridge/artifacts/fcb86cba-ce80-4da1-b74c-15601314754e",
+              "downloadUrl": "/api/bridge/artifacts/fcb86cba-ce80-4da1-b74c-15601314754e?download=1",
+              "id": "5ac31b23-b48b-4f6f-92ce-d997b1e31988",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "title": "creative_intelligence_pack for bridge-disposable-pass2 (run 1, orchestrator)",
+              "type": "creative_intelligence_pack",
+              "createdAt": "2026-09-18T07:36:59.160267+00:00",
+              "metadata": {
+                "version": 1,
+                "createdBy": "Studio Director",
+                "transport": "private-r2"
+              }
+            }
+          ]
+        },
+        "artifactDeliveryMs": 640,
+        "artifactHash": "03fb2718e61774f653f1e28aac052d30e11bedf09aa9c1b09b4b63a9fe5a051d",
+        "browserErrors": []
+      },
+      {
+        "at": "2026-09-18T07:47:38.283Z",
+        "before": {
+          "runner": {
+            "runnerId": "hudson-mac-shadow",
+            "mode": "REAL",
+            "lastSeen": "2026-09-18T07:47:29.713Z",
+            "online": true,
+            "staleAfterSeconds": 45
+          },
+          "real": {
+            "projectSlug": "bridge-disposable-pass2",
+            "allowed": [
+              "CREATE_PROJECT",
+              "START_RUN",
+              "APPROVE_GATE",
+              "RESUME_RUN"
+            ],
+            "proven": [
+              "CREATE_PROJECT",
+              "START_RUN",
+              "APPROVE_GATE"
+            ],
+            "capabilities": {
+              "canCreateProject": true,
+              "canStartRun": true,
+              "canResumeRun": false,
+              "canApprove": true,
+              "canPauseRun": false,
+              "canCancelRun": false
+            },
+            "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+            "runId": "2aa4b130-5f9b-414b-8e40-ee576c75352a",
+            "stage": "AWAITING_BUILD_APPROVAL",
+            "runStatus": "AWAITING_HUMAN_APPROVAL",
+            "gate": "AWAITING_BUILD_APPROVAL"
+          }
+        },
+        "commands": [
+          {
+            "id": "0fe2be2b-8571-4ed9-8b1c-e697c963a009",
+            "project_id": "bridge-disposable-pass2",
+            "command_type": "RESUME_RUN",
+            "mode": "REAL",
+            "payload": "{\"runId\":\"2aa4b130-5f9b-414b-8e40-ee576c75352a\",\"expectedStage\":\"EXPERIENCE_DESIGN\"}",
+            "requested_by": "bridge-operator",
+            "idempotency_key": "b422cf37-cad0-4599-9630-5cc087829c8b",
+            "created_at": "2026-09-18T07:43:46.161Z",
+            "status": "SUCCEEDED",
+            "claimed_by": "hudson-mac-shadow",
+            "claimed_at": "2026-09-18T07:43:48.614Z",
+            "attempt_count": 1,
+            "acknowledgment": "2026-09-18T07:43:49.182Z",
+            "result": "{\"ok\": true, \"retryable\": false, \"code\": \"REAL_COMPLETED\", \"executionCount\": 1, \"executionId\": \"63d3e97c-553b-4d10-acea-587877243b8f\", \"processId\": 9745, \"stdout\": \"CPE output retained privately\", \"stderr\": \"\", \"projectId\": \"5831d3a0-3205-4b7a-a141-d57bfc2c1782\", \"runId\": \"2aa4b130-5f9b-414b-8e40-ee576c75352a\", \"mode\": \"REAL\", \"cpeInvoked\": true}",
+            "error": null,
+            "completed_at": "2026-09-18T07:46:15.588Z",
+            "available_at": "2026-09-18T07:46:15.588Z",
+            "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T07:43:46.161Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T07:43:48.614Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T07:43:49.182Z\"},{\"status\":\"SUCCEEDED\",\"at\":\"2026-09-18T07:46:15.588Z\"}]",
+            "semantic_key": "bridge-disposable-pass2:RESUME_RUN:2aa4b130-5f9b-414b-8e40-ee576c75352a:EXPERIENCE_DESIGN",
+            "execution_id": "63d3e97c-553b-4d10-acea-587877243b8f",
+            "process_id": 9745,
+            "progress_at": "2026-09-18T07:46:14.843Z"
+          },
+          {
+            "id": "8aa99db4-47fb-4209-8b35-472aa2c7903d",
+            "project_id": "bridge-disposable-pass2",
+            "command_type": "APPROVE_GATE",
+            "mode": "REAL",
+            "payload": "{\"runId\":\"2aa4b130-5f9b-414b-8e40-ee576c75352a\",\"expectedStage\":\"AWAITING_DIRECTION_APPROVAL\",\"approvalType\":\"AWAITING_DIRECTION_APPROVAL\",\"gate\":\"AWAITING_DIRECTION_APPROVAL\"}",
+            "requested_by": "bridge-operator",
+            "idempotency_key": "9714895a-b61e-43e5-a5b9-da41e6fa3e2b",
+            "created_at": "2026-09-18T07:42:35.486Z",
+            "status": "SUCCEEDED",
+            "claimed_by": "hudson-mac-shadow",
+            "claimed_at": "2026-09-18T07:42:36.961Z",
+            "attempt_count": 1,
+            "acknowledgment": "2026-09-18T07:42:37.641Z",
+            "result": "{\"ok\": true, \"retryable\": false, \"code\": \"REAL_COMPLETED\", \"executionCount\": 1, \"executionId\": \"7942cb78-61e5-4bb5-a57d-9ad4c002b89f\", \"processId\": 9619, \"stdout\": \"CPE output retained privately\", \"stderr\": \"\", \"projectId\": \"5831d3a0-3205-4b7a-a141-d57bfc2c1782\", \"runId\": \"2aa4b130-5f9b-414b-8e40-ee576c75352a\", \"mode\": \"REAL\", \"cpeInvoked\": true}",
+            "error": null,
+            "completed_at": "2026-09-18T07:42:44.760Z",
+            "available_at": "2026-09-18T07:42:44.760Z",
+            "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T07:42:35.486Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T07:42:36.961Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T07:42:37.641Z\"},{\"status\":\"SUCCEEDED\",\"at\":\"2026-09-18T07:42:44.760Z\"}]",
+            "semantic_key": "bridge-disposable-pass2:APPROVE_GATE:2aa4b130-5f9b-414b-8e40-ee576c75352a:AWAITING_DIRECTION_APPROVAL",
+            "execution_id": "7942cb78-61e5-4bb5-a57d-9ad4c002b89f",
+            "process_id": 9619,
+            "progress_at": "2026-09-18T07:42:44.263Z"
+          },
+          {
+            "id": "ee843b38-c2b3-46d4-a1e3-348105bc3210",
+            "project_id": "bridge-disposable-pass2",
+            "command_type": "APPROVE_GATE",
+            "mode": "REAL",
+            "payload": "{\"runId\":\"2aa4b130-5f9b-414b-8e40-ee576c75352a\",\"expectedStage\":\"AWAITING_DIRECTION_APPROVAL\",\"approvalType\":\"AWAITING_DIRECTION_APPROVAL\",\"gate\":\"AWAITING_DIRECTION_APPROVAL\"}",
+            "requested_by": "bridge-operator",
+            "idempotency_key": "027cdd17-b620-418f-84f2-4aea9e94f8fe",
+            "created_at": "2026-09-18T07:40:01.194Z",
+            "status": "FAILED",
+            "claimed_by": "hudson-mac-shadow",
+            "claimed_at": "2026-09-18T07:40:02.367Z",
+            "attempt_count": 1,
+            "acknowledgment": "2026-09-18T07:40:03.032Z",
+            "result": "{\"ok\": false, \"retryable\": false, \"code\": \"FENCE_REJECTED\", \"executionCount\": 0, \"executionId\": \"852d211e-6205-4f86-aad5-537ce2d18049\", \"stdout\": \"CPE output retained privately\", \"stderr\": \"FENCE_REJECTED\", \"mode\": \"REAL\", \"cpeInvoked\": false}",
+            "error": "FENCE_REJECTED",
+            "completed_at": "2026-09-18T07:40:07.928Z",
+            "available_at": "2026-09-18T07:40:07.928Z",
+            "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T07:40:01.194Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T07:40:02.367Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T07:40:03.032Z\"},{\"status\":\"FAILED\",\"at\":\"2026-09-18T07:40:07.928Z\"}]",
+            "semantic_key": null,
+            "execution_id": "852d211e-6205-4f86-aad5-537ce2d18049",
+            "process_id": null,
+            "progress_at": "2026-09-18T07:40:07.387Z"
+          },
+          {
+            "id": "5478334f-79c6-4c5e-a0cd-bf8c5a2c74c3",
+            "project_id": "bridge-disposable-pass2",
+            "command_type": "APPROVE_GATE",
+            "mode": "REAL",
+            "payload": "{\"runId\":\"2aa4b130-5f9b-414b-8e40-ee576c75352a\",\"expectedStage\":\"CONCEPT_REVIEW\",\"approvalType\":\"AWAITING_DIRECTION_APPROVAL\",\"gate\":\"AWAITING_DIRECTION_APPROVAL\"}",
+            "requested_by": "bridge-operator",
+            "idempotency_key": "d0f74d16-5bc9-4a33-8e49-efa9704c379a",
+            "created_at": "2026-09-18T07:39:29.052Z",
+            "status": "FAILED",
+            "claimed_by": "hudson-mac-shadow",
+            "claimed_at": "2026-09-18T07:39:29.992Z",
+            "attempt_count": 1,
+            "acknowledgment": "2026-09-18T07:39:30.964Z",
+            "result": "{\"ok\": false, \"retryable\": false, \"code\": \"FENCE_REJECTED\", \"executionCount\": 0, \"executionId\": \"980cf89d-85d6-49aa-8c5c-977dc685760e\", \"stdout\": \"CPE output retained privately\", \"stderr\": \"FENCE_REJECTED\", \"mode\": \"REAL\", \"cpeInvoked\": false}",
+            "error": "FENCE_REJECTED",
+            "completed_at": "2026-09-18T07:39:35.402Z",
+            "available_at": "2026-09-18T07:39:35.402Z",
+            "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T07:39:29.052Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T07:39:29.992Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T07:39:30.964Z\"},{\"status\":\"FAILED\",\"at\":\"2026-09-18T07:39:35.402Z\"}]",
+            "semantic_key": "bridge-disposable-pass2:APPROVE_GATE:2aa4b130-5f9b-414b-8e40-ee576c75352a:CONCEPT_REVIEW",
+            "execution_id": "980cf89d-85d6-49aa-8c5c-977dc685760e",
+            "process_id": null,
+            "progress_at": "2026-09-18T07:39:34.915Z"
+          },
+          {
+            "id": "3fbce124-fc53-42ad-8272-8ef3b689ec6a",
+            "project_id": "bridge-disposable-pass2",
+            "command_type": "APPROVE_GATE",
+            "mode": "REAL",
+            "payload": "{\"runId\":\"23dd5e1d-96ae-4555-bdb1-9d50dd3e04b6\",\"expectedStage\":\"AWAITING_DIRECTION_APPROVAL\",\"approvalType\":\"AWAITING_DIRECTION_APPROVAL\",\"gate\":\"AWAITING_DIRECTION_APPROVAL\"}",
+            "requested_by": "bridge-operator",
+            "idempotency_key": "6b3c17ee-c9e1-4aa5-9c75-8d820c903fd6",
+            "created_at": "2026-09-18T07:39:19.699Z",
+            "status": "FAILED",
+            "claimed_by": "hudson-mac-shadow",
+            "claimed_at": "2026-09-18T07:39:20.892Z",
+            "attempt_count": 1,
+            "acknowledgment": "2026-09-18T07:39:21.816Z",
+            "result": "{\"ok\": false, \"retryable\": false, \"code\": \"FENCE_REJECTED\", \"executionCount\": 0, \"executionId\": \"7b0283b2-cd5e-4972-ad15-b29eedd2f117\", \"stdout\": \"CPE output retained privately\", \"stderr\": \"FENCE_REJECTED\", \"mode\": \"REAL\", \"cpeInvoked\": false}",
+            "error": "FENCE_REJECTED",
+            "completed_at": "2026-09-18T07:39:26.500Z",
+            "available_at": "2026-09-18T07:39:26.500Z",
+            "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T07:39:19.699Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T07:39:20.892Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T07:39:21.816Z\"},{\"status\":\"FAILED\",\"at\":\"2026-09-18T07:39:26.500Z\"}]",
+            "semantic_key": "bridge-disposable-pass2:APPROVE_GATE:23dd5e1d-96ae-4555-bdb1-9d50dd3e04b6:AWAITING_DIRECTION_APPROVAL",
+            "execution_id": "7b0283b2-cd5e-4972-ad15-b29eedd2f117",
+            "process_id": null,
+            "progress_at": "2026-09-18T07:39:25.629Z"
+          },
+          {
+            "id": "be226fee-5205-41a0-9c14-ec3cc4cc19a6",
+            "project_id": "bridge-disposable-pass2",
+            "command_type": "START_RUN",
+            "mode": "REAL",
+            "payload": "{}",
+            "requested_by": "bridge-operator",
+            "idempotency_key": "40c00947-7d4d-45a1-9ea3-34f7bd975103",
+            "created_at": "2026-09-18T07:36:38.571Z",
+            "status": "SUCCEEDED",
+            "claimed_by": "hudson-mac-shadow",
+            "claimed_at": "2026-09-18T07:36:40.813Z",
+            "attempt_count": 1,
+            "acknowledgment": "2026-09-18T07:36:41.365Z",
+            "result": "{\"ok\": true, \"retryable\": false, \"code\": \"REAL_COMPLETED\", \"executionCount\": 1, \"executionId\": \"c787dea8-b486-43e0-bd86-388fc8a65886\", \"processId\": 8995, \"stdout\": \"CPE output retained privately\", \"stderr\": \"\", \"projectId\": \"5831d3a0-3205-4b7a-a141-d57bfc2c1782\", \"runId\": \"2aa4b130-5f9b-414b-8e40-ee576c75352a\", \"mode\": \"REAL\", \"cpeInvoked\": true}",
+            "error": null,
+            "completed_at": "2026-09-18T07:38:40.561Z",
+            "available_at": "2026-09-18T07:38:40.561Z",
+            "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T07:36:38.571Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T07:36:40.813Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T07:36:41.365Z\"},{\"status\":\"SUCCEEDED\",\"at\":\"2026-09-18T07:38:40.561Z\"}]",
+            "semantic_key": "bridge-disposable-pass2:START_RUN::",
+            "execution_id": "c787dea8-b486-43e0-bd86-388fc8a65886",
+            "process_id": 8995,
+            "progress_at": "2026-09-18T07:38:40.049Z"
+          },
+          {
+            "id": "a6069c88-a995-498e-b7cc-00c52bcd6947",
+            "project_id": "bridge-disposable-pass2",
+            "command_type": "CREATE_PROJECT",
+            "mode": "REAL",
+            "payload": "{}",
+            "requested_by": "bridge-operator",
+            "idempotency_key": "0b6be37e-46b3-4d5d-b377-ef09e1babb29",
+            "created_at": "2026-09-18T07:34:29.981Z",
+            "status": "SUCCEEDED",
+            "claimed_by": "hudson-mac-shadow",
+            "claimed_at": "2026-09-18T07:34:53.749Z",
+            "attempt_count": 1,
+            "acknowledgment": "2026-09-18T07:34:54.720Z",
+            "result": "{\"ok\": true, \"retryable\": false, \"code\": \"REAL_COMPLETED\", \"executionCount\": 1, \"executionId\": \"e06cf050-464d-479b-b39d-6a40350a1d51\", \"processId\": 8742, \"stdout\": \"CPE output retained privately\", \"stderr\": \"\", \"projectId\": \"5831d3a0-3205-4b7a-a141-d57bfc2c1782\", \"mode\": \"REAL\", \"cpeInvoked\": true}",
+            "error": null,
+            "completed_at": "2026-09-18T07:34:59.030Z",
+            "available_at": "2026-09-18T07:34:59.030Z",
+            "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T07:34:29.981Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T07:34:53.749Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T07:34:54.720Z\"},{\"status\":\"SUCCEEDED\",\"at\":\"2026-09-18T07:34:59.030Z\"}]",
+            "semantic_key": "bridge-disposable-pass2:CREATE_PROJECT::",
+            "execution_id": "e06cf050-464d-479b-b39d-6a40350a1d51",
+            "process_id": 8742,
+            "progress_at": "2026-09-18T07:34:58.402Z"
+          }
+        ],
+        "artifacts": [
+          {
+            "id": "fcb86cba-ce80-4da1-b74c-15601314754e",
+            "sourceArtifactId": "5ac31b23-b48b-4f6f-92ce-d997b1e31988",
+            "mimeType": "application/json",
+            "bytes": 1081,
+            "sha256": "03fb2718e61774f653f1e28aac052d30e11bedf09aa9c1b09b4b63a9fe5a051d",
+            "previewUrl": "/api/bridge/artifacts/fcb86cba-ce80-4da1-b74c-15601314754e",
+            "downloadUrl": "/api/bridge/artifacts/fcb86cba-ce80-4da1-b74c-15601314754e?download=1"
+          }
+        ],
+        "readMs": 899,
+        "observed": {
+          "project": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+          "slug": "bridge-disposable-pass2",
+          "stage": "AWAITING_BUILD_APPROVAL",
+          "productionRun": {
+            "id": "2aa4b130-5f9b-414b-8e40-ee576c75352a",
+            "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+            "status": "AWAITING_HUMAN_APPROVAL",
+            "stageId": "AWAITING_BUILD_APPROVAL",
+            "startedAt": "2026-09-18T07:36:45.172738+00:00",
+            "updatedAt": "2026-09-18T07:46:12.752+00:00",
+            "mode": "devlab",
+            "iterationNumber": 0,
+            "responsibleAgent": "",
+            "lastAgent": "critic-learning-director"
+          },
+          "approvals": [
+            {
+              "id": "2aa4b130-5f9b-414b-8e40-ee576c75352a:AWAITING_BUILD_APPROVAL",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "title": "AWAITING_BUILD_APPROVAL",
+              "description": "CPE is waiting for human approval. Studio controls are disabled.",
+              "kind": "AWAITING_BUILD_APPROVAL",
+              "status": "pending",
+              "createdAt": "2026-09-18T07:46:12.752+00:00"
+            },
+            {
+              "id": "65965688-9aa9-45b7-afa4-7ea582144a0f",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "title": "AWAITING_DIRECTION_APPROVAL",
+              "description": "Recorded human approval in CPE",
+              "kind": "AWAITING_DIRECTION_APPROVAL",
+              "status": "approved",
+              "createdAt": "2026-09-18T07:42:40.649149+00:00",
+              "resolvedAt": "2026-09-18T07:42:40.649149+00:00"
+            }
+          ],
+          "readiness": {
+            "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+            "status": "not-ready",
+            "clientReady": false,
+            "blockers": [],
+            "summary": "CPE AWAITING_HUMAN_APPROVAL; CLIENT_READY=false. 0 recorded readiness reasons.",
+            "assessedAt": "2026-09-18T07:46:12.752+00:00",
+            "mode": "devlab"
+          },
+          "events": [
+            {
+              "id": "9232f439-e514-4776-ab71-a414ff47c5a9",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "RUN_LOCK_RELEASED",
+              "createdAt": "2026-09-18T07:46:13.606023+00:00",
+              "details": ""
+            },
+            {
+              "id": "b4129155-ca52-473c-85e2-c1d47cbea15d",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "GATE_REACHED",
+              "createdAt": "2026-09-18T07:46:13.228221+00:00",
+              "details": "stage: AWAITING_BUILD_APPROVAL"
+            },
+            {
+              "id": "68ca2559-e4c9-46bb-ac5d-f83e6615fc51",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "STAGE_ADVANCED",
+              "createdAt": "2026-09-18T07:46:13.10113+00:00",
+              "details": "from: EXPERIENCE_REVIEW \u00b7 to: AWAITING_BUILD_APPROVAL"
+            },
+            {
+              "id": "142c597a-e8e2-4a52-aaf5-c1032b59f775",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "ARTIFACT_VALIDATED",
+              "createdAt": "2026-09-18T07:46:12.474224+00:00",
+              "details": "stage: EXPERIENCE_REVIEW"
+            },
+            {
+              "id": "253b6723-86f7-49a3-8c31-cb88b14934d0",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "AGENT_SUCCEEDED",
+              "createdAt": "2026-09-18T07:46:12.217751+00:00",
+              "agentName": "critic-learning-director",
+              "details": "stage: EXPERIENCE_REVIEW"
+            },
+            {
+              "id": "c54e79d2-f585-4b43-bf9f-9bf0e0a3b341",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "AGENT_INVOKED",
+              "createdAt": "2026-09-18T07:45:58.8529+00:00",
+              "agentName": "critic-learning-director",
+              "details": "stage: EXPERIENCE_REVIEW"
+            },
+            {
+              "id": "8dbf343d-d116-45cd-a68d-54ff6bfaf8ed",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "STAGE_ADVANCED",
+              "createdAt": "2026-09-18T07:45:58.184084+00:00",
+              "details": "from: EXPERIENCE_DESIGN \u00b7 to: EXPERIENCE_REVIEW"
+            },
+            {
+              "id": "ac3aa930-4e4a-4cc4-bd70-dad6e2b13d74",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "ARTIFACT_VALIDATED",
+              "createdAt": "2026-09-18T07:45:57.531801+00:00",
+              "details": "stage: EXPERIENCE_DESIGN"
+            },
+            {
+              "id": "80d97623-f191-4f06-a151-bcad1082e7a2",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "AGENT_SUCCEEDED",
+              "createdAt": "2026-09-18T07:45:57.278987+00:00",
+              "agentName": "experience-designer",
+              "details": "stage: EXPERIENCE_DESIGN"
+            },
+            {
+              "id": "70bc465f-e5e8-4d8f-9aaf-78d865dd53f3",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "message": "AGENT_INVOKED",
+              "createdAt": "2026-09-18T07:43:54.684894+00:00",
+              "agentName": "experience-designer",
+              "details": "stage: EXPERIENCE_DESIGN"
+            }
+          ],
+          "artifacts": [
+            {
+              "id": "348fa5f5-2766-42fb-ab83-720c57600ccb",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "title": "concept_review for bridge-disposable-pass2 (run 1, orchestrator)",
+              "type": "concept_review",
+              "createdAt": "2026-09-18T07:46:12.716501+00:00",
+              "metadata": {
+                "version": 2,
+                "createdBy": "Critic & Learning Director",
+                "transport": "not-published"
+              }
+            },
+            {
+              "id": "98852bc1-c38a-4583-9e8b-766ea1d8a2a1",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "title": "experience_spec for bridge-disposable-pass2 (run 1, orchestrator)",
+              "type": "experience_spec",
+              "createdAt": "2026-09-18T07:45:57.78785+00:00",
+              "metadata": {
+                "version": 1,
+                "createdBy": "Experience Designer",
+                "transport": "not-published"
+              }
+            },
+            {
+              "id": "d01b67f7-a4e2-4dcb-abbf-05bc1f7f966c",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "title": "Approved creative direction for bridge-disposable-pass2",
+              "type": "creative_direction",
+              "createdAt": "2026-09-18T07:42:40.41363+00:00",
+              "metadata": {
+                "version": 1,
+                "createdBy": "Hudson (human approval)",
+                "transport": "not-published"
+              }
+            },
+            {
+              "id": "7044bbb1-da98-43c1-a4a5-3cb40bae3907",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "title": "concept_review for bridge-disposable-pass2 (run 1, orchestrator)",
+              "type": "concept_review",
+              "createdAt": "2026-09-18T07:37:29.216796+00:00",
+              "metadata": {
+                "version": 1,
+                "createdBy": "Critic & Learning Director",
+                "transport": "not-published"
+              }
+            },
+            {
+              "id": "26a3b6dd-70bd-4c68-b1d2-51c25ac39f18",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "title": "concept for bridge-disposable-pass2 (run 1, orchestrator)",
+              "type": "concept",
+              "createdAt": "2026-09-18T07:37:17.273896+00:00",
+              "metadata": {
+                "version": 1,
+                "createdBy": "Creative Director",
+                "transport": "not-published"
+              }
+            },
+            {
+              "previewUrl": "/api/bridge/artifacts/fcb86cba-ce80-4da1-b74c-15601314754e",
+              "downloadUrl": "/api/bridge/artifacts/fcb86cba-ce80-4da1-b74c-15601314754e?download=1",
+              "id": "5ac31b23-b48b-4f6f-92ce-d997b1e31988",
+              "projectId": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+              "title": "creative_intelligence_pack for bridge-disposable-pass2 (run 1, orchestrator)",
+              "type": "creative_intelligence_pack",
+              "createdAt": "2026-09-18T07:36:59.160267+00:00",
+              "metadata": {
+                "version": 1,
+                "createdBy": "Studio Director",
+                "transport": "private-r2"
+              }
+            }
+          ]
+        },
+        "artifactDeliveryMs": 553,
+        "artifactHash": "03fb2718e61774f653f1e28aac052d30e11bedf09aa9c1b09b4b63a9fe5a051d",
+        "browserErrors": []
+      }
+    ]
+  },
+  "independentCpeRead": {
+    "observedAt": "2026-09-18T07:47:44.273Z",
+    "projects": [
+      {
+        "id": "5831d3a0-3205-4b7a-a141-d57bfc2c1782",
+        "slug": "bridge-disposable-pass2",
+        "current_stage": "AWAITING_BUILD_APPROVAL",
+        "status": "active",
+        "created_at": "2026-09-18T07:34:56.352265+00:00"
+      }
+    ],
+    "runs": [
+      {
+        "id": "2aa4b130-5f9b-414b-8e40-ee576c75352a",
+        "status": "AWAITING_HUMAN_APPROVAL",
+        "current_stage": "AWAITING_BUILD_APPROVAL",
+        "human_gate": "AWAITING_BUILD_APPROVAL",
+        "responsible_agent": null,
+        "lock_holder": null,
+        "lock_expires_at": null,
+        "started_at": "2026-09-18T07:36:45.172738+00:00",
+        "updated_at": "2026-09-18T07:46:12.752+00:00"
+      }
+    ],
+    "approvals": [
+      {
+        "id": "65965688-9aa9-45b7-afa4-7ea582144a0f",
+        "action_type": "creative-studio:AWAITING_DIRECTION_APPROVAL:bridge-disposable-pass2",
+        "approved_at": "2026-09-18T07:42:40.649149+00:00"
+      }
+    ],
+    "events": [
+      {
+        "id": "9232f439-e514-4776-ab71-a414ff47c5a9",
+        "event_type": "RUN_LOCK_RELEASED",
+        "created_at": "2026-09-18T07:46:13.606023+00:00"
+      },
+      {
+        "id": "b4129155-ca52-473c-85e2-c1d47cbea15d",
+        "event_type": "GATE_REACHED",
+        "created_at": "2026-09-18T07:46:13.228221+00:00"
+      },
+      {
+        "id": "68ca2559-e4c9-46bb-ac5d-f83e6615fc51",
+        "event_type": "STAGE_ADVANCED",
+        "created_at": "2026-09-18T07:46:13.10113+00:00"
+      },
+      {
+        "id": "142c597a-e8e2-4a52-aaf5-c1032b59f775",
+        "event_type": "ARTIFACT_VALIDATED",
+        "created_at": "2026-09-18T07:46:12.474224+00:00"
+      },
+      {
+        "id": "253b6723-86f7-49a3-8c31-cb88b14934d0",
+        "event_type": "AGENT_SUCCEEDED",
+        "created_at": "2026-09-18T07:46:12.217751+00:00"
+      },
+      {
+        "id": "c54e79d2-f585-4b43-bf9f-9bf0e0a3b341",
+        "event_type": "AGENT_INVOKED",
+        "created_at": "2026-09-18T07:45:58.8529+00:00"
+      },
+      {
+        "id": "8dbf343d-d116-45cd-a68d-54ff6bfaf8ed",
+        "event_type": "STAGE_ADVANCED",
+        "created_at": "2026-09-18T07:45:58.184084+00:00"
+      },
+      {
+        "id": "ac3aa930-4e4a-4cc4-bd70-dad6e2b13d74",
+        "event_type": "ARTIFACT_VALIDATED",
+        "created_at": "2026-09-18T07:45:57.531801+00:00"
+      },
+      {
+        "id": "80d97623-f191-4f06-a151-bcad1082e7a2",
+        "event_type": "AGENT_SUCCEEDED",
+        "created_at": "2026-09-18T07:45:57.278987+00:00"
+      },
+      {
+        "id": "70bc465f-e5e8-4d8f-9aaf-78d865dd53f3",
+        "event_type": "AGENT_INVOKED",
+        "created_at": "2026-09-18T07:43:54.684894+00:00"
+      },
+      {
+        "id": "d0b24a6f-c4c1-414f-bbcc-d0eaf560e98f",
+        "event_type": "GATE_APPROVED",
+        "created_at": "2026-09-18T07:43:53.563733+00:00"
+      },
+      {
+        "id": "f00f4950-352e-4158-bc18-1a78ab1e2a55",
+        "event_type": "RUN_LOCK_ACQUIRED",
+        "created_at": "2026-09-18T07:43:53.037554+00:00"
+      }
+    ]
+  },
+  "restart": {
+    "disconnectedAt": "2026-09-18T07:37:12.594Z",
+    "before": {
+      "executionId": "c787dea8-b486-43e0-bd86-388fc8a65886",
+      "supervisorPid": 8993,
+      "processId": 8995,
+      "progressAt": "2026-09-18T07:37:12.199Z",
+      "state": "running"
+    },
+    "whileDisconnected": {
+      "executionId": "c787dea8-b486-43e0-bd86-388fc8a65886",
+      "supervisorPid": 8993,
+      "processId": 8995,
+      "progressAt": "2026-09-18T07:37:30.446Z",
+      "state": "complete"
+    },
+    "observedAt": "2026-09-18T07:38:20.845Z",
+    "disconnectMs": 68252,
+    "reconnectedAt": "2026-09-18T07:38:48.980Z",
+    "after": {
+      "runner": {
+        "runnerId": "hudson-mac-shadow",
+        "mode": "REAL",
+        "lastSeen": "2026-09-18T07:38:38.140Z",
+        "online": true,
+        "staleAfterSeconds": 45
+      },
+      "command": {
+        "id": "be226fee-5205-41a0-9c14-ec3cc4cc19a6",
+        "project_id": "bridge-disposable-pass2",
+        "command_type": "START_RUN",
+        "mode": "REAL",
+        "payload": "{}",
+        "requested_by": "bridge-operator",
+        "idempotency_key": "40c00947-7d4d-45a1-9ea3-34f7bd975103",
+        "created_at": "2026-09-18T07:36:38.571Z",
+        "status": "SUCCEEDED",
+        "claimed_by": "hudson-mac-shadow",
+        "claimed_at": "2026-09-18T07:36:40.813Z",
+        "attempt_count": 1,
+        "acknowledgment": "2026-09-18T07:36:41.365Z",
+        "result": "{\"ok\":true,\"retryable\":false,\"code\":\"REAL_COMPLETED\",\"executionCount\":1,\"executionId\":\"c787dea8-b486-43e0-bd86-388fc8a65886\",\"processId\":8995,\"stdout\":\"CPE output captured in private runner evidence.\",\"stderr\":\"\",\"projectId\":\"5831d3a0-3205-4b7a-a141-d57bfc2c1782\",\"runId\":\"2aa4b130-5f9b-414b-8e40-ee576c75352a\",\"mode\":\"REAL\",\"cpeInvoked\":true}",
+        "error": null,
+        "completed_at": "2026-09-18T07:38:40.561Z",
+        "available_at": "2026-09-18T07:38:40.561Z",
+        "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T07:36:38.571Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T07:36:40.813Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T07:36:41.365Z\"},{\"status\":\"SUCCEEDED\",\"at\":\"2026-09-18T07:38:40.561Z\"}]",
+        "semantic_key": "bridge-disposable-pass2:START_RUN::",
+        "execution_id": "c787dea8-b486-43e0-bd86-388fc8a65886",
+        "process_id": 8995,
+        "progress_at": "2026-09-18T07:38:40.049Z"
+      }
+    }
+  },
+  "security": {
+    "at": "2026-09-18T07:46:39.815Z",
+    "probes": [
+      {
+        "name": "anonymous",
+        "status": 401
+      },
+      {
+        "name": "platform token without application identity",
+        "status": 401
+      },
+      {
+        "name": "runner cannot submit production commands",
+        "status": 403
+      },
+      {
+        "name": "operator cannot impersonate runner",
+        "status": 403
+      },
+      {
+        "name": "cross-origin production request",
+        "status": 403
+      }
+    ],
+    "noLocalPathsInBridgeAPI": true,
+    "noInboundListenersOnObservedBridgeProcesses": true,
+    "runnerOnline": true
+  },
+  "concurrency": {
+    "liveTrackedModifiedHashesUnchanged": true,
+    "checkedFiles": 5,
+    "liveHead": "6e781aaca1bae409aa11f66baa191fa6af2b15f8",
+    "bridgeHead": "6e781aaca1bae409aa11f66baa191fa6af2b15f8",
+    "bridgeBranch": "codex/studio-bridge"
+  },
+  "journal": [
+    {
+      "id": "a6069c88-a995-498e-b7cc-00c52bcd6947",
+      "execution_count": 1,
+      "code": "REAL_COMPLETED",
+      "execution_id": "e06cf050-464d-479b-b39d-6a40350a1d51",
+      "delivered": 1
+    },
+    {
+      "id": "be226fee-5205-41a0-9c14-ec3cc4cc19a6",
+      "execution_count": 1,
+      "code": "REAL_COMPLETED",
+      "execution_id": "c787dea8-b486-43e0-bd86-388fc8a65886",
+      "delivered": 1
+    },
+    {
+      "id": "3fbce124-fc53-42ad-8272-8ef3b689ec6a",
+      "execution_count": 0,
+      "code": "FENCE_REJECTED",
+      "execution_id": "7b0283b2-cd5e-4972-ad15-b29eedd2f117",
+      "delivered": 1
+    },
+    {
+      "id": "5478334f-79c6-4c5e-a0cd-bf8c5a2c74c3",
+      "execution_count": 0,
+      "code": "FENCE_REJECTED",
+      "execution_id": "980cf89d-85d6-49aa-8c5c-977dc685760e",
+      "delivered": 1
+    },
+    {
+      "id": "ee843b38-c2b3-46d4-a1e3-348105bc3210",
+      "execution_count": 0,
+      "code": "FENCE_REJECTED",
+      "execution_id": "852d211e-6205-4f86-aad5-537ce2d18049",
+      "delivered": 1
+    },
+    {
+      "id": "8aa99db4-47fb-4209-8b35-472aa2c7903d",
+      "execution_count": 1,
+      "code": "REAL_COMPLETED",
+      "execution_id": "7942cb78-61e5-4bb5-a57d-9ad4c002b89f",
+      "delivered": 1
+    },
+    {
+      "id": "0fe2be2b-8571-4ed9-8b1c-e697c963a009",
+      "execution_count": 1,
+      "code": "REAL_COMPLETED",
+      "execution_id": "63d3e97c-553b-4d10-acea-587877243b8f",
+      "delivered": 1
+    }
+  ]
+}

@@ -19,7 +19,7 @@ export class BridgeQueue {
     if(job.fingerprint!==fingerprint)throw new StudioError('Idempotency key was already used with different content.',409);
     return visible(job);
   }
-  async cancelQueued(id:string){const now=this.now();const job=await this.db.prepare("UPDATE bridge_commands SET status='CANCELLED',completed_at=?,history=json_insert(history,'$[#]',json_object('status','CANCELLED','at',?)) WHERE id=? AND status='QUEUED' RETURNING *").bind(now,now,id).first<Job>();if(!job)throw new StudioError('Only an unclaimed queued transport job can be cancelled.',409);return visible(job);}
+  async cancelQueued(id:string){const now=this.now();const job=await this.db.prepare("UPDATE bridge_commands SET status='CANCELLED',completed_at=?,history=json_insert(history,'$[#]',json_object('status','CANCELLED','at',?)) WHERE id=? AND status='QUEUED' AND mode='MOCK' RETURNING *").bind(now,now,id).first<Job>();if(!job)throw new StudioError('Only an unclaimed mock transport job can be cancelled.',409);return visible(job);}
   async list(){const r=await this.db.prepare('SELECT * FROM bridge_commands ORDER BY created_at DESC LIMIT 30').all<Job>();return r.results.map(visible);}
   async heartbeat(runner:string,online=true,mode:'MOCK'|'REAL'='MOCK'){const now=this.now();await this.db.prepare(`INSERT INTO bridge_runners (id,last_seen,mode,online) VALUES (?,?,?,?) ON CONFLICT(id) DO UPDATE SET last_seen=excluded.last_seen,mode=excluded.mode,online=excluded.online`).bind(runner,now,mode,online?1:0).run();return {lastSeen:now};}
   async presence(runner:string){const r=await this.db.prepare('SELECT * FROM bridge_runners WHERE id=?').bind(runner).first<{id:string;last_seen:string;mode:'MOCK'|'REAL';online:number}>();return r?{runnerId:r.id,mode:r.mode,lastSeen:r.last_seen,online:r.online===1&&Date.parse(this.now())-Date.parse(r.last_seen)<45000,staleAfterSeconds:45}:null;}
@@ -43,6 +43,7 @@ export class BridgeQueue {
     if(['SUCCEEDED','FAILED'].includes(job.status))return visible(job);
     if(job.status!=='RUNNING'||(job.mode==='MOCK'&&job.lease_until<=this.now()))throw new StudioError('Command is not running under this lease.',409);
     if(job.mode==='MOCK'&&outcome.code.startsWith('REAL_'))throw new StudioError('Executor mode mismatch.',409);
+    if(job.mode==='REAL'&&(outcome.code.startsWith('MOCK_')||(outcome.code==='FENCE_REJECTED'&&outcome.executionCount!==0)))throw new StudioError('Executor mode or invocation count mismatch.',409);
     if(job.mode==='REAL'&&(!outcome.executionId||job.execution_id!==outcome.executionId||outcome.retryable))throw new StudioError('Real execution identity mismatch.',409);
     const retry=job.mode==='MOCK'&&!outcome.ok&&outcome.retryable&&outcome.code==='MOCK_TRANSIENT_FAILURE'&&outcome.executionCount===0&&job.attempt_count<3;
     const state=outcome.ok?'SUCCEEDED':retry?'QUEUED':'FAILED',now=this.now();

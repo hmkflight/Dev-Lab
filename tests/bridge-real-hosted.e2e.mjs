@@ -16,6 +16,13 @@ try{
   const distinct=await page.evaluate(async job=>{const r=await fetch('/api/bridge/commands',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({projectId:job.project_id,mode:'REAL',type:job.command_type,payload:JSON.parse(job.payload),idempotencyKey:crypto.randomUUID()})});return {status:r.status,body:await r.json()};},job);assert.equal(distinct.status,201);assert.equal(distinct.body.id,job.id);record.duplicate={sameKeySameId:true,differentKeySameId:true,commandId:job.id};
   if(phase==='create'){assert.equal(before.runner?.online,false);const after=await get();assert.equal(after.commands.find(x=>x.id===job.id).status,'QUEUED');record.disconnectedQueueProof=true;}
   evidence.phases[phase]=record;
+ }else if(phase==='artifact'){
+  const artifact=before.artifacts[0];assert.ok(artifact);const popupPromise=page.waitForEvent('popup');await page.getByRole('link',{name:'Preview real artifact',exact:true}).click();const preview=await popupPromise;await preview.waitForLoadState();await expect(preview.locator('body')).toContainText('bridge-disposable-pass2');assert.ok(!(await preview.locator('body').innerText()).includes('/Users/'));await preview.close();
+  const downloadPromise=page.waitForEvent('download');await page.getByRole('link',{name:'Download real artifact',exact:true}).click();const download=await downloadPromise;const bytes=readFileSync(await download.path());const hash=(await import('node:crypto')).createHash('sha256').update(bytes).digest('hex');assert.equal(hash,artifact.sha256);record={...record,artifact,previewRendered:true,downloadBytes:bytes.length,downloadSha256:hash};evidence.phases.artifact=record;
+ }else if(phase==='duplicates'){
+  record.tests=[];for(const name of ['create','start','approve','resume']){const j=evidence.phases[name].command;
+   for(const repeat of ['same-key','new-key']){const r=await page.request.post(config.origin+'/api/bridge/commands',{data:{projectId:j.project_id,mode:'REAL',type:j.command_type,payload:JSON.parse(j.payload),idempotencyKey:repeat==='same-key'?j.idempotency_key:crypto.randomUUID()}});assert.equal(r.status(),201);const final=await r.json();assert.equal(final.id,j.id);assert.equal(final.status,'SUCCEEDED');assert.equal(final.attempt_count,1);assert.equal(JSON.parse(final.result).executionCount,1);record.tests.push({commandId:j.id,type:j.command_type,repeat,status:final.status,attempts:final.attempt_count});}
+  }evidence.phases.duplicates=record;
  }else if(phase==='stale'){
   assert.equal(before.real.stage,'AWAITING_DIRECTION_APPROVAL');const real=before.real;record.tests=[];
   for(const scenario of ['stale-run','stale-stage']){
