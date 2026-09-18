@@ -195,7 +195,7 @@ export function ProjectPage() {
         </div>
       </PageTitle>
       <div className="project-meta">
-        <Status status={p.status} />
+        <Status status={p.sourceStatus || p.status} />
         <span>
           Stage{" "}
           <strong>
@@ -221,17 +221,17 @@ export function ProjectPage() {
         <div className="blocked-banner">
           <AlertCircle size={21} />
           <div>
-            <strong>A few pieces are missing.</strong>
+            <strong>{data.mode === "devlab" ? p.sourceStatus : "A few pieces are missing."}</strong>
             <p>
-              {p.context.notes ||
+              {data.mode === "devlab" ? detail.readiness.summary : p.context.notes ||
                 "Review the quality report and add the missing client content."}
             </p>
           </div>
           <button
             className="button secondary"
-            onClick={() => setParams({ tab: "context" })}
+            onClick={() => setParams({ tab: data.mode === "devlab" ? "qa" : "context" })}
           >
-            Add context
+            {data.mode === "devlab" ? "View QA" : "Add context"}
             <ArrowRight size={16} />
           </button>
           {actions.includes("resolve-demo") && (

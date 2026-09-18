@@ -20,7 +20,7 @@ export default {
     if (!url.pathname.startsWith("/api/")) {
       const result = await env.ASSETS.fetch(request);
       if (result.status !== 404 || !request.headers.get("accept")?.includes("text/html")) return result;
-      return env.ASSETS.fetch(new Request(new URL("/index.html", url), request));
+      return env.ASSETS.fetch(new Request(new URL("/", url), request));
     }
     const uploaded: string[] = [];
     let committed = false;

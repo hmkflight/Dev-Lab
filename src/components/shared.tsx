@@ -117,7 +117,7 @@ export function ProjectCard({
         </div>
         <h3>{project.name}</h3>
         <div className="row card-status">
-          <Status status={project.status} />
+          <Status status={project.sourceStatus || project.status} />
           <span className="stage-label">
             {project.stages.find((s) => s.id === project.stageId)?.name}
           </span>

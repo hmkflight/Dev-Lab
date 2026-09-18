@@ -9,7 +9,7 @@ function environment() {
   db.exec('CREATE TABLE studio_state (id INTEGER PRIMARY KEY, revision INTEGER NOT NULL DEFAULT 0, data TEXT NOT NULL)');
   const DB = {prepare(sql:string) { let values: any[]=[]; const statement = {bind(...v:any[]) {values=v;return statement;},async run(){const r=db.prepare(sql).run(...values); return {meta:{changes:Number(r.changes)}};},async first(){return db.prepare(sql).get(...values) ?? null;}}; return statement;}};
   const blobs = new Map<string,ArrayBuffer>();
-  return {BRIDGE_OPERATOR_TOKEN:"test-owner",DB,BUCKET:{async put(k:string,v:ArrayBuffer){blobs.set(k,v);},async get(k:string){const v=blobs.get(k);return v ? {body:v}:null;},async delete(keys:string[]){keys.forEach(k=>blobs.delete(k));}},ASSETS:{async fetch(r:Request){return new Response(new URL(r.url).pathname==='/index.html'?'studio':'missing',{status:new URL(r.url).pathname==='/index.html'?200:404});}}} as any;
+  return {BRIDGE_OPERATOR_TOKEN:"test-owner",DB,BUCKET:{async put(k:string,v:ArrayBuffer){blobs.set(k,v);},async get(k:string){const v=blobs.get(k);return v ? {body:v}:null;},async delete(keys:string[]){keys.forEach(k=>blobs.delete(k));}},ASSETS:{async fetch(r:Request){return new Response(new URL(r.url).pathname==='/'?'studio':'missing',{status:new URL(r.url).pathname==='/'?200:404});}}} as any;
 }
 const req=(path:string,data?:unknown,method='POST')=>new Request('https://studio.test'+path,data===undefined?{headers:{Authorization:'Bearer test-owner'}}:{method,headers:{Authorization:'Bearer test-owner','Content-Type':'application/json',Origin:'https://studio.test'},body:JSON.stringify(data)});
 test('hosted state survives independent requests and rejects stale writes',async()=>{
