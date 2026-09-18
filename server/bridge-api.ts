@@ -55,7 +55,7 @@ export async function bridgeAPI(request:Request,env:BridgeEnv&{DB:D1Database;BUC
   }
   if(path===`/artifacts/${syntheticArtifactId}`&&request.method==='GET'){
     const object=await env.BUCKET.get('bridge/'+syntheticArtifactId);if(!object)throw new StudioError('Synthetic artifact not published.',404);
-    return new Response(object.body as unknown as ReadableStream,{headers:{'Content-Type':'image/svg+xml','Content-Security-Policy':"default-src 'none'; style-src 'unsafe-inline'; img-src data:; sandbox",'X-Content-Type-Options':'nosniff','Cache-Control':'private, no-store, no-transform',...(url.searchParams.has('download')?{'Content-Disposition':'attachment; filename="bridge-proof.svg"'}:{})}});
+    return new Response(object.body as unknown as ReadableStream,{headers:{'Content-Type':'image/svg+xml','Content-Security-Policy':"default-src 'none'; style-src 'unsafe-inline'; img-src data:; sandbox",'X-Content-Type-Options':'nosniff','Cache-Control':'private, no-store',...(url.searchParams.has('download')?{'Content-Disposition':'attachment; filename="bridge-proof.svg"'}:{})}});
   }
   if(/^\/artifacts\/[a-f0-9-]{36}$/.test(path)&&request.method==='GET'){
     const a=await env.DB.prepare('SELECT * FROM bridge_artifacts WHERE id=? AND project_id=?').bind(path.split('/')[2],REAL_PROJECT).first<any>();
