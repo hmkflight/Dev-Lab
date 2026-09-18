@@ -36,6 +36,8 @@ export interface StudioContext {
   anythingElse: string;
 }
 export interface StudioProject {
+  slug?: string;
+  sourceStatus?: string;
   id: string;
   name: string;
   industry: string;
@@ -72,6 +74,7 @@ export interface StudioArtifact {
   title: string;
   type: string;
   previewUrl?: string;
+  thumbnailUrl?: string;
   downloadUrl?: string;
   metadata: Record<string, string | number | boolean | null>;
   content?: string;
@@ -202,6 +205,8 @@ export interface StudioAdapter {
 /** Lightweight dashboard view: client intake remains in project detail only. */
 export type StudioProjectSummary = Omit<StudioProject, "context" | "referenceIds">;
 export interface StudioProductionRun {
+  iterationNumber?: number;
+  responsibleAgent?: string;
   id: string;
   projectId: string;
   status: Extensible<"working" | "waiting" | "blocked" | "paused" | "complete" | "cancelled">;
@@ -231,6 +236,16 @@ export interface StudioMedia extends StudioArtifact {
   downloadUrl: string;
 }
 export interface StudioCapabilities {
+  readonly canReadProjects: boolean;
+  readonly canReadStages: boolean;
+  readonly canReadAgents: boolean;
+  readonly canReadRuns: boolean;
+  readonly canReadEvents: boolean;
+  readonly canReadIterations: boolean;
+  readonly canReadApprovals: boolean;
+  readonly canReadQA: boolean;
+  readonly canReadReadiness: boolean;
+
   readonly canStartRun: boolean;
   readonly canResumeRun: boolean;
   readonly canPauseRun: boolean;

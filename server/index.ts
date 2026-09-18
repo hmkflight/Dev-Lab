@@ -27,6 +27,7 @@ app.use("/api", (req, res, next) => {
   next();
 });
 import { context, input } from "./validation";
+app.get("/api/bridge/status", (_req,res)=>res.json({mode:"MOCK",runner:null,commands:[],canSubmit:false}));
 app.get("/api/studio", async (_req, res) =>
   res.json(await adapter.getSnapshot()),
 );
@@ -171,7 +172,7 @@ app.use(
               ? (error as Error).message
               : "The studio could not complete this request.",
       });
-    if (!known) console.error(error);
+    if (!known) console.error("Studio request failed", error instanceof Error ? error.name : "UnknownError");
   },
 );
 if (process.env.NODE_ENV === "production") {
@@ -186,5 +187,5 @@ if (process.env.NODE_ENV === "production") {
   app.use(vite.middlewares);
 }
 app.listen(port, "127.0.0.1", () =>
-  console.log(`Studio ready at http://localhost:${port} (${adapter.mode === "mock" ? "DEMO MODE" : "DEV LAB NOT CONFIGURED"})`),
+  console.log(`Studio ready at http://localhost:${port} (${adapter.mode === "mock" ? "DEMO MODE" : "DEV LAB READ ONLY"})`),
 );

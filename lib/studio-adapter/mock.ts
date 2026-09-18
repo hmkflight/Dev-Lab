@@ -25,6 +25,7 @@ import type { ApprovalInput, EventOptions, LibraryOptions, StudioReadiness, Stud
 export class MockStudioAdapter implements StudioAdapter {
   readonly mode = "mock" as const;
   readonly capabilities = Object.freeze({...unavailableCapabilities,
+    canReadProjects:true,canReadStages:true,canReadAgents:true,canReadRuns:true,canReadEvents:true,canReadIterations:true,canReadApprovals:true,canReadQA:true,canReadReadiness:true,
     canStartRun:true,canResumeRun:true,canPauseRun:true,canCancelRun:true,canApprove:true,
     canReadArtifacts:true,canReadLibrary:true,canCreateProject:true,canArchiveProject:true,
     canUpdateContext:true,canUploadMedia:true,canAdvanceDemo:true,

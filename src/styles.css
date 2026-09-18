@@ -2677,3 +2677,10 @@ details[open] .artifact-content, .approval-decision { animation: studio-enter 30
   .progress-fill i { display: none; }
   .project-card:hover, .library-card:hover, .agent-card:hover, .approval-card:hover, .qa-card:hover, .button:hover, .button:active { transform: none; }
 }
+
+.factory-signal { display:flex; align-items:center; gap:7px; color:#92a5b4; font:9px var(--mono); text-decoration:none; }
+.factory-signal i {width:6px;height:6px;border-radius:50%;background:#b88668;}
+.factory-signal.online {color:#82e3c5;}.factory-signal.online i {background:#82e3c5;}
+.bridge-presence,.bridge-controls {margin-bottom:22px;}.bridge-controls select {background:#14212b;color:#dbe8ed;border:1px solid #3b515d;padding:10px;margin:8px;border-radius:5px;}
+.bridge-jobs article {padding:18px 0;border-bottom:1px solid #31414b;}.bridge-jobs code {font-size:11px;overflow-wrap:anywhere;}.bridge-jobs pre {white-space:pre-wrap;font-size:11px;color:#a2bfb4;}.bridge-artifact {display:grid;gap:12px;margin:20px 0;}.bridge-artifact img {width:100%;max-width:400px;}
+@media(max-width:700px){.factory-signal{font-size:8px;}.topbar-right{gap:8px;}.bridge-controls .button-row{flex-wrap:wrap;}}

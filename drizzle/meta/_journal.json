@@ -8,6 +8,13 @@
       "when": 1789534521361,
       "tag": "0000_tranquil_dust",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1789710569038,
+      "tag": "0001_glorious_boomerang",
+      "breakpoints": true
     }
   ]
 }

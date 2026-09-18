@@ -5,7 +5,9 @@ import { StudioError } from "../lib/studio-adapter/errors";
 import type { AdapterEnvironment } from "../lib/studio-adapter/index.server";
 import { performAction, requireCapability } from "./studio-actions";
 import { loadStudio } from "./hosted-storage";
-type Env = AdapterEnvironment & { DB: D1Database; BUCKET: R2Bucket; ASSETS: { fetch(request: Request): Promise<Response> } };
+import { authenticate, type BridgeEnv } from "./bridge-auth";
+import { bridgeAPI } from "./bridge-api";
+type Env = AdapterEnvironment & BridgeEnv & { DB: D1Database; BUCKET: R2Bucket; ASSETS: { fetch(request: Request): Promise<Response> } };
 const json = (data: unknown, status = 200) => Response.json(data, {status, headers: {"Cache-Control":"no-store"}});
 async function body(request: Request) {
   const value = await request.text();
@@ -25,7 +27,12 @@ export default {
     try {
       const mutation = !["GET", "HEAD", "OPTIONS"].includes(request.method);
       if (mutation && request.headers.get("origin") && request.headers.get("origin") !== url.origin) throw new StudioError("Requests must come from this studio.", 403);
-      const {adapter, save} = await loadStudio(env.DB,env);
+      const actor = await authenticate(request,env);
+      if (mutation && actor.role !== "runner" && request.headers.get("authorization") === null && request.headers.get("origin") !== url.origin) throw new StudioError("A same-origin request is required.",403);
+      if (url.pathname.startsWith("/api/bridge/")) return await bridgeAPI(request,env,actor,body);
+      if (actor.role === "runner") throw new StudioError("Runner endpoint not permitted.",403);
+      if (mutation && actor.role !== "owner") throw new StudioError("Owner access required.",403);
+      const {adapter, persistence} = await loadStudio(env.DB,env);
       const p = url.pathname.split("/").filter(Boolean).map(decodeURIComponent);
       const id = p[2];
       let result: unknown; let status = 200;
@@ -72,13 +79,13 @@ export default {
         }
         result = await adapter.addAssets(id,assets); status = 201;
       } else throw new StudioError("Endpoint not found.",404);
-      await save(); committed = true;
+      if (persistence) await persistence.save(); committed = true;
       return json(result,status);
     } catch (error) {
       if (!committed && uploaded.length) await env.BUCKET.delete(uploaded).catch(()=>{});
       if (error instanceof StudioError) return json({error:error.message},error.status);
       if (error instanceof z.ZodError) return json({error:error.issues.map(i=>`${i.path.join(".")}: ${i.message}`).join("; ")},400);
-      console.error(error);
+      console.error("Studio request failed", error instanceof Error ? error.name : "UnknownError");
       return json({error:"The studio could not complete this request. Please try again."},500);
     }
   }

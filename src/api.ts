@@ -26,6 +26,9 @@ const json = (body: unknown, method = "POST") => ({
   body: JSON.stringify(body),
 });
 export const api = {
+  bridgeStatus: () => request<import('../lib/bridge/types').BridgeSnapshot>('/bridge/status',undefined,true),
+  bridgeSubmit: (data:unknown) => request<import('../lib/bridge/types').BridgeCommand>('/bridge/commands',json(data)),
+  bridgeArtifact: () => request<{previewUrl:string;downloadUrl:string}>('/bridge/artifacts/synthetic',json({})),
   snapshot: (background = false) => request<StudioSnapshot>("/studio", undefined, background),
   project: (id: string, background = false) => request<ProjectDetail>(`/projects/${id}`, undefined, background),
   create: (input: ProjectInput) =>

@@ -202,7 +202,8 @@ export function ProjectPage() {
             {detail.stages.find((s) => s.id === p.stageId)?.name || p.stageId}
           </strong>
         </span>
-        {detail.productionRun && <span>Run <strong>{detail.productionRun.status}</strong></span>}
+        {detail.productionRun && <><span>Run <strong>{detail.productionRun.status}</strong></span><span>Iteration counter <strong>{detail.productionRun.iterationNumber ?? detail.iterations.length}</strong></span></>}
+        {data.mode === "devlab" && <span>READ ONLY · controls disabled</span>}
         <span>
           Agent <strong>{currentAgent?.name || "Unassigned"}</strong>
         </span>
@@ -321,7 +322,7 @@ export function ProjectPage() {
                   </button>
                 )}
               </div>
-              <Timeline stages={detail.stages} active={p.status === "working"} />
+              {data.mode === "devlab" ? <><p>Observed CPE stages only; future stages are not inferred.</p><ol className="timeline">{detail.stages.map(s=><li key={s.id} className={s.status}><span className="stage-node">•</span><strong>{s.name}</strong><small>{s.status}</small></li>)}</ol></> : <Timeline stages={detail.stages} active={p.status === "working"} />}
               {data.mode === "mock" && (
                 <p className="demo-caption">
                   Demo stages advance only when you press Continue demo.

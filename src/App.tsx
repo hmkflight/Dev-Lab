@@ -35,6 +35,7 @@ import {
   PreviewThumb,
   date,
 } from "./components/shared";
+import { Bridge, FactorySignal } from "./components/Bridge";
 import { AnimatedNumber, LoadingSignal } from "./components/Motion";
 import { Dialog } from "./components/Dialog";
 import { Intake } from "./components/Intake";
@@ -96,6 +97,7 @@ export default function App() {
     },
     { to: "/agents", label: "Agent station", icon: Bot },
     { to: "/library", label: "Design library", icon: Layers3 },
+    { to: "/bridge", label: "Factory bridge", icon: Bot },
   ];
   return (
     <>
@@ -193,10 +195,11 @@ export default function App() {
             </strong>
           </div>
           <div className="topbar-right">
+            <FactorySignal />
             <span
               className={`demo-label ${data?.mode === "devlab" ? "live-label" : ""}`}
             >
-              {data?.mode === "devlab" ? "DEV LAB CONNECTED" : "DEMO MODE"}
+              {data?.mode === "devlab" ? "DEV LAB · READ ONLY" : "DEMO MODE"}
             </span>
             <Link
               to="/approvals"
@@ -212,7 +215,7 @@ export default function App() {
         <main id="main">
           {error && (
             <div className="error-banner" role="alert">
-              {error}{" "}
+              {error}{" "}<a href="/signin-with-chatgpt?return_to=/" target="_top">Sign in</a>{" "}
               <button
                 onClick={() => void refresh().catch((e) => setError(e.message))}
               >
@@ -231,6 +234,7 @@ export default function App() {
                 <Route path="/approvals" element={<Approvals />} />
                 <Route path="/agents" element={<Agents />} />
                 <Route path="/library" element={<Library />} />
+                <Route path="/bridge" element={<Bridge />} />
                 <Route
                   path="*"
                   element={
@@ -289,10 +293,9 @@ export default function App() {
             <ArrowRight size={16} /> Your Dev Lab
           </div>
           <p>
-            To connect your lab, implement the StudioAdapter interface and
-            select it at the server adapter resolver. Stages, agents,
-            artifacts, approvals, and quality checks are supplied by the
-            adapter.
+            Pass 1 observes CPE through a read-only adapter. The Factory bridge
+            console tests synthetic commands with the Mac runner. Real production
+            actions stay disabled until a separate disposable-project review.
           </p>
           <p>
             The repository’s <strong>docs/DEVLAB_STUDIO_ADAPTER.md</strong> includes the

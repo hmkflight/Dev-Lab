@@ -12,7 +12,9 @@
     "build:hosted": "tsc --noEmit && vite build && node scripts/build-hosted.mjs",
     "db:generate": "drizzle-kit generate",
     "typecheck": "tsc --noEmit",
-    "lint": "node scripts/client-boundary.mjs"
+    "lint": "node scripts/client-boundary.mjs",
+    "bridge:runner": "tsx runner/index.ts",
+    "test:bridge:hosted": "node tests/bridge-hosted.e2e.mjs"
   },
   "dependencies": {
     "express": "^5.1.0",

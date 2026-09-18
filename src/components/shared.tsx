@@ -122,7 +122,7 @@ export function ProjectCard({
             {project.stages.find((s) => s.id === project.stageId)?.name}
           </span>
         </div>
-        <StageProgress stages={project.stages} active={project.status === "working"} compact />
+        {!project.sourceStatus && <StageProgress stages={project.stages} active={project.status === "working"} compact />}
         <div className="card-footer">
           <span>
             {agent ? (

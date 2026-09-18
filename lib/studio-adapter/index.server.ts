@@ -16,9 +16,9 @@ export function getStudioAdapter(options?: AdapterOptions): StudioAdapter {
   const mode = env.DEVLAB_ADAPTER_MODE?.trim() || "mock";
   let adapter: StudioAdapter;
   if (mode === "mock") adapter = new MockStudioAdapter(options?.persistence === "memory" ? undefined : resolve(env.STUDIO_DATA_DIR || ".studio", "demo-state.json"), options?.mockState);
-  else if (mode === "devlab") adapter = new DevLabStudioAdapter({DEVLAB_ROOT:env.DEVLAB_ROOT,DEVLAB_API_URL:env.DEVLAB_API_URL,DEVLAB_SUPABASE_URL:env.DEVLAB_SUPABASE_URL,DEVLAB_ADAPTER_MODE:mode});
+  else if (mode === "devlab") adapter = new DevLabStudioAdapter(env);
   else throw new StudioError("Unsupported studio adapter mode. Choose mock or devlab.",503);
-  if (!options) localAdapter = adapter;
+  if (!options && mode === "mock") localAdapter = adapter;
   return adapter;
 }
 /** Demo extensions remain outside the production contract and are capability gated. */
