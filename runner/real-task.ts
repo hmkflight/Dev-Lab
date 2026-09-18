@@ -48,6 +48,6 @@ try{
   }else verified&&=!!after.run;
   result={ok:verified,retryable:false,code:verified?'REAL_COMPLETED':'REAL_FAILED',executionCount,stdout:safe(stdout),stderr:safe(stderr),projectId:after.project?.id,runId:after.run?.id};
  }
-}catch{result={ok:false,retryable:false,code:executionCount?'REAL_FAILED':'FENCE_REJECTED',executionCount,stdout:safe(stdout),stderr:'Authoritative fence or CPE execution failed. Inspect private runner evidence.'};}
+}catch(error){result={ok:false,retryable:false,code:executionCount?'REAL_FAILED':'FENCE_REJECTED',executionCount,stdout:safe(stdout),stderr:safe(error instanceof Error?error.message:'Authoritative fence or CPE execution failed.')};}
 finally{clearInterval(timer);if(leaseTimer)clearInterval(leaseTimer);if(lockedRun)await lock.releaseRunLock(lockedRun,task.executionId).catch(()=>{});}
 atomic({executionId:task.executionId,supervisorPid:process.pid,processId,progressAt:new Date().toISOString(),state:'complete',result:{...result!,executionId:task.executionId,processId}});

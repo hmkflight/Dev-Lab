@@ -5,7 +5,7 @@ import { commandInput,authorizedProject,SYNTHETIC_PROJECT,REAL_PROJECT,semanticK
 import type { BridgeCommand } from '../lib/bridge/types';
 type Job=BridgeCommand & {claim_token:string;lease_until:string;fingerprint:string};
 import {publicText} from '../lib/studio-adapter/cpe-source.server';
-const visible=(job:Job)=>{const {claim_token,lease_until,fingerprint,...view}=job;return view;};
+const visible=(job:Job)=>{const {claim_token,lease_until,fingerprint,...view}=job;if(view.mode==='REAL'&&view.result){const result=JSON.parse(view.result);view.result=JSON.stringify({...result,stdout:'CPE output captured in private runner evidence.',stderr:result.ok?'':result.code});}return view;};
 export class BridgeQueue {
   constructor(private db:D1Database,private now=()=>new Date().toISOString()){}
   async submit(input:unknown,actor:string){
@@ -44,7 +44,7 @@ export class BridgeQueue {
     if(job.mode==='REAL'&&(!outcome.executionId||job.execution_id!==outcome.executionId||outcome.retryable))throw new StudioError('Real execution identity mismatch.',409);
     const retry=job.mode==='MOCK'&&!outcome.ok&&outcome.retryable&&outcome.code==='MOCK_TRANSIENT_FAILURE'&&outcome.executionCount===0&&job.attempt_count<3;
     const state=outcome.ok?'SUCCEEDED':retry?'QUEUED':'FAILED',now=this.now();
-    const result=JSON.stringify({...outcome,mode:job.mode,cpeInvoked:job.mode==='REAL'&&outcome.executionCount===1,stdout:publicText(outcome.stdout||(job.mode==='MOCK'&&outcome.ok?'Synthetic command completed; no CPE invocation.':'')),stderr:publicText(outcome.stderr||(!outcome.ok?outcome.code:''))});
+    const result=JSON.stringify({...outcome,mode:job.mode,cpeInvoked:job.mode==='REAL'&&outcome.executionCount===1,stdout:job.mode==='REAL'?'CPE output captured in private runner evidence.':publicText(outcome.stdout||(outcome.ok?'Synthetic command completed; no CPE invocation.':'')),stderr:job.mode==='REAL'?(outcome.ok?'':outcome.code):publicText(outcome.stderr||(!outcome.ok?outcome.code:''))});
     const updated=await this.db.prepare(`UPDATE bridge_commands SET status=?,result=?,error=?,completed_at=?,available_at=?,history=json_insert(history,'$[#]',json_object('status',?,'at',?)) WHERE id=? AND claim_token=? AND status='RUNNING' RETURNING *`).bind(state,result,outcome.ok?null:outcome.code,retry?null:now,new Date(Date.parse(now)+(retry?2000:0)).toISOString(),state,now,id,token).first<Job>();
     if(!updated)throw new StudioError('Command changed concurrently.',409);return visible(updated);
   }
