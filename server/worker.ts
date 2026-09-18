@@ -85,7 +85,9 @@ export default {
       if (!committed && uploaded.length) await env.BUCKET.delete(uploaded).catch(()=>{});
       if (error instanceof StudioError) return json({error:error.message},error.status);
       if (error instanceof z.ZodError) return json({error:error.issues.map(i=>`${i.path.join(".")}: ${i.message}`).join("; ")},400);
-      console.error("Studio request failed", error instanceof Error ? error.name : "UnknownError");
+      let diagnostic = error instanceof Error ? (error.stack || error.message) : "UnknownError";
+      for (const [key,value] of Object.entries(env)) if (/TOKEN|KEY|SECRET/.test(key) && typeof value === "string" && value) diagnostic=diagnostic.replaceAll(value,"[credential]");
+      console.error("Studio request failed",diagnostic.slice(0,1200));
       return json({error:"The studio could not complete this request. Please try again."},500);
     }
   }
