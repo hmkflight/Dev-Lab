@@ -5,7 +5,7 @@ export interface ReadSource { rows(table: string, query: Record<string,string>):
 const tables = new Set(['creative_studio_projects','creative_studio_production_runs','creative_studio_production_run_events','creative_studio_artifacts','creative_studio_production_iterations','creative_studio_reviews','approvals','agents','labs']);
 /** No write method, SQL, RPC, arbitrary URL, or caller-controlled table is exposed. */
 export class SupabaseReadSource implements ReadSource {
-  constructor(private url?: string, private key?: string, private transport: typeof fetch = fetch) {}
+  constructor(private url?: string, private key?: string, private transport: typeof fetch = (input, init) => fetch(input, init)) {}
   async rows(table: string, query: Record<string,string>): Promise<Row[]> {
     if (!this.url || !this.key) throw new DevLabAdapterNotConfiguredError();
     if (!tables.has(table)) throw new StudioError('Read source is not permitted.',403);
