@@ -1,6 +1,6 @@
 import '../lib/studio-adapter/server-only';
 import { StudioError } from '../lib/studio-adapter/errors';
-export interface BridgeEnv {BRIDGE_REAL_COMMANDS?:string;BRIDGE_PROVEN_COMMANDS?:string;DEVLAB_SUPABASE_URL?:string;DEVLAB_SUPABASE_SERVICE_ROLE_KEY?:string;BRIDGE_RUNNER_TOKEN?:string;BRIDGE_OPERATOR_TOKEN?:string;BRIDGE_OWNER_EMAIL?:string;BRIDGE_VIEWER_EMAILS?:string;BRIDGE_RUNNER_ID?:string;}
+export interface BridgeEnv {BRIDGE_REAL_COMMANDS?:string;BRIDGE_PROVEN_COMMANDS?:string;DEVLAB_SUPABASE_URL?:string;DEVLAB_SUPABASE_SERVICE_ROLE_KEY?:string;DEVLAB_READ_TOKEN?:string;BRIDGE_RUNNER_TOKEN?:string;BRIDGE_OPERATOR_TOKEN?:string;BRIDGE_OWNER_EMAIL?:string;BRIDGE_VIEWER_EMAILS?:string;BRIDGE_RUNNER_ID?:string;}
 async function equal(a:string,b?:string){if(!b||!a)return false;const digest=(s:string)=>crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));const [x,y]=await Promise.all([digest(a),digest(b)]);return new Uint8Array(x).every((v,i)=>v===new Uint8Array(y)[i]);}
 export async function authenticate(request:Request,env:BridgeEnv):Promise<{role:'runner'|'owner'|'viewer';id:string}> {
   const token=request.headers.get('authorization')?.replace(/^Bearer /,'')||'';

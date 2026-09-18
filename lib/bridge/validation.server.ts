@@ -11,7 +11,7 @@ export const commandInput=z.union([
  z.object({...base,projectId:z.literal(SYNTHETIC_PROJECT),mode:z.literal('MOCK'),type:z.enum(realTypes),payload:z.object({scenario:z.enum(['success','fail-once','always-fail']).default('success')}).strict().default({scenario:'success'})}).strict(),
  z.object({...base,projectId:z.literal(REAL_PROJECT),mode:z.literal('REAL'),type:z.enum(['CREATE_PROJECT','START_RUN']),payload:empty.default({})}).strict(),
  z.object({...base,projectId:z.literal(REAL_PROJECT),mode:z.literal('REAL'),type:z.literal('RESUME_RUN'),payload:z.object(fence).strict()}).strict(),
- z.object({...base,projectId:z.literal(REAL_PROJECT),mode:z.literal('REAL'),type:z.literal('APPROVE_GATE'),payload:z.object({...fence,approvalType:z.literal('AWAITING_DIRECTION_APPROVAL'),gate:z.literal('AWAITING_DIRECTION_APPROVAL')}).strict()}).strict(),
+ z.object({...base,projectId:z.literal(REAL_PROJECT),mode:z.literal('REAL'),type:z.literal('APPROVE_GATE'),payload:z.object({...fence,approvalType:z.enum(['AWAITING_DIRECTION_APPROVAL','AWAITING_BUILD_APPROVAL','AWAITING_FINAL_APPROVAL']),gate:z.enum(['AWAITING_DIRECTION_APPROVAL','AWAITING_BUILD_APPROVAL','AWAITING_FINAL_APPROVAL'])}).strict()}).strict(),
 ]);
 export type CommandInput=z.infer<typeof commandInput>;
 export function authorizedProject(project:string,mode='MOCK'){if(project!==(mode==='REAL'?REAL_PROJECT:SYNTHETIC_PROJECT))throw new StudioError('Project is not authorized for bridge commands.',403);}

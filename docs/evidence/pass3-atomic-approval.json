@@ -1,0 +1,107 @@
+{
+  "fixture": "bridge-disposable-pass3",
+  "projectId": "f016ddf3-3a62-4e26-b943-6ea26b05825f",
+  "runId": "db5ac26a-b11d-4129-a940-775c62549ef9",
+  "proof": [
+    {
+      "case": "stale run",
+      "ok": false,
+      "error": "Supabase POST rpc/studio_approve_gate -> HTTP 409: {\"code\":\"PT409\",\"details\":null,\"hint\":null,\"message\":\"STALE_RUN\"}"
+    },
+    {
+      "case": "stale stage",
+      "ok": false,
+      "error": "Supabase POST rpc/studio_approve_gate -> HTTP 409: {\"code\":\"PT409\",\"details\":null,\"hint\":null,\"message\":\"STALE_STAGE_OR_GATE\"}"
+    },
+    {
+      "case": "identical race",
+      "results": [
+        {
+          "ok": true,
+          "result": {
+            "id": "06733511-7e95-4434-b1d8-aa59ad1290e9",
+            "run_id": "db5ac26a-b11d-4129-a940-775c62549ef9",
+            "duplicate": false,
+            "next_stage": "EXPERIENCE_DESIGN",
+            "approval_id": "bee17518-ccd5-439a-9ffa-a6b88f83a926"
+          }
+        },
+        {
+          "ok": true,
+          "result": {
+            "id": "06733511-7e95-4434-b1d8-aa59ad1290e9",
+            "run_id": "db5ac26a-b11d-4129-a940-775c62549ef9",
+            "duplicate": true,
+            "next_stage": "EXPERIENCE_DESIGN",
+            "approval_id": "bee17518-ccd5-439a-9ffa-a6b88f83a926"
+          }
+        }
+      ]
+    },
+    {
+      "case": "already approved",
+      "result": {
+        "ok": true,
+        "result": {
+          "id": "06733511-7e95-4434-b1d8-aa59ad1290e9",
+          "run_id": "db5ac26a-b11d-4129-a940-775c62549ef9",
+          "duplicate": true,
+          "next_stage": "EXPERIENCE_DESIGN",
+          "approval_id": "bee17518-ccd5-439a-9ffa-a6b88f83a926"
+        }
+      }
+    },
+    {
+      "case": "state changed after read",
+      "ok": false,
+      "error": "Supabase POST rpc/studio_approve_gate -> HTTP 409: {\"code\":\"PT409\",\"details\":null,\"hint\":null,\"message\":\"STALE_STAGE_OR_GATE\"}"
+    },
+    {
+      "case": "legacy CLI competes",
+      "results": [
+        {
+          "ok": true,
+          "result": {
+            "id": "09e54b1c-0ad1-4665-a176-a885a654e48e",
+            "run_id": "db5ac26a-b11d-4129-a940-775c62549ef9",
+            "duplicate": false,
+            "next_stage": "IMPLEMENTATION",
+            "approval_id": "bfca07e1-913d-4f8a-a0b4-99868dfa2de2"
+          }
+        },
+        {
+          "returncode": 1,
+          "rejected": true
+        }
+      ]
+    },
+    {
+      "case": "final requires CLIENT_READY",
+      "ok": false,
+      "error": "Supabase POST rpc/studio_approve_gate -> HTTP 409: {\"code\":\"PT409\",\"details\":null,\"hint\":null,\"message\":\"CLIENT_READY_REQUIRED\"}"
+    },
+    {
+      "case": "final gate fixture",
+      "result": {
+        "ok": true,
+        "result": {
+          "id": "afc05f99-47c4-47b4-86c3-0f8539a88072",
+          "run_id": "db5ac26a-b11d-4129-a940-775c62549ef9",
+          "duplicate": false,
+          "next_stage": "COMPLETE",
+          "approval_id": "22047b51-924a-4c4f-93dc-2c43d54210db"
+        }
+      },
+      "duplicate": {
+        "ok": true,
+        "result": {
+          "id": "afc05f99-47c4-47b4-86c3-0f8539a88072",
+          "run_id": "db5ac26a-b11d-4129-a940-775c62549ef9",
+          "duplicate": true,
+          "next_stage": "COMPLETE",
+          "approval_id": "22047b51-924a-4c4f-93dc-2c43d54210db"
+        }
+      }
+    }
+  ]
+}

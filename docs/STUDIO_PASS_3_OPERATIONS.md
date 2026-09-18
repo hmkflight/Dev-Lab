@@ -1,0 +1,15 @@
+# Pass 3 fenced operations
+
+REAL command authorization remains confined to `bridge-disposable-pass2`. Owner authentication, explicit CPE enrollment, historical deny, clean-room mode, and the pass fence all apply. No ordinary project is automatically enabled. CREATE requires an existing enrollment and therefore cannot provision a new project under this pass's policy. Pause and cancel remain unavailable.
+
+Approvals invoke the isolated CPE CLI with `--run-id`, `--expected-stage`, `--approval-type`, and `--approved-by`. The authoritative `studio_approve_gate` transaction locks the project and latest CPE run, validates the gate, writes one CPE receipt and shared approval, then advances the project. Existing CPE resume reconciles the run. Legacy approval writes for enrolled disposable projects fail at database guards, including direction-artifact insertion.
+
+The hosted read credential is `DEVLAB_READ_TOKEN`, an opaque 256-bit secret. The Supabase `studio-read` function authenticates it through a SHA-256 record with a project allowlist and expiration, then performs fixed-table, fixed-column reads using a non-login SELECT-only executor. Studio no longer needs `DEVLAB_SUPABASE_SERVICE_ROLE_KEY`. The local runner retains its existing private authoritative CPE credentials. The edge endpoint has custom authentication rather than JWT validation. A wrong/missing token cannot read data. Rotation requires inserting a new hashed token, updating the Sites secret, redeploying, and revoking the old hash. Initial expiration: 90 days from provisioning.
+
+Pre-existing CPE tables have anonymous-role grants with RLS disabled. This pass does not alter those shared permissions while the live factory runs. The hosted Worker receives neither the anonymous Supabase credential nor the service-role credential. Shared-table permission remediation remains a separate production-readiness prerequisite.
+
+Reconciliation records `STILL_RUNNING`, `COMPLETED_SUCCESS`, `COMPLETED_FAILURE`, `SAFE_TO_RETRY`, or `MANUAL_REVIEW_REQUIRED`. The runner checks its receipt, kernel process identity, authoritative run/events, and claimed queue record. Missing or conflicting evidence never authorizes automatic replay. Even SAFE_TO_RETRY requires a new explicit request; an executed or uncertain command stays deduplicated. Completion delivery is fenced by the original runner/claim/execution identity.
+
+Artifacts are private, authenticated, hashed and capped at 500,000 bytes each. JSON, passive HTML, PNG and JPEG are supported. Report HTML/PNG representations are explicitly derived from a real CPE JSON report; they are not evidence of an implemented website or CLIENT_READY. Preview CSP prohibits scripts, external connections and form actions. Original local paths never enter browser DTOs.
+
+Run the acceptance driver with `node tests/bridge-pass3-hosted.e2e.mjs status` for reads. Explicit `stale`, `build`, `resume`, and `artifacts` phases perform only the documented disposable acceptance. Do not rerun completed real phases or reset execution journals. Local service remains `com.hudson.studio-bridge-shadow`; outbound-only authentication and private config stay unchanged.

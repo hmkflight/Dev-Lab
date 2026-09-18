@@ -1,4 +1,9 @@
-import {disposableArtifact} from './artifacts';
+import {classifyReconciliation,processIdentity} from './reconciliation';
+import {parseEnv} from 'node:util';
+import {FACTORY_ROOT} from './executors';
+import {CpeFence} from '../lib/bridge/cpe-fence.server';
+import {SupabaseReadSource} from '../lib/studio-adapter/cpe-source.server';
+import {disposableArtifacts} from './artifacts';
 import {readFileSync,mkdirSync} from 'node:fs';
 import {resolve,dirname} from 'node:path';
 import {DatabaseSync} from 'node:sqlite';
@@ -31,20 +36,32 @@ async function reconcile(){
  const rows=journal.prepare('SELECT * FROM real_tasks WHERE delivered=0').all() as {id:string;execution_id:string;job:string;created_at:string}[];
  for(const row of rows){
   const job=JSON.parse(row.job),state=taskState(tasks,row.id),decision=supervisionDecision(state,row.execution_id);
-  if(decision==='complete'){
+  let classification:'STILL_RUNNING'|'COMPLETED_SUCCESS'|'COMPLETED_FAILURE'|'SAFE_TO_RETRY'|'MANUAL_REVIEW_REQUIRED'='MANUAL_REVIEW_REQUIRED';
+  try {
+   const credentials=parseEnv(readFileSync(resolve(FACTORY_ROOT,'dashboard/.env.local'),'utf8'));
+   const source=new SupabaseReadSource(credentials.NEXT_PUBLIC_SUPABASE_URL,credentials.SUPABASE_SERVICE_ROLE_KEY);
+   const {run}=await new CpeFence(source).state();
+   const events=run?await source.rows('creative_studio_production_run_events',{run_id:`eq.${run.id}`,select:'id,event_type,created_at',order:'created_at.desc',limit:'5'}):[];
+   const payload=JSON.parse(job.payload);
+   const command=await api(`commands/${row.id}/inspect`,{token:job.claim_token,executionId:row.execution_id});
+   classification=classifyReconciliation({executionId:row.execution_id,receipt:state,processMatches:!!state?.processIdentity&&processIdentity(state?.processId)===state.processIdentity,authoritativeRunId:run?.id,expectedRunId:payload.runId,queueStatus:command.status,dispatchIntent:true,eventsObserved:events.length,authoritativeAvailable:true});
+   await api(`commands/${row.id}/reconcile`,{token:job.claim_token,executionId:row.execution_id,classification});
+  }catch{await api(`commands/${row.id}/reconcile`,{token:job.claim_token,executionId:row.execution_id,classification:'MANUAL_REVIEW_REQUIRED'}).catch(()=>{});}
+
+  if(decision==='complete'&&['COMPLETED_SUCCESS','COMPLETED_FAILURE','SAFE_TO_RETRY'].includes(classification)){
    // Renew then finish; both are fenced by the original opaque claim and execution ID. Retry delivery, never execution.
    await api(`commands/${row.id}/progress`,{token:job.claim_token,executionId:row.execution_id,processId:state.processId||null});
    await api(`commands/${row.id}/finish`,{token:job.claim_token,...state.result});
    journal.prepare('UPDATE real_tasks SET delivered=1 WHERE id=?').run(row.id);
    journal.prepare("INSERT OR REPLACE INTO executions(id,state,result,execution_count) VALUES(?,'complete',?,?)").run(row.id,JSON.stringify(state.result),state.result.executionCount);log('real-result',{commandId:row.id,code:state.result.code});
-  }else if(decision==='running')await api(`commands/${row.id}/progress`,{token:job.claim_token,executionId:row.execution_id,processId:state.processId||null});
+  }else if(decision==='running'&&classification==='STILL_RUNNING')await api(`commands/${row.id}/progress`,{token:job.claim_token,executionId:row.execution_id,processId:state.processId||null});
   // Missing/stale supervisor evidence intentionally leaves RUNNING durable and blocks further real dispatch.
  }
  return rows.length>0;
 }
 log('runner-started',{runnerId:config.runnerId,mode});
 try{await heartbeat();while(!stopping){try{
- if(mode==='REAL'&&!artifactPublished&&Date.now()-artifactChecked>30000){artifactChecked=Date.now();try{const artifact=await disposableArtifact();if(artifact){const published=await api('artifacts',artifact);artifactPublished=true;log('artifact-published',{sourceArtifactId:artifact.sourceArtifactId,objectId:published.id});}}catch{log('artifact-not-ready');}}
+ if(mode==='REAL'&&!artifactPublished&&Date.now()-artifactChecked>30000){artifactChecked=Date.now();try{const artifacts=await disposableArtifacts();for(const artifact of artifacts){const published=await api('artifacts',artifact);log('artifact-published',{sourceArtifactId:artifact.sourceArtifactId,objectId:published.id,representation:artifact.representation});}artifactPublished=artifacts.length>0;}catch{log('artifact-not-ready');}}
  const active=await reconcile();const job=await api('claim',{mode:active?'MOCK':mode}) as (BridgeCommand&{claim_token:string})|null;
  if(!job){await delay(2000);continue;}const input=validateJob(job);
  await api(`commands/${job.id}/start`,{token:job.claim_token});

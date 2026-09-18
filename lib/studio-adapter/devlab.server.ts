@@ -6,7 +6,7 @@ import { unpublishedArtifactTransport, browserArtifactUrl, type ArtifactTranspor
 import { emptyContext } from './defaults';
 import { SupabaseReadSource, publicText as text, type ReadSource, type Row } from './cpe-source.server';
 export interface DevLabConfig {
-  DEVLAB_ROOT?: string; DEVLAB_API_URL?: string; DEVLAB_SUPABASE_URL?: string; DEVLAB_SUPABASE_SERVICE_ROLE_KEY?: string;
+  DEVLAB_ROOT?: string; DEVLAB_API_URL?: string; DEVLAB_SUPABASE_URL?: string; DEVLAB_SUPABASE_SERVICE_ROLE_KEY?: string; DEVLAB_READ_TOKEN?: string;
   BRIDGE_PROVEN_COMMANDS?:string; DEVLAB_ADAPTER_MODE?: string; DEVLAB_READ_PROJECT_SLUGS?: string;
 }
 const status = (r:Row|undefined,p:Row) => p.status==='archived'?'complete':p.status==='paused'?'paused':({RUNNING:'working',SOFTWARE_FACTORY_ACTIVE:'working',AWAITING_HUMAN_APPROVAL:'waiting',AWAITING_FINAL_APPROVAL:'waiting',REVISION_REQUIRED:'blocked',CONTENT_BLOCKED:'blocked',TECHNICAL_FAILURE:'blocked',ITERATION_LIMIT_REACHED:'blocked',CLIENT_READY:'waiting',FINAL_APPROVED:'complete',CANCELLED:'cancelled'} as Record<string,string>)[r?.status] || p.status;
@@ -17,8 +17,8 @@ export class DevLabStudioAdapter implements StudioAdapter {
   private cachedAt = 0;
   private pending = new Map<string,Promise<ProjectDetail>>();
   constructor(private config:DevLabConfig={}, source?:ReadSource, private transport:ArtifactTransport=unpublishedArtifactTransport) {
-    this.source=source || new SupabaseReadSource(config.DEVLAB_SUPABASE_URL,config.DEVLAB_SUPABASE_SERVICE_ROLE_KEY);
-    const configured=!!(source || (config.DEVLAB_SUPABASE_URL && config.DEVLAB_SUPABASE_SERVICE_ROLE_KEY)) && !!config.DEVLAB_READ_PROJECT_SLUGS;
+    this.source=source || new SupabaseReadSource(config.DEVLAB_SUPABASE_URL,config.DEVLAB_SUPABASE_SERVICE_ROLE_KEY,undefined,config.DEVLAB_READ_TOKEN);
+    const configured=!!(source || (config.DEVLAB_SUPABASE_URL && (config.DEVLAB_SUPABASE_SERVICE_ROLE_KEY||config.DEVLAB_READ_TOKEN))) && !!config.DEVLAB_READ_PROJECT_SLUGS;
     this.capabilities=Object.freeze({...unavailableCapabilities,canReadProjects:configured,canReadStages:configured,canReadAgents:configured,canReadRuns:configured,canReadEvents:configured,canReadArtifacts:configured,canReadIterations:configured,canReadApprovals:configured,canReadQA:configured,canReadReadiness:configured});
   }
   private slugs(){const s=(this.config.DEVLAB_READ_PROJECT_SLUGS||'').split(',').filter(x=>/^[a-z0-9][a-z0-9-]{0,79}$/.test(x));if(!s.length)throw new DevLabAdapterNotConfiguredError();return s;}

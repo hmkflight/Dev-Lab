@@ -37,6 +37,11 @@ export class BridgeQueue {
     const job=await this.db.prepare(`UPDATE bridge_commands SET progress_at=?,lease_until=?,execution_id=?,process_id=COALESCE(?,process_id) WHERE id=? AND claim_token=? AND claimed_by=? AND status='RUNNING' AND mode='REAL' AND (execution_id IS NULL OR execution_id=?) RETURNING *`).bind(now,until,executionId,processId,id,token,runner,executionId).first<Job>();
     if(!job)throw new StudioError('Execution identity is stale.',409);return visible(job);
   }
+  async inspect(id:string,token:string,runner:string,executionId:string){const job=await this.db.prepare("SELECT * FROM bridge_commands WHERE id=? AND claim_token=? AND claimed_by=? AND execution_id=? AND mode='REAL'").bind(id,token,runner,executionId).first<Job>();if(!job)throw new StudioError('Inspection identity mismatch.',409);return visible(job);}
+  async reconcile(id:string,token:string,runner:string,executionId:string,classification:string){
+    const now=this.now();const job=await this.db.prepare("UPDATE bridge_commands SET reconciliation=?,reconciled_at=? WHERE id=? AND claim_token=? AND claimed_by=? AND execution_id=? AND mode='REAL' RETURNING *").bind(classification,now,id,token,runner,executionId).first<Job>();
+    if(!job)throw new StudioError('Reconciliation identity mismatch.',409);return visible(job);
+  }
   async finish(id:string,token:string,runner:string,outcome:ExecutorResult){
     const job=await this.db.prepare('SELECT * FROM bridge_commands WHERE id=? AND claim_token=? AND claimed_by=?').bind(id,token,runner).first<Job>();
     if(!job)throw new StudioError('Command claim not found.',409);
