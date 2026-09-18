@@ -7,7 +7,7 @@ export function browserArtifactUrl(value?: string): string | undefined {
   let decoded: string;
   try { decoded = decodeURIComponent(value); } catch { throw new StudioError("Invalid artifact URL."); }
   if (/[\\\u0000-\u0020]/.test(decoded) || decoded.includes("..") || /(?:\/Users\/|\/home\/|\/private\/|\/etc\/|file:)/i.test(decoded)) throw new StudioError("Invalid artifact URL.");
-  if (/^\/(?:api\/assets|previews)\//.test(decoded) && !decoded.startsWith("//")) return value;
+  if (/^\/(?:api\/assets|api\/bridge\/artifacts|previews)\//.test(decoded) && !decoded.startsWith("//")) return value;
   try { const url = new URL(value); if (url.protocol === "https:" && !url.username && !url.password && !/^(localhost|127\.|\[::1\])/.test(url.hostname)) return value; } catch { /* Fail closed. */ }
   throw new StudioError("Invalid artifact URL.");
 }
@@ -22,3 +22,7 @@ export function toStudioArtifact(source: StudioArtifact | Record<string, unknown
     uploaded: a.uploaded === true, metadata: {demo:true},
   };
 }
+
+/** Transport providers publish only authorized, browser-addressable objects. Empty URLs mean metadata only. */
+export interface ArtifactTransport { urls(artifactId: string): Pick<StudioArtifact, 'previewUrl'|'downloadUrl'|'thumbnailUrl'>; }
+export const unpublishedArtifactTransport: ArtifactTransport = {urls: () => ({})};

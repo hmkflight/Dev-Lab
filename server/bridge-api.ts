@@ -1,3 +1,4 @@
+import type {ArtifactTransport} from '../lib/studio-adapter/artifact.server';
 import {z} from 'zod';
 import type { D1Database,R2Bucket } from '@cloudflare/workers-types';
 import {StudioError} from '../lib/studio-adapter/errors';
@@ -5,7 +6,8 @@ import {BridgeQueue} from './bridge-queue';
 import type {BridgeEnv} from './bridge-auth';
 export const syntheticArtifactId='eec4a1a7-91c7-4e73-97d7-05dbab06f6bb';
 export const syntheticSVG='<svg xmlns="http://www.w3.org/2000/svg" width="400" height="200"><rect width="400" height="200" fill="#14212b"/><text x="30" y="105" fill="#82e3c5" font-size="22">Studio bridge · synthetic proof</text></svg>';
-const artifact=()=>({id:syntheticArtifactId,type:'bridge-synthetic-image',title:'Synthetic bridge proof',mimeType:'image/svg+xml',previewUrl:`/api/bridge/artifacts/${syntheticArtifactId}`,downloadUrl:`/api/bridge/artifacts/${syntheticArtifactId}?download=1`,thumbnailUrl:`/api/bridge/artifacts/${syntheticArtifactId}`,metadata:{synthetic:true}});
+const transport:ArtifactTransport={urls(id){if(id!==syntheticArtifactId)throw new StudioError('Artifact not authorized.',404);return {previewUrl:`/api/bridge/artifacts/${id}`,downloadUrl:`/api/bridge/artifacts/${id}?download=1`,thumbnailUrl:`/api/bridge/artifacts/${id}`};}};
+const artifact=()=>({id:syntheticArtifactId,type:'bridge-synthetic-image',title:'Synthetic bridge proof',mimeType:'image/svg+xml',...transport.urls(syntheticArtifactId),metadata:{synthetic:true}});
 export async function bridgeAPI(request:Request,env:BridgeEnv&{DB:D1Database;BUCKET:R2Bucket},actor:{role:string;id:string},readBody:(r:Request)=>Promise<unknown>):Promise<Response>{
   const url=new URL(request.url),path=url.pathname.replace('/api/bridge','');const q=new BridgeQueue(env.DB);const json=(v:unknown,status=200)=>Response.json(v,{status,headers:{'Cache-Control':'no-store'}});
   if(request.method==='GET'&&path==='/status'){

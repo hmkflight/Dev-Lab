@@ -1,58 +1,43 @@
-# Studio adapter foundation
+# Dev Lab Studio adapter — Pass 1 mapping
 
-## Current architecture
+The authoritative engine is the existing CPE 2.0 under AI_COMMAND_CENTER. Studio does not own its lifecycle. The live working tree was inspected read-only; no engine files, production records, processes, or Eagle Wings artifacts were modified by this integration.
 
-React 19 + React Router 7 renders a Vite 7 SPA. There is no Next.js App Router or Pages Router. Browser code calls same-origin `/api` through `src/api.ts`. Express serves local development/production; `server/worker.ts` serves ChatGPT Sites. Both use the single `StudioAdapter` interface and `getStudioAdapter()` composition root.
+## Sources verified on 2026-09-18 UTC
 
-`lib/studio-adapter/types.ts` contains browser-safe DTOs and the authoritative contract. `defaults.ts` contains empty intake defaults; `capabilities.ts` contains browser-safe capability interpretation. Concrete adapters, fixtures, configuration, file access, and hosted persistence are server-only. Vite checks the transitive client import graph and refuses server modules during development and builds; the runtime guard adds defense in depth. Browser code never imports adapter implementations.
+| Studio model | Verified source | Projection |
+|---|---|---|
+| Project | creative_studio_projects (migration 018) | UUID, slug, client_name, project_type, current_stage, status, brief_summary, goal, timestamps; no materials_path |
+| Stages | project.current_stage + production_run_events STAGE_ADVANCED.detail.from/to | Observed stages only; no copied lifecycle or inferred future stages |
+| Agents | labs.slug=dev-lab → agents.lab_id; run.responsible_agent | Names/roles/IDs from registered agents, project responsibility from current run; not proof of process liveness |
+| Production run | creative_studio_production_runs (migration 029) | Latest run_number; raw status, stage, responsible_agent, iteration counter, timestamps |
+| Events | creative_studio_production_run_events.run_id | Newest 200; event_type, timestamp and whitelisted stage/route/agent details |
+| Artifacts | creative_studio_artifacts (018) | ID/type/title/version/created_by_agent/timestamp only; filesystem_path and unknown metadata excluded |
+| Approval history | approvals.action_type creative-studio:<gate>:<slug> (including decision suffixes) | Exact project token match, approved_at determines approved/pending |
+| Pending approval | run.human_gate / run.blockers HUMAN_DECISION_REQUIRED | Read-only pending display; synthesized view ID, never a second approval record |
+| Iterations | creative_studio_production_iterations (027) | Real rows only; empty is honest. Run iteration counter remains separate. Local base_url/source_ref/output paths excluded |
+| Review/QA | creative_studio_reviews.scores/decision; iteration.dimension_scores | Data-driven dimensions; no replacement grading rules |
+| Readiness/CLIENT_READY | run.client_ready, client_ready_result.reasons, blockers | Display the recorded result; do not recompute CPE quality gates |
+| Library | Not enabled in this pass | Capability false, explicit unsupported error |
+| Media bytes | Not synchronized in this pass | Real metadata only; no Eagle Wings upload |
 
-## Selection and honest availability
+The read client has a fixed table allowlist, GET-only transport, project-slug allowlist, 15-second timeout, bounded reads, and manual redirect handling that rejects non-success responses. Requests never forward credentials to a redirect target. Production credentials stay server-side. The currently configured Supabase credential is the existing service-role credential; its database privileges are broader than this adapter's GET-only interface. A dedicated least-privilege read credential is a recommended hardening step before broadening access. No Supabase schema, grants, RLS, or live factory rows were changed.
 
-`DEVLAB_ADAPTER_MODE=mock` is the default. The local process reuses one adapter with `.studio` JSON persistence. Hosted requests resolve adapters from D1 snapshots and commit with revision checks; files use R2. The resolver is the only application code that constructs adapters. Tests may construct isolated fixtures.
+## Commands and ownership
 
-`DEVLAB_ADAPTER_MODE=devlab` constructs `DevLabStudioAdapter`. All capabilities are false, and every data or command operation rejects with `DevLabAdapterNotConfiguredError` (503). Merely filling in configuration does not enable integration. No filesystem, network, Supabase, orchestration, or process calls occur in this skeleton. Invalid modes fail closed rather than silently falling back.
+Browser → authenticated Worker → D1 bridge_commands ← outbound Mac runner → MOCK executor → acknowledged result → Worker/UI.
 
-Optional server-only placeholders: `DEVLAB_ROOT`, `DEVLAB_API_URL`, and `DEVLAB_SUPABASE_URL`. Never prefix these with `VITE_` or include them in DTOs. Runtime secrets belong in server configuration or Sites runtime variables, not source control.
+D1 stores command transport, heartbeat presence, and the existing independent demo state. It never stores an authoritative CPE project snapshot. R2 holds only published synthetic proof content and existing demo uploads.
 
-## Contract and data
+Pass 1 commands: CREATE_PROJECT, START_RUN, RESUME_RUN, APPROVE_GATE, all mode=MOCK and project=bridge-smoke-test. Every production mutation capability is false. CANCEL_RUN and PAUSE_RUN are rejected. Unclaimed transport jobs can be cancelled separately; this does not cancel a CPE run. Strict payloads contain only the synthetic test scenario, never arbitrary command strings.
 
-The contract exposes project summaries/details and creation; stages; project-filtered or global agents; production run; timestamp-paginated events; artifacts; iterations; approvals; reviews; readiness; media; filtered library; run start/pause/resume/cancel; and approval decisions. Existing context editing, uploads, archiving, aggregate snapshot, and run-status views remain supported for UI compatibility.
+Prepared real translations in runner/executors.ts:
 
-`getProject()` is the aggregate used by current tabs. It includes the same stages, run, reviews, readiness, media, and capabilities available through granular getters. `review` remains a first-review compatibility view; `reviews` is the collection. `getProjects()` omits intake context/reference IDs. IDs are strings; presentation statuses permit unknown upstream values. Stages, agents, QA dimensions, artifact types, and library categories are arrays/data, not fixed schema enumerations.
+- CREATE_PROJECT → command.sh creative-studio project create --client <name> --slug <disposable-slug>
+- START_RUN → npm run creative-studio:orchestrator -- run --project <disposable-slug>
+- RESUME_RUN → npm run creative-studio:orchestrator -- run-resume --project <disposable-slug>
+- APPROVE_GATE → verified command.sh creative-studio approve --project <slug>; deliberately disabled until expected-stage/run fencing is implemented
+- CANCEL_RUN → run-cancel exists, but its inspected path updates run state without visibly acquiring the orchestrator lock. Safe cancellation is NOT VERIFIED and not exposed.
 
-Mock mode supplies Forma (building), Offscript (direction approval), Kinfolk (content blockers), and Orbit (complete), with events, sample media, artifacts, multiple iterations, QA and readiness. Mutations only change demo state when explicitly invoked. There are no autonomous workers or progress timers. Read polling never advances demo work. Demo readiness is illustrative and never asserts real CPE `CLIENT_READY`. Demo advancement is an optional extension outside the production contract. Streaming and direct agent control are unsupported. Capabilities describe adapter support, while per-project `actions` describe current availability; the UI checks both, and APIs enforce capabilities independently.
+Real helpers require a separate non-symlink AI_COMMAND_CENTER-bridge root and bridge-disposable-* slug. executeReal additionally requires its explicit disposable-only opt-in. The Pass 1 hosted queue and runner cannot invoke that helper. No real executor was exercised.
 
-Artifacts expose `id`, `projectId`, `type`, `title`, `mimeType`, `previewUrl`, `downloadUrl`, `createdAt`, and metadata. The mock normalizes old persisted `name`/`url` records without returning legacy fields. URL validation rejects filesystem paths, traversal, non-HTTPS external schemes, credential-bearing URLs and unsupported local routes. Metadata is allowlisted; never spread filesystem manifests into DTOs. Future adapters must authorize and translate local artifacts into opaque, safe server routes; do not pass absolute paths or commands to browser code. Preview framing remains sandboxed and uploads download as attachments.
-
-## Proposed Dev Lab mapping — all TODO VERIFY
-
-The real Dev Lab schema and files have intentionally not been inspected. These are candidate mappings supplied in the brief, not confirmed implementations.
-
-| UI concept | Proposed Dev Lab source | Status |
-| --- | --- | --- |
-| StudioProject / StudioProjectSummary | `creative_studio_projects` | TODO VERIFY identifiers, tenancy and statuses |
-| StudioProductionRun | `creative_studio_production_runs` | TODO VERIFY lifecycle and active-run selection |
-| StudioEvent | `creative_studio_production_run_events` | TODO VERIFY ordering, pagination and streaming |
-| StudioArtifact / StudioMedia | `creative_studio_artifacts` + artifact filesystem | TODO VERIFY ownership, manifests and safe URL delivery |
-| StudioApproval | Existing Creative Studio approval mechanism | TODO VERIFY gate IDs, idempotency and authorization |
-| StudioIteration | `creative_studio_production_iterations` | TODO VERIFY review/preview relationships |
-| StudioReview / StudioQAFinding | Existing QA reports and findings | TODO VERIFY source and dimensions |
-| StudioReadiness | Phase 4 Production Readiness / `CLIENT_READY` | TODO VERIFY authoritative checks and decision record |
-| StudioAgent | `agents/dev-lab/*.yaml` + run execution state | TODO VERIFY registry and runtime assignments |
-| StudioStage | Existing production-stage definitions + run state | TODO VERIFY vocabulary and ordering |
-| StudioLibraryItem | Existing reusable design/reference catalog | TODO VERIFY source and filtering |
-| Commands/actions | Server-side Dev Lab orchestrator / `command.sh` | TODO VERIFY supported commands and idempotency |
-| StudioCapabilities | Features supported by the selected integration | TODO VERIFY each permission and implementation |
-
-## Real integration work still required
-
-1. Inspect the real engine only with authorization; verify all mappings above.
-2. Implement read mappings in `DevLabStudioAdapter`, preserving upstream IDs/statuses and readiness decisions.
-3. Add authentication and per-project authorization before enabling shared or live access. Sites currently gates the hosted demo to its owner; local Express binds to loopback. Capabilities are not identity authorization.
-4. Use the existing orchestrator for writes, with validated IDs, idempotency/version checks, fixed executable allowlists and argument arrays. Never construct shell text from client input.
-5. Add authorized artifact/media delivery and approved persistent storage. Decide how to migrate demo state separately; never treat it as real production data.
-6. Enable capabilities individually only after implementation and contract/integration tests pass. No second production engine or state machine belongs here.
-
-## Validation
-
-`npm run lint` checks client/server architecture (the original repository had no general-purpose linter). `npm run typecheck` validates types. `npm test` covers adapter contracts, selection, retrieval, lifecycle, approvals, capabilities, safe URLs, import boundaries, and hosted persistence. `npm run build` builds local production; `npm run build:hosted` builds the Worker and client. `npm run test:e2e` runs the existing Chrome workflow against an isolated local fixture directory after the local build.
+See [the comprehensive report](STUDIO_LIVE_INTEGRATION_PASS_1_REPORT.md) for measured evidence, limitations, file inventory, setup, and acceptance results.

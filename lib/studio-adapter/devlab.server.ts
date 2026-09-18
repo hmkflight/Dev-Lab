@@ -2,6 +2,7 @@ import './server-only';
 import type { StudioAdapter, StudioProject, StudioStage, ProjectDetail, StudioReview, StudioApproval, StudioCapabilities } from './types';
 import { unavailableCapabilities } from './capabilities';
 import { StudioError, DevLabAdapterNotConfiguredError } from './errors';
+import { unpublishedArtifactTransport, browserArtifactUrl, type ArtifactTransport } from './artifact.server';
 import { emptyContext } from './defaults';
 import { SupabaseReadSource, publicText as text, type ReadSource, type Row } from './cpe-source.server';
 export interface DevLabConfig {
@@ -15,7 +16,7 @@ export class DevLabStudioAdapter implements StudioAdapter {
   private source:ReadSource;
   private cachedAt = 0;
   private pending = new Map<string,Promise<ProjectDetail>>();
-  constructor(private config:DevLabConfig={}, source?:ReadSource) {
+  constructor(private config:DevLabConfig={}, source?:ReadSource, private transport:ArtifactTransport=unpublishedArtifactTransport) {
     this.source=source || new SupabaseReadSource(config.DEVLAB_SUPABASE_URL,config.DEVLAB_SUPABASE_SERVICE_ROLE_KEY);
     const configured=!!(source || (config.DEVLAB_SUPABASE_URL && config.DEVLAB_SUPABASE_SERVICE_ROLE_KEY)) && !!config.DEVLAB_READ_PROJECT_SLUGS;
     this.capabilities=Object.freeze({...unavailableCapabilities,canReadProjects:configured,canReadStages:configured,canReadAgents:configured,canReadRuns:configured,canReadEvents:configured,canReadArtifacts:configured,canReadIterations:configured,canReadApprovals:configured,canReadQA:configured,canReadReadiness:configured});
@@ -29,7 +30,7 @@ export class DevLabStudioAdapter implements StudioAdapter {
       this.source.rows('creative_studio_artifacts',{project_id:`eq.${p.id}`,select:'id,artifact_type,title,created_at,version,created_by_agent',order:'created_at.desc'}),
       this.source.rows('creative_studio_production_iterations',{project_id:`eq.${p.id}`,select:'id,iteration_number,status,outcome,overall_score,dimension_scores,blocker_count,major_count,minor_count,created_at',order:'iteration_number.desc'}),
       this.source.rows('creative_studio_reviews',{project_id:`eq.${p.id}`,select:'id,review_type,scores,decision,created_at',order:'created_at.desc'}),
-      this.source.rows('approvals',{action_type:`like.creative-studio:*:${p.slug}`,select:'id,action_type,approved_at',order:'approved_at.desc'}),
+      this.source.rows('approvals',{action_type:`like.creative-studio:*:${p.slug}*`,select:'id,action_type,approved_at',order:'approved_at.desc'}),
       this.source.rows('labs',{slug:'eq.dev-lab',select:'id',limit:'1'}),
     ]);
     const run=runs[0];
@@ -48,7 +49,7 @@ export class DevLabStudioAdapter implements StudioAdapter {
     const project:StudioProject={id:p.id,name:text(p.client_name),industry:text(p.project_type),summary:text(p.brief_summary),status:status(run,p),stageId:text(p.current_stage),stages,createdAt:p.created_at,updatedAt:p.updated_at,theme:'forma',context:{...emptyContext,description:text(p.brief_summary),goals:text(p.goal)},archived:p.status==='archived',referenceIds:[],actions:[],slug:p.slug,sourceStatus:text(run?.status||p.status)};
     const agents=agentRows.map(a=>({id:a.id,name:text(a.name),role:text(a.role),status:run?.responsible_agent===a.name?(run.status==='RUNNING'?'working':'waiting'):'idle',task:run?.responsible_agent===a.name?text(run.current_stage):'No execution attributed to this project',projectId:p.id,latestResult:'',initials:text(a.name).split(' ').map(s=>s[0]).slice(0,2).join(''),color:'green'}));
     project.agentId=agents.find(a=>a.name===run?.responsible_agent)?.id;
-    const approvals:StudioApproval[]=approved.map(a=>({id:a.id,projectId:p.id,title:text(a.action_type.split(':')[1]),description:'Recorded human approval in CPE',kind:text(a.action_type.split(':')[1]),status:'approved',createdAt:a.approved_at,resolvedAt:a.approved_at}));
+    const approvals:StudioApproval[]=approved.filter(a=>a.action_type.split(':')[2]===p.slug).map(a=>({id:a.id,projectId:p.id,title:text(a.action_type.split(':')[1]),description:'Recorded human approval in CPE',kind:text(a.action_type.split(':')[1]),status:a.approved_at?'approved':'pending',createdAt:a.approved_at||p.updated_at,resolvedAt:a.approved_at||undefined}));
     if(run?.human_gate) approvals.unshift({id:`${run.id}:${run.human_gate}`,projectId:p.id,title:text(run.human_gate),description:'CPE is waiting for human approval. Studio controls are disabled.',kind:text(run.human_gate),status:'pending',createdAt:run.updated_at});
     const blockers=Array.isArray(run?.blockers)?run.blockers:[];
     blockers.filter(b=>b.route==='HUMAN_DECISION_REQUIRED').forEach((b,i)=>approvals.unshift({id:`${run.id}:human:${i}`,projectId:p.id,title:'Human decision required',description:text(b.summary),kind:'HUMAN_DECISION_REQUIRED',status:'pending',createdAt:b.raisedAt||run.updated_at}));
@@ -59,7 +60,7 @@ export class DevLabStudioAdapter implements StudioAdapter {
     const readiness={projectId:p.id,status:run?.client_ready?'ready':findings.length?'blocked':run?'not-ready':'unknown',clientReady:run?.client_ready===true,blockers:findings,summary:run?`CPE ${text(run.status)}; CLIENT_READY=${run.client_ready===true}. ${reasons.length} recorded readiness reasons.`:'No production run recorded.',assessedAt:run?.updated_at||p.updated_at,mode:this.mode};
     return {project,stages,agents,approvals,productionRun:run?{id:run.id,projectId:p.id,status:text(run.status),stageId:text(run.current_stage),startedAt:run.started_at,updatedAt:run.updated_at,mode:this.mode,iterationNumber:run.current_production_iteration,responsibleAgent:text(run.responsible_agent)}:null,
       events:events.map(e=>({id:e.id,projectId:p.id,message:text(e.event_type),createdAt:e.created_at,agentName:typeof e.detail?.agent==='string'?text(e.detail.agent):undefined,details:['from','to','stage','route','reason'].filter(k=>typeof e.detail?.[k]==='string').map(k=>`${k}: ${text(e.detail[k])}`).join(' · ')})),
-      artifacts:artifacts.map(a=>({id:a.id,projectId:p.id,title:text(a.title),type:text(a.artifact_type),createdAt:a.created_at,metadata:{version:a.version,createdBy:text(a.created_by_agent),transport:'not-published'}})),
+      artifacts:artifacts.map(a=>({previewUrl:browserArtifactUrl(this.transport.urls(a.id).previewUrl),downloadUrl:browserArtifactUrl(this.transport.urls(a.id).downloadUrl),thumbnailUrl:browserArtifactUrl(this.transport.urls(a.id).thumbnailUrl),id:a.id,projectId:p.id,title:text(a.title),type:text(a.artifact_type),createdAt:a.created_at,metadata:{version:a.version,createdBy:text(a.created_by_agent),transport:'not-published'}})),
       iterations:iterations.map(i=>({id:i.id,projectId:p.id,name:`Iteration ${i.iteration_number}`,summary:`${text(i.outcome||i.status)}; blockers: ${i.blocker_count}`,createdAt:i.created_at,previewUrl:'',status:text(i.status)})),
       review:{projectId:p.id,categories:mappedReviews[0]?.categories||[],issues:findings},reviews:mappedReviews,readiness,media:[],capabilities:this.capabilities};
   }

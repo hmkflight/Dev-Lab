@@ -69,3 +69,4 @@ test('devlab hosted mutations have no generic save and cannot touch mock state',
  const env=environment();env.DEVLAB_ADAPTER_MODE='devlab';const loaded=await loadStudio(env.DB,env);assert.equal(loaded.persistence,null);
  assert.equal((await worker.fetch(req('projects/p/actions',{action:'start'}),env)).status,501);assert.equal(env.db.prepare('SELECT count(*) AS n FROM studio_state').get().n,0);env.db.close();
 });
+test('transport cancellation is confined to unclaimed synthetic jobs',async()=>{const env=environment(),q=new BridgeQueue(env.DB);const a=await q.submit(input(),'owner');assert.equal((await q.cancelQueued(a.id)).status,'CANCELLED');assert.equal(await q.claim('mac'),null);const b=await q.submit(input(),'owner');await q.claim('mac');await assert.rejects(()=>q.cancelQueued(b.id),/unclaimed/);env.db.close();});

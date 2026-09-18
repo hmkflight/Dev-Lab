@@ -1,0 +1,205 @@
+{
+  "observedAt": "2026-09-18T06:10:44.912Z",
+  "origin": "https://hudson-dev-lab.hudsonmyung.chatgpt.site",
+  "commands": [
+    {
+      "scenario": "success",
+      "submitMs": 651,
+      "roundTripMs": 6226,
+      "id": "d1b0ede3-aa8e-4d2a-973e-a989b2092cfd",
+      "project_id": "bridge-smoke-test",
+      "command_type": "START_RUN",
+      "mode": "MOCK",
+      "payload": "{\"scenario\":\"success\"}",
+      "requested_by": "bridge-operator",
+      "idempotency_key": "de40ea84-d59d-4a41-9872-7f79a024ae87",
+      "created_at": "2026-09-18T06:10:56.818Z",
+      "status": "SUCCEEDED",
+      "claimed_by": "hudson-mac-shadow",
+      "claimed_at": "2026-09-18T06:10:59.351Z",
+      "attempt_count": 1,
+      "acknowledgment": "2026-09-18T06:11:00.042Z",
+      "result": "{\"mode\":\"MOCK\",\"code\":\"MOCK_COMPLETED\",\"executionCount\":1,\"cpeInvoked\":false,\"stdout\":\"Synthetic command completed; no CPE invocation.\",\"stderr\":\"\"}",
+      "error": null,
+      "completed_at": "2026-09-18T06:11:00.589Z",
+      "available_at": "2026-09-18T06:11:00.589Z",
+      "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T06:10:56.818Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T06:10:59.351Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T06:11:00.042Z\"},{\"status\":\"SUCCEEDED\",\"at\":\"2026-09-18T06:11:00.589Z\"}]"
+    },
+    {
+      "scenario": "fail-once",
+      "submitMs": 1511,
+      "roundTripMs": 11318,
+      "id": "48c4d74f-be6a-478e-8b82-82c25944816f",
+      "project_id": "bridge-smoke-test",
+      "command_type": "START_RUN",
+      "mode": "MOCK",
+      "payload": "{\"scenario\":\"fail-once\"}",
+      "requested_by": "bridge-operator",
+      "idempotency_key": "71379dde-f2fb-4abe-a673-2f16f520352e",
+      "created_at": "2026-09-18T06:11:04.473Z",
+      "status": "SUCCEEDED",
+      "claimed_by": "hudson-mac-shadow",
+      "claimed_at": "2026-09-18T06:11:10.442Z",
+      "attempt_count": 2,
+      "acknowledgment": "2026-09-18T06:11:10.985Z",
+      "result": "{\"mode\":\"MOCK\",\"code\":\"MOCK_COMPLETED\",\"executionCount\":1,\"cpeInvoked\":false,\"stdout\":\"Synthetic command completed; no CPE invocation.\",\"stderr\":\"\"}",
+      "error": null,
+      "completed_at": "2026-09-18T06:11:12.064Z",
+      "available_at": "2026-09-18T06:11:12.064Z",
+      "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T06:11:04.473Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T06:11:06.137Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T06:11:06.714Z\"},{\"status\":\"QUEUED\",\"at\":\"2026-09-18T06:11:07.319Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T06:11:10.442Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T06:11:10.985Z\"},{\"status\":\"SUCCEEDED\",\"at\":\"2026-09-18T06:11:12.064Z\"}]"
+    },
+    {
+      "scenario": "always-fail",
+      "submitMs": 612,
+      "roundTripMs": 12612,
+      "id": "d545b03e-8581-4c7a-82fa-30c0fc527624",
+      "project_id": "bridge-smoke-test",
+      "command_type": "START_RUN",
+      "mode": "MOCK",
+      "payload": "{\"scenario\":\"always-fail\"}",
+      "requested_by": "bridge-operator",
+      "idempotency_key": "3d3eb883-f935-4841-b2d9-fb5d72ca0709",
+      "created_at": "2026-09-18T06:11:14.905Z",
+      "status": "FAILED",
+      "claimed_by": "hudson-mac-shadow",
+      "claimed_at": "2026-09-18T06:11:25.001Z",
+      "attempt_count": 3,
+      "acknowledgment": "2026-09-18T06:11:25.613Z",
+      "result": "{\"mode\":\"MOCK\",\"code\":\"MOCK_TRANSIENT_FAILURE\",\"executionCount\":0,\"cpeInvoked\":false,\"stdout\":\"\",\"stderr\":\"MOCK_TRANSIENT_FAILURE\"}",
+      "error": "MOCK_TRANSIENT_FAILURE",
+      "completed_at": "2026-09-18T06:11:26.168Z",
+      "available_at": "2026-09-18T06:11:26.168Z",
+      "history": "[{\"status\":\"QUEUED\",\"at\":\"2026-09-18T06:11:14.905Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T06:11:15.104Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T06:11:16.120Z\"},{\"status\":\"QUEUED\",\"at\":\"2026-09-18T06:11:16.767Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T06:11:20.157Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T06:11:21.115Z\"},{\"status\":\"QUEUED\",\"at\":\"2026-09-18T06:11:21.664Z\"},{\"status\":\"CLAIMED\",\"at\":\"2026-09-18T06:11:25.001Z\"},{\"status\":\"RUNNING\",\"at\":\"2026-09-18T06:11:25.613Z\"},{\"status\":\"FAILED\",\"at\":\"2026-09-18T06:11:26.168Z\"}]"
+    }
+  ],
+  "measurements": {
+    "cpeSnapshotMs": 1973
+  },
+  "realRead": {
+    "projectId": "653f7041-ec7b-47fb-9064-2730dc1aa02d",
+    "slug": "eagleswings-cpe2-trial",
+    "stage": "CREATIVE_QA",
+    "run": {
+      "id": "7a884bdd-f2c2-49fd-88d1-8e37bfac8f31",
+      "projectId": "653f7041-ec7b-47fb-9064-2730dc1aa02d",
+      "status": "RUNNING",
+      "stageId": "CREATIVE_QA",
+      "startedAt": "2026-09-17T07:46:14.876178+00:00",
+      "updatedAt": "2026-09-18T06:10:18.502+00:00",
+      "mode": "devlab",
+      "iterationNumber": 2,
+      "responsibleAgent": "Critic & Learning Director"
+    },
+    "latestEvents": [
+      {
+        "id": "db2c1825-ed88-4077-b958-5062413696a2",
+        "type": "RUN_LOCK_ACQUIRED",
+        "createdAt": "2026-09-18T06:10:20.596207+00:00"
+      },
+      {
+        "id": "95ac1b2b-ae7a-4bd8-bcef-3aab101a98c4",
+        "type": "RUN_LOCK_RELEASED",
+        "createdAt": "2026-09-18T06:07:08.380494+00:00"
+      },
+      {
+        "id": "4c4c134e-a759-47f8-b341-368489cda3c0",
+        "type": "HUMAN_DECISION_REQUIRED",
+        "createdAt": "2026-09-18T06:07:07.997485+00:00"
+      },
+      {
+        "id": "5145aa7e-d72d-48b3-a693-7adc46b07261",
+        "type": "REVISION_ROUTED",
+        "createdAt": "2026-09-18T06:07:07.72874+00:00"
+      }
+    ],
+    "approvals": [
+      {
+        "id": "2259e7c7-6ca6-461e-bfe5-3f7072404c11",
+        "kind": "AWAITING_BUILD_APPROVAL",
+        "status": "approved"
+      },
+      {
+        "id": "66b24639-80ef-4285-8685-a2036cafa0b5",
+        "kind": "AWAITING_DIRECTION_APPROVAL",
+        "status": "approved"
+      }
+    ],
+    "iterationRows": 0,
+    "readiness": {
+      "status": "blocked",
+      "clientReady": false,
+      "reasonCount": 30,
+      "assessedAt": "2026-09-18T06:10:18.502+00:00"
+    }
+  },
+  "duplicate": {
+    "commandId": "d1b0ede3-aa8e-4d2a-973e-a989b2092cfd",
+    "idempotencyKey": "de40ea84-d59d-4a41-9872-7f79a024ae87",
+    "attemptCount": 1,
+    "executionCount": 1
+  },
+  "invalid": {
+    "status": 400,
+    "body": {
+      "error": "type: Invalid option: expected one of \"CREATE_PROJECT\"|\"START_RUN\"|\"RESUME_RUN\"|\"APPROVE_GATE\"; payload: Unrecognized key: \"shellCommand\""
+    }
+  },
+  "artifact": {
+    "id": "eec4a1a7-91c7-4e73-97d7-05dbab06f6bb",
+    "type": "bridge-synthetic-image",
+    "title": "Synthetic bridge proof",
+    "mimeType": "image/svg+xml",
+    "previewUrl": "/api/bridge/artifacts/eec4a1a7-91c7-4e73-97d7-05dbab06f6bb",
+    "downloadUrl": "/api/bridge/artifacts/eec4a1a7-91c7-4e73-97d7-05dbab06f6bb?download=1",
+    "thumbnailUrl": "/api/bridge/artifacts/eec4a1a7-91c7-4e73-97d7-05dbab06f6bb",
+    "metadata": {
+      "synthetic": true
+    },
+    "bytes": 208,
+    "retrievalMs": 596
+  },
+  "runner": {
+    "runnerId": "hudson-mac-shadow",
+    "mode": "MOCK",
+    "lastSeen": "2026-09-18T06:11:23.616Z",
+    "online": true,
+    "staleAfterSeconds": 45
+  },
+  "browserErrors": [],
+  "presenceProof": {
+    "offline": {
+      "runnerId": "hudson-mac-shadow",
+      "mode": "MOCK",
+      "lastSeen": "2026-09-18T06:11:42.557Z",
+      "online": false,
+      "staleAfterSeconds": 45
+    },
+    "observedAt": "2026-09-18T06:11:56.007Z",
+    "online": {
+      "runnerId": "hudson-mac-shadow",
+      "mode": "MOCK",
+      "lastSeen": "2026-09-18T06:12:26.766Z",
+      "online": true,
+      "staleAfterSeconds": 45
+    },
+    "onlineObservedAt": "2026-09-18T06:12:29.912Z"
+  },
+  "authenticationProof": [
+    {
+      "name": "anonymous",
+      "status": 401,
+      "denied": true
+    },
+    {
+      "name": "spoofed-identity",
+      "status": 401,
+      "denied": true
+    },
+    {
+      "name": "platform-token-only",
+      "status": 401,
+      "denied": true
+    }
+  ],
+  "zeroCpeMutations": true
+}

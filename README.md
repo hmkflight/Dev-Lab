@@ -51,3 +51,15 @@ See [INTEGRATION.md](./INTEGRATION.md) for the adapter contract and integration 
 ## Adapter foundation
 
 See [docs/DEVLAB_STUDIO_ADAPTER.md](docs/DEVLAB_STUDIO_ADAPTER.md). The server resolver defaults to `mock`; `DEVLAB_ADAPTER_MODE=devlab` selects a deliberately unconfigured skeleton whose operations fail clearly. No real Dev Lab integration runs. `npm run lint` validates the browser/server import boundary, and `npm run typecheck` checks TypeScript.
+
+## Studio bridge — Pass 1
+
+Hosted Studio now observes an explicitly allowlisted CPE project through Supabase reads. Production controls remain disabled. The **Factory bridge** page tests authenticated, durable synthetic commands through a separately supervised Mac runner; D1 is command transport, never CPE's source of truth.
+
+- Runner setup and safety: [runner/README.md](runner/README.md)
+- Verified mappings: [docs/DEVLAB_STUDIO_ADAPTER.md](docs/DEVLAB_STUDIO_ADAPTER.md)
+- Full acceptance report: [docs/STUDIO_LIVE_INTEGRATION_PASS_1_REPORT.md](docs/STUDIO_LIVE_INTEGRATION_PASS_1_REPORT.md)
+- `npm run bridge:runner` starts the MOCK runner using a private `.studio/runner.json`.
+- `npm run test:bridge:hosted` explicitly tests hosted CPE reads and synthetic commands using private `.studio/operator.json` test credentials.
+
+The local Express preview remains a loopback-only demo/development server. Hosted API access uses Sites identity plus an explicit owner/viewer allowlist; machine requests additionally require an application token. No public inbound Mac listener is used.
