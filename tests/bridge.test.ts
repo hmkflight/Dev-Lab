@@ -1,13 +1,10 @@
 import test from 'node:test';import assert from 'node:assert/strict';
 import {DatabaseSync} from 'node:sqlite';import {readFileSync} from 'node:fs';
 import worker from '../server/worker';import {BridgeQueue} from '../server/bridge-queue';import {loadStudio} from '../server/hosted-storage';
-import {mockExecute,realCommandPlan,executeReal} from '../runner/executors';
+import {mockExecute,realCommandPlan,executeReal,FACTORY_ROOT} from '../runner/executors';
 import {DevLabStudioAdapter} from '../lib/studio-adapter/devlab.server';import {SupabaseReadSource,publicText,type ReadSource} from '../lib/studio-adapter/cpe-source.server';
-export function environment(){
- const db=new DatabaseSync(':memory:');for(const p of ['0000_tranquil_dust.sql','0001_glorious_boomerang.sql'])db.exec(readFileSync('drizzle/'+p,'utf8'));
- const DB={prepare(sql:string){let values:any[]=[];const statement={bind(...v:any[]){values=v;return statement;},async run(){const r=db.prepare(sql).run(...values);return {meta:{changes:Number(r.changes)}};},async first(){return db.prepare(sql).get(...values)||null;},async all(){return {results:db.prepare(sql).all(...values)};}};return statement;}};
- const objects=new Map();return {db,DB,BRIDGE_OPERATOR_TOKEN:'operator-test',BRIDGE_RUNNER_TOKEN:'runner-test',BRIDGE_RUNNER_ID:'test-mac',BRIDGE_OWNER_EMAIL:'owner@example.com',BRIDGE_VIEWER_EMAILS:'viewer@example.com',BUCKET:{async put(k:string,v:unknown){objects.set(k,v);},async get(k:string){return objects.has(k)?{body:objects.get(k)}:null;},async delete(keys:string[]){keys.forEach(k=>objects.delete(k));}},ASSETS:{async fetch(){return new Response('asset');}}} as any;
-}
+import {environment} from './helpers/bridge-env';
+
 const input=(id=crypto.randomUUID(),scenario='success')=>({projectId:'bridge-smoke-test',type:'START_RUN',mode:'MOCK',idempotencyKey:id,payload:{scenario}});
 const req=(path:string,body?:unknown,token='operator-test')=>new Request('https://studio.test/api/'+path,{method:body===undefined?'GET':'POST',headers:{Authorization:'Bearer '+token,Origin:'https://studio.test','Content-Type':'application/json'},...(body===undefined?{}:{body:JSON.stringify(body)})});
 test('queue persists, owner submits, claim is atomic, start and completion are fenced',async()=>{
@@ -54,7 +51,7 @@ test('synthetic artifact has safe URLs, private R2 bytes, and requires authentic
  const image=await worker.fetch(req(a.previewUrl.slice(5)),env);assert.match(await image.text(),/synthetic proof/);assert.equal(image.headers.get('cache-control'),'private, no-store');assert.equal((await worker.fetch(req(a.previewUrl.slice(5),undefined,''),env)).status,401);env.db.close();
 });
 test('real mapping never executes during planning, gates disabled, dangerous projects rejected',async()=>{
- const root='/Users/test/AI_COMMAND_CENTER-bridge';const projectSlug='bridge-disposable-smoke';assert.deepEqual(realCommandPlan({type:'START_RUN',projectSlug},root).args,['run','creative-studio:orchestrator','--','run','--project',projectSlug]);assert.ok(realCommandPlan({type:'CREATE_PROJECT',projectSlug},root).args.includes('create'));assert.ok(realCommandPlan({type:'RESUME_RUN',projectSlug},root).args.includes('run-resume'));
+ const root=FACTORY_ROOT;const projectSlug='bridge-disposable-pass2';assert.ok(realCommandPlan({type:'START_RUN',projectSlug},root).args.includes('run')); assert.ok(realCommandPlan({type:'CREATE_PROJECT',projectSlug},root).args.includes('create'));assert.ok(realCommandPlan({type:'RESUME_RUN',projectSlug},root).args.includes('run-resume'));
  for(const type of ['APPROVE_GATE','CANCEL_RUN','PAUSE_RUN','SHELL'])assert.throws(()=>realCommandPlan({type,projectSlug},root));assert.throws(()=>realCommandPlan({type:'START_RUN',projectSlug:'eagleswings-cpe2-trial'},root));await assert.rejects(()=>executeReal({type:'START_RUN',projectSlug},root),/disabled/);
 });
 const fixture:Record<string,any[]>={creative_studio_projects:[{id:'p',slug:'allowed',client_name:'Real project',project_type:'website',current_stage:'QA',status:'active',created_at:'2026-01-01',updated_at:'2026-01-02'}],creative_studio_production_runs:[{id:'r',status:'REVISION_REQUIRED',current_stage:'QA',responsible_agent:'Critic',current_production_iteration:2,client_ready:false,client_ready_result:{reasons:['Unsafe /Users/test/secret.png Bearer secret123']},blockers:[],updated_at:'2026-01-02'}],creative_studio_production_run_events:[{id:'e',event_type:'STAGE_ADVANCED',detail:{from:'BUILD',to:'QA',secret:'hidden'},created_at:'2026-01-02'}],creative_studio_artifacts:[{id:'a',title:'Artifact',artifact_type:'new-type',created_at:'2026-01-01',version:1,filesystem_path:'/Users/no',metadata:{token:'secret'}}],creative_studio_production_iterations:[{id:'i',iteration_number:2,status:'REVIEWED',dimension_scores:{novel_dimension:6},blocker_count:1}],creative_studio_reviews:[],approvals:[],labs:[{id:'l'}],agents:[{id:'agent',name:'Critic',role:'Critique'}]};

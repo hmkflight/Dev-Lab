@@ -1,39 +1,24 @@
 import '../lib/studio-adapter/server-only';
-import {realpathSync} from 'node:fs';
 import {resolve} from 'node:path';
-import {spawn} from 'node:child_process';
-import {commandInput,authorizedProject} from '../lib/bridge/validation.server';
+import {homedir} from 'node:os';
+import {commandInput,authorizedProject,REAL_PROJECT,type ExecutorResult} from '../lib/bridge/validation.server';
 import type {BridgeCommand} from '../lib/bridge/types';
-import {publicText} from '../lib/studio-adapter/cpe-source.server';
-export interface ExecutorResult {ok:boolean;retryable:boolean;code:'MOCK_COMPLETED'|'MOCK_TRANSIENT_FAILURE'|'MOCK_PERMANENT_FAILURE'|'EXECUTION_UNCERTAIN';executionCount:number;}
-export function validateJob(job:BridgeCommand){authorizedProject(job.project_id);return commandInput.parse({projectId:job.project_id,type:job.command_type,mode:job.mode,idempotencyKey:job.idempotency_key,payload:JSON.parse(job.payload)});}
-/** No subprocess calls or CPE access exist in this executor. Failures are injected BEFORE synthetic work. */
+export type {ExecutorResult};
+export const FACTORY_ROOT=resolve(homedir(),'AI_COMMAND_CENTER-bridge');
+export function validateJob(job:BridgeCommand){authorizedProject(job.project_id,job.mode);return commandInput.parse({projectId:job.project_id,type:job.command_type,mode:job.mode,idempotencyKey:job.idempotency_key,payload:JSON.parse(job.payload)});}
 export function mockExecute(job:BridgeCommand):ExecutorResult {
-  const data=validateJob(job);
-  if(data.payload.scenario==='always-fail')return {ok:false,retryable:true,code:'MOCK_TRANSIENT_FAILURE',executionCount:0};
-  if(data.payload.scenario==='fail-once'&&job.attempt_count===1)return {ok:false,retryable:true,code:'MOCK_TRANSIENT_FAILURE',executionCount:0};
-  return {ok:true,retryable:false,code:'MOCK_COMPLETED',executionCount:1};
+ const data=validateJob(job);if(data.mode!=='MOCK')throw Error('Mock executor refuses REAL jobs.');
+ if(data.payload.scenario==='always-fail'||(data.payload.scenario==='fail-once'&&job.attempt_count===1))return {ok:false,retryable:true,code:'MOCK_TRANSIENT_FAILURE',executionCount:0};
+ return {ok:true,retryable:false,code:'MOCK_COMPLETED',executionCount:1};
 }
 export interface RealPlanInput {type:string;projectSlug:string;clientName?:string;expectedGate?:string;note?:string;}
-/** Translation only. Source verified read-only; no engine logic copied. */
 export function realCommandPlan(input:RealPlanInput,root:string) {
-  if(!/^bridge-disposable-[a-z0-9-]+$/.test(input.projectSlug))throw Error('Only an explicitly disposable bridge project is permitted.');
-  if(!root || !resolve(root).endsWith('/AI_COMMAND_CENTER-bridge'))throw Error('Separate bridge worktree required.');
-  const slug=input.projectSlug;
-  if(input.type==='CREATE_PROJECT')return {cwd:resolve(root),file:resolve(root,'command.sh'),args:['creative-studio','project','create','--client',input.clientName||slug,'--slug',slug]};
-  if(input.type==='START_RUN'||input.type==='RESUME_RUN')return {cwd:resolve(root,'dashboard'),file:'npm',args:['run','creative-studio:orchestrator','--',input.type==='START_RUN'?'run':'run-resume','--project',slug]};
-  if(input.type==='APPROVE_GATE')throw Error('Approval mapping verified, but expected-stage/run fencing is required before real execution: command.sh creative-studio approve --project <slug>.');
-  throw Error('Command unsupported: safe cancellation/pause has not been verified.');
+ if(input.projectSlug!==REAL_PROJECT)throw Error('Only bridge-disposable-pass2 is authorized.');
+ if(resolve(root)!==FACTORY_ROOT)throw Error('Exact separate bridge worktree required.');
+ if(input.type==='CREATE_PROJECT')return {cwd:root,file:resolve(root,'command.sh'),args:['creative-studio','project','create','--client','Bridge Disposable Pass 2','--slug',REAL_PROJECT,'--goal','Verify the Studio bridge on a disposable, non-sensitive project.','--description','A fictional public one-page website for a community reading room named Lantern Room. Audience: adult readers. Primary action: learn opening hours. Use invented public-facing copy only. No forms, payments, accounts, integrations, external assets, client data or backend. Three distinct creative concepts; select the strongest viable direction at review. This is a disposable integration acceptance project.']};
+ if(input.type==='START_RUN'||input.type==='RESUME_RUN')return {cwd:resolve(root,'dashboard'),file:process.execPath,args:[resolve(root,'dashboard/node_modules/tsx/dist/cli.mjs'),'--conditions=react-server',resolve(root,'dashboard/scripts/creative-studio-orchestrator.ts'),input.type==='START_RUN'?'run':'run-resume','--project',REAL_PROJECT,'--mode','CLEAN_ROOM','--allow-sources',REAL_PROJECT,'--build-target','static-single-file']};
+ if(input.type==='APPROVE_GATE'&&input.expectedGate==='AWAITING_DIRECTION_APPROVAL')return {cwd:root,file:resolve(root,'command.sh'),args:['creative-studio','approve','--project',REAL_PROJECT,'--note','Hudson authorized disposable Pass 2 direction approval through the fenced Studio bridge.']};
+ throw Error('Command unsupported or approval fence missing.');
 }
-/** Exists for a future disposable test. Pass 1 queue accepts MOCK only; runner refuses REAL startup. */
-export async function executeReal(input:RealPlanInput,root:string,explicitOptIn?:string):Promise<{exitCode:number|null;stdout:string;stderr:string}> {
-  if(explicitOptIn!=='DISPOSABLE_PROJECT_ONLY')throw Error('Real execution is disabled.');
-  const plan=realCommandPlan(input,root);
-  if(realpathSync(root)!==resolve(root))throw Error("Bridge worktree cannot be a symlink.");
-  return new Promise((resolveResult,reject)=>{
-    const child=spawn(plan.file,plan.args,{cwd:plan.cwd,shell:false,stdio:['ignore','pipe','pipe'],timeout:120000});
-    let stdout='',stderr='';child.stdout.on('data',b=>stdout=(stdout+b).slice(-8000));child.stderr.on('data',b=>stderr=(stderr+b).slice(-8000));
-    child.on('error',()=>reject(Error('CPE process could not start.')));
-    child.on('close',exitCode=>resolveResult({exitCode,stdout:publicText(stdout),stderr:publicText(stderr)}));
-  });
-}
+/** Direct execution is deliberately unavailable: only the journaled supervisor may launch. */
+export async function executeReal(_input:RealPlanInput,_root:string):Promise<never>{throw Error('Direct real execution disabled. Use the durable runner supervisor.');}

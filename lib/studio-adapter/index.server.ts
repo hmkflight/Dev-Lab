@@ -6,7 +6,7 @@ import { MockStudioAdapter } from "./mock";
 import { DevLabStudioAdapter, type DevLabConfig } from "./devlab.server";
 import { StudioError } from "./errors";
 export type AdapterEnvironment = DevLabConfig & { STUDIO_DATA_DIR?: string };
-interface AdapterOptions { env?: AdapterEnvironment; mockState?: DemoState; persistence?: "file" | "memory"; }
+interface AdapterOptions { artifactTransport?: import("./artifact.server").ArtifactTransport; env?: AdapterEnvironment; mockState?: DemoState; persistence?: "file" | "memory"; }
 let localAdapter: StudioAdapter | undefined;
 /** One composition root. No-option calls reuse the local server adapter.
  * Hosted requests pass durable state explicitly, so isolates never own authoritative state. */
@@ -16,7 +16,7 @@ export function getStudioAdapter(options?: AdapterOptions): StudioAdapter {
   const mode = env.DEVLAB_ADAPTER_MODE?.trim() || "mock";
   let adapter: StudioAdapter;
   if (mode === "mock") adapter = new MockStudioAdapter(options?.persistence === "memory" ? undefined : resolve(env.STUDIO_DATA_DIR || ".studio", "demo-state.json"), options?.mockState);
-  else if (mode === "devlab") adapter = new DevLabStudioAdapter(env);
+  else if (mode === "devlab") adapter = new DevLabStudioAdapter(env,undefined,options?.artifactTransport);
   else throw new StudioError("Unsupported studio adapter mode. Choose mock or devlab.",503);
   if (!options && mode === "mock") localAdapter = adapter;
   return adapter;

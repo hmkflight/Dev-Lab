@@ -7,7 +7,7 @@ import { emptyContext } from './defaults';
 import { SupabaseReadSource, publicText as text, type ReadSource, type Row } from './cpe-source.server';
 export interface DevLabConfig {
   DEVLAB_ROOT?: string; DEVLAB_API_URL?: string; DEVLAB_SUPABASE_URL?: string; DEVLAB_SUPABASE_SERVICE_ROLE_KEY?: string;
-  DEVLAB_ADAPTER_MODE?: string; DEVLAB_READ_PROJECT_SLUGS?: string;
+  BRIDGE_PROVEN_COMMANDS?:string; DEVLAB_ADAPTER_MODE?: string; DEVLAB_READ_PROJECT_SLUGS?: string;
 }
 const status = (r:Row|undefined,p:Row) => p.status==='archived'?'complete':p.status==='paused'?'paused':({RUNNING:'working',SOFTWARE_FACTORY_ACTIVE:'working',AWAITING_HUMAN_APPROVAL:'waiting',AWAITING_FINAL_APPROVAL:'waiting',REVISION_REQUIRED:'blocked',CONTENT_BLOCKED:'blocked',TECHNICAL_FAILURE:'blocked',ITERATION_LIMIT_REACHED:'blocked',CLIENT_READY:'waiting',FINAL_APPROVED:'complete',CANCELLED:'cancelled'} as Record<string,string>)[r?.status] || p.status;
 export class DevLabStudioAdapter implements StudioAdapter {
@@ -60,7 +60,7 @@ export class DevLabStudioAdapter implements StudioAdapter {
     const readiness={projectId:p.id,status:run?.client_ready?'ready':findings.length?'blocked':run?'not-ready':'unknown',clientReady:run?.client_ready===true,blockers:findings,summary:run?`CPE ${text(run.status)}; CLIENT_READY=${run.client_ready===true}. ${reasons.length} recorded readiness reasons.`:'No production run recorded.',assessedAt:run?.updated_at||p.updated_at,mode:this.mode};
     return {project,stages,agents,approvals,productionRun:run?{id:run.id,projectId:p.id,status:text(run.status),stageId:text(run.current_stage),startedAt:run.started_at,updatedAt:run.updated_at,mode:this.mode,iterationNumber:run.current_production_iteration,responsibleAgent:text(run.responsible_agent)}:null,
       events:events.map(e=>({id:e.id,projectId:p.id,message:text(e.event_type),createdAt:e.created_at,agentName:typeof e.detail?.agent==='string'?text(e.detail.agent):undefined,details:['from','to','stage','route','reason'].filter(k=>typeof e.detail?.[k]==='string').map(k=>`${k}: ${text(e.detail[k])}`).join(' · ')})),
-      artifacts:artifacts.map(a=>({previewUrl:browserArtifactUrl(this.transport.urls(a.id).previewUrl),downloadUrl:browserArtifactUrl(this.transport.urls(a.id).downloadUrl),thumbnailUrl:browserArtifactUrl(this.transport.urls(a.id).thumbnailUrl),id:a.id,projectId:p.id,title:text(a.title),type:text(a.artifact_type),createdAt:a.created_at,metadata:{version:a.version,createdBy:text(a.created_by_agent),transport:'not-published'}})),
+      artifacts:artifacts.map(a=>({previewUrl:browserArtifactUrl(this.transport.urls(a.id).previewUrl),downloadUrl:browserArtifactUrl(this.transport.urls(a.id).downloadUrl),thumbnailUrl:browserArtifactUrl(this.transport.urls(a.id).thumbnailUrl),id:a.id,projectId:p.id,title:text(a.title),type:text(a.artifact_type),createdAt:a.created_at,metadata:{version:a.version,createdBy:text(a.created_by_agent),transport:this.transport.urls(a.id).previewUrl?'private-r2':'not-published'}})),
       iterations:iterations.map(i=>({id:i.id,projectId:p.id,name:`Iteration ${i.iteration_number}`,summary:`${text(i.outcome||i.status)}; blockers: ${i.blocker_count}`,createdAt:i.created_at,previewUrl:'',status:text(i.status)})),
       review:{projectId:p.id,categories:mappedReviews[0]?.categories||[],issues:findings},reviews:mappedReviews,readiness,media:[],capabilities:this.capabilities};
   }
@@ -78,7 +78,7 @@ export class DevLabStudioAdapter implements StudioAdapter {
   getReviews:StudioAdapter['getReviews']=async id=>(await this.getProject(id)).reviews;
   getReadiness:StudioAdapter['getReadiness']=async id=>(await this.getProject(id)).readiness;
   getMedia:StudioAdapter['getMedia']=async id=>(await this.getProject(id)).media;
-  private async disabled():Promise<never>{if(!this.capabilities.canReadProjects)throw new DevLabAdapterNotConfiguredError();throw new StudioError('Real factory controls are disabled in Pass 1.',501);}
+  private async disabled():Promise<never>{if(!this.capabilities.canReadProjects)throw new DevLabAdapterNotConfiguredError();throw new StudioError('Direct factory controls are disabled. Use the fenced disposable command queue.',501);}
   getLibrary:StudioAdapter['getLibrary']=()=>this.disabled();
   createProject:StudioAdapter['createProject']=()=>this.disabled(); startRun:StudioAdapter['startRun']=()=>this.disabled();
   approveGate:StudioAdapter['approveGate']=()=>this.disabled(); pauseRun:StudioAdapter['pauseRun']=()=>this.disabled();

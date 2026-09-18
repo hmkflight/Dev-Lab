@@ -3,9 +3,9 @@ import "../lib/studio-adapter/server-only";
 import { StudioError } from "../lib/studio-adapter/errors";
 import { getStudioAdapter, getMockAdapter, type AdapterEnvironment } from "../lib/studio-adapter/index.server";
 import { createSeed } from "../lib/studio-adapter/seed";
-export async function loadStudio(db: D1Database, env: AdapterEnvironment = {}) {
+export async function loadStudio(db: D1Database, env: AdapterEnvironment = {},artifactTransport?:import("../lib/studio-adapter/artifact.server").ArtifactTransport) {
   if (env.DEVLAB_ADAPTER_MODE && env.DEVLAB_ADAPTER_MODE !== "mock") {
-    const adapter = getStudioAdapter({env,persistence:"memory"});
+    const adapter = getStudioAdapter({env,persistence:"memory",artifactTransport});
     return {adapter, persistence: null};
   }
   await db.prepare("INSERT OR IGNORE INTO studio_state (id, revision, data) VALUES (1, 0, ?)").bind(JSON.stringify(createSeed())).run();
