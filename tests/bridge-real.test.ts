@@ -53,7 +53,7 @@ test('private real artifact transport verifies ownership, hash, safe bytes and a
  try{
   const {publishDisposableArtifact}=await import('../server/bridge-artifacts');const bytes=new TextEncoder().encode('{"projectSlug":"bridge-disposable-pass2","finding":"Public fictional content"}');const hash=Buffer.from(await crypto.subtle.digest('SHA-256',bytes)).toString('hex');const body={sourceArtifactId:sourceId,mimeType:'application/json',base64:Buffer.from(bytes).toString('base64'),sha256:hash};
   const a=await publishDisposableArtifact(body,e);assert.equal(a.bytes,bytes.length);const again=await publishDisposableArtifact(body,e);assert.equal(a.id,again.id);
-  const r=await worker.fetch(new Request('https://studio.test/api/bridge/artifacts/'+a.id,{headers:{Authorization:'Bearer operator-test'}}),e);assert.equal(r.status,200);assert.deepEqual(new Uint8Array(await r.arrayBuffer()),bytes);assert.equal((await worker.fetch(new Request('https://studio.test/api/bridge/artifacts/'+a.id),e)).status,401);
+  const r=await worker.fetch(new Request('https://studio.test/api/bridge/artifacts/'+a.id,{headers:{Authorization:'Bearer operator-test'}}),e);assert.equal(r.status,200);assert.match(r.headers.get('cache-control')!,/no-transform/);assert.deepEqual(new Uint8Array(await r.arrayBuffer()),bytes);assert.equal((await worker.fetch(new Request('https://studio.test/api/bridge/artifacts/'+a.id),e)).status,401);
   await assert.rejects(()=>publishDisposableArtifact({...body,sourceArtifactId:crypto.randomUUID()},e),/owned/);
   await assert.rejects(()=>publishDisposableArtifact({...body,sha256:'0'.repeat(64)},e),/hash/);
   await assert.rejects(()=>publishDisposableArtifact({...body,base64:Buffer.from('{"path":"/Users/private"}').toString('base64')},e),/private/);
