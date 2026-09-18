@@ -12,7 +12,7 @@ export class SupabaseReadSource implements ReadSource {
     const base = new URL(this.url);
     if(base.protocol !== 'https:' || base.username || base.password) throw new StudioError('Invalid read source configuration.',503);
     const response = await this.transport(new URL('/rest/v1/'+table+'?'+new URLSearchParams({...query,limit:query.limit || '200'}),base),{
-      method:'GET', headers:{apikey:this.key,Authorization:`Bearer ${this.key}`},redirect:'error',signal:AbortSignal.timeout(15000),
+      method:'GET', headers:{apikey:this.key,Authorization:`Bearer ${this.key}`},redirect:'manual',signal:AbortSignal.timeout(15000),
     });
     if(!response.ok) throw new StudioError(`Authoritative CPE read unavailable (${response.status}).`,502);
     const rows = await response.json();
