@@ -19,7 +19,7 @@ test('REAL vocabulary strictly fences project, payload, executable, cwd, pause a
 test('REAL admissions disabled by default; owner acceptance is explicit',async()=>{const e=environment();assert.equal((await worker.fetch(req(input()),e)).status,403);e.BRIDGE_REAL_COMMANDS='CREATE_PROJECT';assert.equal((await worker.fetch(req(input()),e)).status,503); /* Explicit admission still requires authoritative enrollment/configuration. */assert.equal((await worker.fetch(req(input('START_RUN')),e)).status,403);e.db.close();});
 test('semantic idempotency prevents second create/start/approval/resume even with different request IDs',async()=>{
  const e=environment(),q=new BridgeQueue(e.DB);const runId=crypto.randomUUID();
- for(const [type,payload] of [['CREATE_PROJECT',{}],['START_RUN',{}],['APPROVE_GATE',{runId,expectedStage:'AWAITING_DIRECTION_APPROVAL',approvalType:'AWAITING_DIRECTION_APPROVAL',gate:'AWAITING_DIRECTION_APPROVAL'}],['RESUME_RUN',{runId,expectedStage:'EXPERIENCE_DESIGN'}]] as const){const a=await q.submit(input(type,payload),'owner');const b=await q.submit(input(type,payload),'owner-2');assert.equal(a.id,b.id);}
+ for(const [type,payload] of [['CREATE_PROJECT',{}],['START_RUN',{}],['APPROVE_GATE',{runId,expectedStage:'AWAITING_DIRECTION_APPROVAL',selectedTrack:'editorial',approvalType:'AWAITING_DIRECTION_APPROVAL',gate:'AWAITING_DIRECTION_APPROVAL'}],['RESUME_RUN',{runId,expectedStage:'EXPERIENCE_DESIGN'}]] as const){const a=await q.submit(input(type,payload),'owner');const b=await q.submit(input(type,payload),'owner-2');assert.equal(a.id,b.id);}
  assert.equal((await q.list()).length,4);e.db.close();
 });
 test('long REAL execution renews beyond initial lease; disconnect never requeues running job or admits concurrent real work',async()=>{
@@ -36,7 +36,7 @@ test('queued REAL work remains durable while runner disconnected; stale claimed 
 test('restart recovery never treats missing or stale execution evidence as permission to spawn',()=>{const id=crypto.randomUUID(),now=Date.now();assert.equal(supervisionDecision(null,id),'uncertain');assert.equal(supervisionDecision({executionId:id,state:'running',progressAt:new Date(now-31000).toISOString()},id,now),'uncertain');assert.equal(supervisionDecision({executionId:'different',state:'complete'},id),'uncertain');assert.equal(supervisionDecision({executionId:id,state:'complete'},id),'complete');});
 const runId=crypto.randomUUID();
 function fixture(){const project={id:crypto.randomUUID(),slug:REAL_PROJECT,status:'active',current_stage:'AWAITING_DIRECTION_APPROVAL'};const run={id:runId,project_id:project.id,mode:'CLEAN_ROOM',status:'AWAITING_HUMAN_APPROVAL',current_stage:'AWAITING_DIRECTION_APPROVAL',human_gate:'AWAITING_DIRECTION_APPROVAL',lock_holder:null,lock_expires_at:null};const approvals:any[]=[];return {project,run,approvals,fence:new CpeFence({rows:async table=>table==='creative_studio_projects'?[project]:table==='creative_studio_production_runs'?[run]:table==='studio_project_authorizations'?[{project_id:project.id,slug:REAL_PROJECT,enabled:true,historically_denied:false,clean_room_required:true}]:approvals})};}
-const approve=()=>commandInput.parse(input('APPROVE_GATE',{runId,expectedStage:'AWAITING_DIRECTION_APPROVAL',approvalType:'AWAITING_DIRECTION_APPROVAL',gate:'AWAITING_DIRECTION_APPROVAL'}));
+const approve=()=>commandInput.parse(input('APPROVE_GATE',{runId,expectedStage:'AWAITING_DIRECTION_APPROVAL',selectedTrack:'editorial',approvalType:'AWAITING_DIRECTION_APPROVAL',gate:'AWAITING_DIRECTION_APPROVAL'}));
 test('approval reread rejects changed run, changed stage, cleared gate, type mismatch, existing approval and active CPE lock',async()=>{
  const a=fixture();await a.fence.validate(approve());a.project.current_stage='EXPERIENCE_DESIGN';await assert.rejects(()=>a.fence.validate(approve()),/Stale/);
  const b=fixture();b.run.id=crypto.randomUUID();await assert.rejects(()=>b.fence.validate(approve()),/Stale/);
@@ -46,7 +46,7 @@ test('approval reread rejects changed run, changed stage, cleared gate, type mis
  assert.throws(()=>commandInput.parse(input('APPROVE_GATE',{...approve().payload,approvalType:'ANY'})));
 });
 test('resume requires same authoritative run after direction approval; start never reuses an existing run',async()=>{const a=fixture();await assert.rejects(()=>a.fence.validate(commandInput.parse(input('START_RUN'))),/already/);await assert.rejects(()=>a.fence.validate(commandInput.parse(input('RESUME_RUN',{runId,expectedStage:'AWAITING_DIRECTION_APPROVAL'}))),/Resume/);a.project.current_stage='EXPERIENCE_DESIGN';await a.fence.validate(commandInput.parse(input('RESUME_RUN',{runId,expectedStage:'EXPERIENCE_DESIGN'})));});
-test('real plan fixes all arguments and mock executor cannot invoke it',()=>{const plan=realCommandPlan({type:'APPROVE_GATE',projectSlug:REAL_PROJECT,expectedGate:'AWAITING_DIRECTION_APPROVAL',runId,approvedBy:'owner@example.com'},FACTORY_ROOT);assert.deepEqual(plan.args.slice(0,4),['creative-studio','approve','--project',REAL_PROJECT]);assert.throws(()=>mockExecute({project_id:REAL_PROJECT,mode:'REAL',command_type:'CREATE_PROJECT',payload:'{}',idempotency_key:crypto.randomUUID()} as any),/refuses/);});
+test('real plan fixes all arguments and mock executor cannot invoke it',()=>{const plan=realCommandPlan({type:'APPROVE_GATE',projectSlug:REAL_PROJECT,expectedGate:'AWAITING_DIRECTION_APPROVAL',selectedTrack:'editorial',runId,approvedBy:'owner@example.com'},FACTORY_ROOT);assert.deepEqual(plan.args.slice(0,4),['creative-studio','approve','--project',REAL_PROJECT]);assert.throws(()=>mockExecute({project_id:REAL_PROJECT,mode:'REAL',command_type:'CREATE_PROJECT',payload:'{}',idempotency_key:crypto.randomUUID()} as any),/refuses/);});
 test('private real artifact transport verifies ownership, hash, safe bytes and authenticated delivery',async()=>{
  const e=environment();e.DEVLAB_SUPABASE_URL='https://cpe.test';e.DEVLAB_SUPABASE_SERVICE_ROLE_KEY='private-test';const sourceId=crypto.randomUUID(),projectId=crypto.randomUUID();const original=globalThis.fetch;
  globalThis.fetch=async (url)=>{const u=new URL(String(url));if(u.pathname.endsWith('creative_studio_projects'))return Response.json([{id:projectId,slug:REAL_PROJECT}]);if(u.pathname.endsWith('creative_studio_production_runs'))return Response.json([]);if(u.pathname.endsWith('studio_project_authorizations'))return Response.json([{project_id:projectId,slug:REAL_PROJECT,enabled:true,historically_denied:false,clean_room_required:true}]);return Response.json(u.searchParams.get('id')==='eq.'+sourceId?[{id:sourceId}]:[]);};
@@ -66,3 +66,25 @@ test('only explicit new requests can retry a proven zero-execution rejection; un
  const k=(await q.claim('mac','REAL'))!;await q.start(k.id,k.claim_token,'mac');const second=crypto.randomUUID();await q.progress(k.id,k.claim_token,'mac',second);await q.finish(k.id,k.claim_token,'mac',{ok:false,retryable:false,code:'REAL_FAILED',executionCount:1,executionId:second});assert.equal((await q.submit(input(),'owner')).id,retry.id);e.db.close();
 });
 test('even unclaimed REAL transport commands cannot use the mock cancellation endpoint',async()=>{const e=environment(),q=new BridgeQueue(e.DB);const c=await q.submit(input(),'owner');await assert.rejects(()=>q.cancelQueued(c.id),/mock transport/);assert.equal((await q.list())[0].status,'QUEUED');e.db.close();});
+
+test('resolved human revision resumes only the exact unlocked run and project revision',async()=>{
+ const a=fixture();Object.assign(a.project,{current_stage:'EXPERIENCE_DESIGN',updated_at:'2026-09-23T05:00:00.000Z'});Object.assign(a.run,{current_stage:'EXPERIENCE_DESIGN',status:'RUNNING',human_gate:null});
+ const resume=(stamp?:string)=>commandInput.parse(input('RESUME_RUN',{runId,expectedStage:'EXPERIENCE_DESIGN',...(stamp?{expectedProjectUpdatedAt:stamp}:{})}));
+ await assert.rejects(()=>a.fence.validate(resume()),/Resume/);await assert.rejects(()=>a.fence.validate(resume('2026-09-23T04:00:00.000Z')),/Resume/);
+ await a.fence.validate(resume('2026-09-23T05:00:00.000Z'));
+ a.run.status='CANCELLED';await assert.rejects(()=>a.fence.validate(resume('2026-09-23T05:00:00.000Z')),/Resume/);
+});
+test('direction requires a valid selection; other gates reject unrelated selections',()=>{
+ const payload={runId,expectedStage:'AWAITING_DIRECTION_APPROVAL',approvalType:'AWAITING_DIRECTION_APPROVAL',gate:'AWAITING_DIRECTION_APPROVAL'};
+ assert.throws(()=>commandInput.parse(input('APPROVE_GATE',payload)));
+ assert.throws(()=>commandInput.parse(input('APPROVE_GATE',{...payload,selectedTrack:'invented'})));
+ assert.throws(()=>realCommandPlan({type:'APPROVE_GATE',projectSlug:REAL_PROJECT,expectedGate:payload.gate,runId,approvedBy:'owner'},FACTORY_ROOT));
+ const plan=realCommandPlan({type:'APPROVE_GATE',projectSlug:REAL_PROJECT,expectedGate:payload.gate,runId,approvedBy:'owner',selectedTrack:'experiential'},FACTORY_ROOT);assert.deepEqual(plan.args.slice(-2),['--selected-track','experiential']);
+ assert.throws(()=>commandInput.parse(input('APPROVE_GATE',{...payload,gate:'AWAITING_BUILD_APPROVAL',selectedTrack:'experiential'})));
+});
+test('revision resume deduplicates within a revision while preserving earlier gate resume',async()=>{
+ const e=environment(),q=new BridgeQueue(e.DB);const payload={runId,expectedStage:'EXPERIENCE_DESIGN'};
+ const old=await q.submit(input('RESUME_RUN',payload),'owner');
+ const revised=await q.submit(input('RESUME_RUN',{...payload,expectedProjectUpdatedAt:'2026-09-23T05:00:00.000Z'}),'owner');
+ assert.notEqual(old.id,revised.id);assert.equal((await q.submit(input('RESUME_RUN',{...payload,expectedProjectUpdatedAt:'2026-09-23T05:00:00.000Z'}),'owner')).id,revised.id);e.db.close();
+});

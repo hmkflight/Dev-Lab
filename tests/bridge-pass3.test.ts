@@ -29,8 +29,8 @@ test('enrollment, historical deny, protected namespaces and clean room remain ma
 });
 test('all approval gates require explicit run/type/stage and map to atomic CLI flags',()=>{
  for(const gate of ['AWAITING_DIRECTION_APPROVAL','AWAITING_BUILD_APPROVAL','AWAITING_FINAL_APPROVAL']){
-  commandInput.parse({projectId:REAL_PROJECT,type:'APPROVE_GATE',mode:'REAL',idempotencyKey:crypto.randomUUID(),payload:{runId,expectedStage:gate,approvalType:gate,gate}});
-  const plan=realCommandPlan({type:'APPROVE_GATE',projectSlug:REAL_PROJECT,expectedGate:gate,runId,approvedBy:'owner@example.com'},FACTORY_ROOT);
+  commandInput.parse({projectId:REAL_PROJECT,type:'APPROVE_GATE',mode:'REAL',idempotencyKey:crypto.randomUUID(),payload:{runId,expectedStage:gate,approvalType:gate,gate,...(gate==='AWAITING_DIRECTION_APPROVAL'?{selectedTrack:'editorial'}:{})}});
+  const plan=realCommandPlan({type:'APPROVE_GATE',projectSlug:REAL_PROJECT,expectedGate:gate,...(gate==='AWAITING_DIRECTION_APPROVAL'?{selectedTrack:'editorial'}:{}),runId,approvedBy:'owner@example.com'},FACTORY_ROOT);
   assert.ok(plan.args.includes('--run-id'));assert.ok(plan.args.includes('--expected-stage'));assert.ok(plan.args.includes('--approval-type'));assert.ok(plan.args.includes('--approved-by'));
  }
  assert.throws(()=>realCommandPlan({type:'APPROVE_GATE',projectSlug:REAL_PROJECT,expectedGate:'AWAITING_BUILD_APPROVAL'},FACTORY_ROOT));

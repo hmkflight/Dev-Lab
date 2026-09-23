@@ -5,7 +5,7 @@ import {REAL_PROJECT,authorizedProject,type CommandInput} from './validation.ser
 import {StudioError} from '../studio-adapter/errors';
 export class CpeFence {
  constructor(readonly source:ReadSource,readonly projectSlug=REAL_PROJECT){authorizedProject(projectSlug,'REAL',projectSlug);}
- async state(){const projects=await this.source.rows('creative_studio_projects',{slug:`eq.${this.projectSlug}`,select:'id,slug,current_stage,status',limit:'2'});if(projects.length>1)throw new StudioError('Disposable identity is not unique.',409);const project=projects[0];const runs=project?await this.source.rows('creative_studio_production_runs',{project_id:`eq.${project.id}`,select:'id,project_id,mode,status,current_stage,human_gate,lock_holder,lock_expires_at',order:'run_number.desc',limit:'1'}):[];return {project,run:runs[0]};}
+ async state(){const projects=await this.source.rows('creative_studio_projects',{slug:`eq.${this.projectSlug}`,select:'id,slug,current_stage,status,updated_at',limit:'2'});if(projects.length>1)throw new StudioError('Disposable identity is not unique.',409);const project=projects[0];const runs=project?await this.source.rows('creative_studio_production_runs',{project_id:`eq.${project.id}`,select:'id,project_id,mode,status,current_stage,human_gate,lock_holder,lock_expires_at',order:'run_number.desc',limit:'1'}):[];return {project,run:runs[0]};}
  async authorize(){const state=await this.state();const entries=await this.source.rows('studio_project_authorizations',{slug:`eq.${this.projectSlug}`,select:'project_id,slug,enabled,historically_denied,clean_room_required',limit:'1'});authorizeRealProject(this.projectSlug,state.project?.id,entries[0] as ProjectAuthorization|undefined,state.run?.mode);return state;}
  async validate(d:CommandInput,lockHolder?:string){
   if(d.mode!=='REAL'||d.projectId!==this.projectSlug)throw new StudioError('Real project is not authorized.',403);
@@ -18,7 +18,7 @@ export class CpeFence {
   if(d.type==='APPROVE_GATE'){
    if(d.payload.gate!==d.payload.expectedStage||d.payload.approvalType!==d.payload.gate||run.current_stage!==d.payload.gate||run.human_gate!==d.payload.gate||run.status!=='AWAITING_HUMAN_APPROVAL')throw new StudioError('Requested approval does not match the pending CPE gate.',409);
    const prior=await this.source.rows('approvals',{action_type:`eq.creative-studio:${d.payload.gate}:${this.projectSlug}`,select:'id',limit:'1'});if(prior.length)throw new StudioError('Gate already approved.',409);
-  }else if(run.status!=='AWAITING_HUMAN_APPROVAL'||project.current_stage===run.current_stage||!['EXPERIENCE_DESIGN','IMPLEMENTATION','COMPLETE'].includes(project.current_stage))throw new StudioError('Resume requires an approved gate on this run.',409);
+  }else if(run.status==='RUNNING'&&project.current_stage===run.current_stage&&!!d.payload.expectedProjectUpdatedAt&&d.payload.expectedProjectUpdatedAt===project.updated_at){return state;}else if(run.status!=='AWAITING_HUMAN_APPROVAL'||project.current_stage===run.current_stage||!['EXPERIENCE_DESIGN','IMPLEMENTATION','COMPLETE'].includes(project.current_stage))throw new StudioError('Resume requires an approved gate on this run.',409);
   return state;
  }
 }
