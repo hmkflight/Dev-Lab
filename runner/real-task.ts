@@ -40,7 +40,7 @@ try{
    definition=JSON.parse(readFileSync(file,'utf8'));
    if(definition.projectSlug!==data.projectId)throw Error('Definition project mismatch.');
   }
-  const plan=realCommandPlan({definition,selectedTrack:data.type==='APPROVE_GATE'?data.payload.selectedTrack:undefined,type:data.type,projectSlug:data.projectId,expectedGate:data.type==='APPROVE_GATE'?data.payload.gate:undefined,runId:data.type==='APPROVE_GATE'?data.payload.runId:undefined,approvedBy:task.job.requested_by},FACTORY_ROOT);
+  const plan=realCommandPlan({definition,gateUpdatedAt:data.type==='APPROVE_GATE'?data.payload.expectedProjectUpdatedAt:undefined,selectedTrack:data.type==='APPROVE_GATE'?data.payload.selectedTrack:undefined,type:data.type,projectSlug:data.projectId,expectedGate:data.type==='APPROVE_GATE'?data.payload.gate:undefined,runId:data.type==='APPROVE_GATE'?data.payload.runId:undefined,approvedBy:task.job.requested_by},FACTORY_ROOT);
   const exitCode=await new Promise<number|null>((done,reject)=>{
    const child=spawn(plan.file,plan.args,{cwd:plan.cwd,shell:false,stdio:['ignore','pipe','pipe'],env:{PATH:process.env.PATH,HOME:process.env.HOME,USER:process.env.USER,LANG:process.env.LANG,TMPDIR:process.env.TMPDIR,NEXT_PUBLIC_SUPABASE_URL:credentials.NEXT_PUBLIC_SUPABASE_URL,SUPABASE_SERVICE_ROLE_KEY:credentials.SUPABASE_SERVICE_ROLE_KEY,CREATIVE_STUDIO_AGENT_PROVIDER:'codex'}});
    processId=child.pid;child.once('spawn',()=>{executionCount=1;childIdentity=processIdentity(child.pid);tick();});
@@ -51,7 +51,8 @@ try{
   let verified=exitCode===0;
   if(data.type==='CREATE_PROJECT')verified&&=!!after.project;
   else if(data.type==='APPROVE_GATE'){
-   const approvals=await source.rows('approvals',{action_type:`eq.creative-studio:${data.payload.gate}:${data.projectId}`,select:'id',limit:'2'});
+   const receipt=stdout.split('\n').map(line=>{try{return JSON.parse(line);}catch{return null;}}).find(value=>value?.approval_id&&value?.run_id===data.payload.runId);
+   const approvals=receipt?await source.rows('approvals',{id:`eq.${receipt.approval_id}`,action_type:`eq.creative-studio:${data.payload.gate}:${data.projectId}`,select:'id',limit:'2'}):[];
    verified&&=after.project?.current_stage===({AWAITING_DIRECTION_APPROVAL:'EXPERIENCE_DESIGN',AWAITING_BUILD_APPROVAL:'IMPLEMENTATION',AWAITING_FINAL_APPROVAL:'COMPLETE'}[data.payload.gate])&&approvals.length===1;
   }else verified&&=!!after.run;
   result={ok:verified,retryable:false,code:verified?'REAL_COMPLETED':'REAL_FAILED',executionCount,stdout:safe(stdout),stderr:safe(stderr),projectId:after.project?.id,runId:after.run?.id};

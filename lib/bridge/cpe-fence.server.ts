@@ -17,7 +17,7 @@ export class CpeFence {
   if(!run||run.id!==d.payload.runId||project.current_stage!==d.payload.expectedStage)throw new StudioError('Stale production run or project stage.',409);
   if(d.type==='APPROVE_GATE'){
    if(d.payload.gate!==d.payload.expectedStage||d.payload.approvalType!==d.payload.gate||run.current_stage!==d.payload.gate||run.human_gate!==d.payload.gate||run.status!=='AWAITING_HUMAN_APPROVAL')throw new StudioError('Requested approval does not match the pending CPE gate.',409);
-   const prior=await this.source.rows('approvals',{action_type:`eq.creative-studio:${d.payload.gate}:${this.projectSlug}`,select:'id',limit:'1'});if(prior.length)throw new StudioError('Gate already approved.',409);
+   if(d.payload.expectedProjectUpdatedAt){if(d.payload.expectedProjectUpdatedAt!==project.updated_at)throw new StudioError('Stale gate revision.',409);}else{const prior=await this.source.rows('approvals',{action_type:`eq.creative-studio:${d.payload.gate}:${this.projectSlug}`,select:'id',limit:'1'});if(prior.length)throw new StudioError('Gate already approved previously; a repeated gate requires its current revision timestamp.',409);}
   }else if(run.status==='RUNNING'&&project.current_stage===run.current_stage&&!!d.payload.expectedProjectUpdatedAt&&d.payload.expectedProjectUpdatedAt===project.updated_at){return state;}else if(run.status!=='AWAITING_HUMAN_APPROVAL'||project.current_stage===run.current_stage||!['EXPERIENCE_DESIGN','IMPLEMENTATION','COMPLETE'].includes(project.current_stage))throw new StudioError('Resume requires an approved gate on this run.',409);
   return state;
  }
