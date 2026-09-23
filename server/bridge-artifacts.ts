@@ -16,6 +16,6 @@ export async function publishDisposableArtifact(input:unknown,env:BridgeEnv&{DB:
  const hash=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',new Uint8Array(bytes).buffer))).map(x=>x.toString(16).padStart(2,'0')).join('');if(hash!==b.sha256)throw new StudioError('Artifact hash mismatch.',400);
  const prior=await env.DB.prepare('SELECT * FROM bridge_artifacts WHERE source_artifact_id=? AND representation=?').bind(b.sourceArtifactId,b.representation).first<any>();if(prior){if(prior.sha256!==hash)throw new StudioError('Published source is immutable.',409);return prior;}
  const id=crypto.randomUUID();await env.BUCKET.put('bridge-real/'+id,bytes);
- await env.DB.prepare('INSERT INTO bridge_artifacts(id,source_artifact_id,representation,project_id,mime_type,bytes,sha256,created_at) VALUES(?,?,?,?,?,?,?,?)').bind(id,b.sourceArtifactId,b.representation,REAL_PROJECT,b.mimeType,bytes.length,hash,new Date().toISOString()).run();
+ await env.DB.prepare('INSERT INTO bridge_artifacts(id,source_artifact_id,representation,project_id,mime_type,bytes,sha256,created_at) VALUES(?,?,?,?,?,?,?,?)').bind(id,b.sourceArtifactId,b.representation,env.BRIDGE_PROJECT_SLUG||REAL_PROJECT,b.mimeType,bytes.length,hash,new Date().toISOString()).run();
  return {id,sourceArtifactId:b.sourceArtifactId,representation:b.representation,mimeType:b.mimeType,bytes:bytes.length,sha256:hash};
 }

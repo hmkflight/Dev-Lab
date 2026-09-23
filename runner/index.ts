@@ -1,6 +1,6 @@
 import {classifyReconciliation,processIdentity} from './reconciliation';
 import {parseEnv} from 'node:util';
-import {FACTORY_ROOT} from './executors';
+import {FACTORY_ROOT,configuredProject} from './executors';
 import {CpeFence} from '../lib/bridge/cpe-fence.server';
 import {SupabaseReadSource} from '../lib/studio-adapter/cpe-source.server';
 import {disposableArtifacts} from './artifacts';
@@ -13,7 +13,8 @@ import {launchTask,taskState,supervisionDecision} from './supervision';
 import type {BridgeCommand} from '../lib/bridge/types';
 const config=JSON.parse(readFileSync(process.env.BRIDGE_CONFIG||resolve('.studio/runner.json'),'utf8'));
 const mode=process.env.BRIDGE_EXECUTOR_MODE||config.mode||'MOCK';
-if(!['MOCK','REAL'].includes(mode)||(mode==='REAL'&&config.realProject!=='bridge-disposable-pass2'))throw Error('Exact disposable authorization required.');
+process.env.BRIDGE_PROJECT_SLUG=config.realProject;
+if(!['MOCK','REAL'].includes(mode)||(mode==='REAL'&&!config.realProject))throw Error('Explicit project authorization required.');
 const origin=new URL(config.origin);if(origin.protocol!=='https:')throw Error('Runner requires HTTPS.');
 if(!config.runnerToken||!config.siteToken)throw Error('Runner authentication is not configured.');
 const journalPath=resolve(config.journal||'.studio/runner-journal.sqlite');mkdirSync(dirname(journalPath),{recursive:true});
@@ -40,7 +41,7 @@ async function reconcile(){
   try {
    const credentials=parseEnv(readFileSync(resolve(FACTORY_ROOT,'dashboard/.env.local'),'utf8'));
    const source=new SupabaseReadSource(credentials.NEXT_PUBLIC_SUPABASE_URL,credentials.SUPABASE_SERVICE_ROLE_KEY);
-   const {run}=await new CpeFence(source).state();
+   const {run}=await new CpeFence(source,job.project_id).state();
    const events=run?await source.rows('creative_studio_production_run_events',{run_id:`eq.${run.id}`,select:'id,event_type,created_at',order:'created_at.desc',limit:'5'}):[];
    const payload=JSON.parse(job.payload);
    const command=await api(`commands/${row.id}/inspect`,{token:job.claim_token,executionId:row.execution_id});
@@ -61,7 +62,7 @@ async function reconcile(){
 }
 log('runner-started',{runnerId:config.runnerId,mode});
 try{await heartbeat();while(!stopping){try{
- if(mode==='REAL'&&!artifactPublished&&Date.now()-artifactChecked>30000){artifactChecked=Date.now();try{const artifacts=await disposableArtifacts();for(const artifact of artifacts){const published=await api('artifacts',artifact);log('artifact-published',{sourceArtifactId:artifact.sourceArtifactId,objectId:published.id,representation:artifact.representation});}artifactPublished=artifacts.length>0;}catch{log('artifact-not-ready');}}
+ if(mode==='REAL'&&!artifactPublished&&Date.now()-artifactChecked>30000){artifactChecked=Date.now();try{const artifacts=await disposableArtifacts(configuredProject());for(const artifact of artifacts){const published=await api('artifacts',artifact);log('artifact-published',{sourceArtifactId:artifact.sourceArtifactId,objectId:published.id,representation:artifact.representation});}artifactPublished=artifacts.length>0;}catch{log('artifact-not-ready');}}
  const active=await reconcile();const job=await api('claim',{mode:active?'MOCK':mode}) as (BridgeCommand&{claim_token:string})|null;
  if(!job){await delay(2000);continue;}const input=validateJob(job);
  await api(`commands/${job.id}/start`,{token:job.claim_token});

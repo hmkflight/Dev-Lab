@@ -10,7 +10,7 @@ const input=(type='CREATE_PROJECT',payload:any={})=>({projectId:REAL_PROJECT,mod
 const req=(b:unknown,token='operator-test')=>new Request('https://studio.test/api/bridge/commands',{method:'POST',headers:{Authorization:'Bearer '+token,Origin:'https://studio.test','Content-Type':'application/json'},body:JSON.stringify(b)});
 test('REAL vocabulary strictly fences project, payload, executable, cwd, pause and cancel in Worker and runner',async()=>{
  const e=environment();e.BRIDGE_REAL_COMMANDS='CREATE_PROJECT,START_RUN,APPROVE_GATE,RESUME_RUN';
- for(const slug of ['eagleswings-cpe2-trial','eagleswings','eagleswings-v2','bridge-disposable-other','arbitrary'])assert.equal((await worker.fetch(req({...input(),projectId:slug}),e)).status,400);
+ for(const slug of ['eagleswings-cpe2-trial','eagleswings','eagleswings-v2','bridge-disposable-other','arbitrary'])assert.equal((await worker.fetch(req({...input(),projectId:slug}),e)).status,/^eagleswings/.test(slug)?400:403);
  for(const b of [{...input(),type:'CANCEL_RUN'},{...input(),type:'PAUSE_RUN'},{...input(),shellCommand:'x'},{...input(),payload:{cwd:'/'}}])assert.equal((await worker.fetch(req(b),e)).status,400);
  assert.throws(()=>realCommandPlan({type:'START_RUN',projectSlug:REAL_PROJECT},'/tmp/AI_COMMAND_CENTER-bridge'));
  assert.throws(()=>validateJob({project_id:'eagleswings',mode:'REAL'} as any));assert.equal((await worker.fetch(req(input(),''),e)).status,401);

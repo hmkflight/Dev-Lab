@@ -5,7 +5,7 @@ import {resolve,dirname} from 'node:path';
 import {pathToFileURL} from 'node:url';
 import {parseEnv} from 'node:util';
 import {spawn} from 'node:child_process';
-import {validateJob,realCommandPlan,FACTORY_ROOT,type ExecutorResult} from './executors';
+import {validateJob,realCommandPlan,FACTORY_ROOT,configuredProject,type ExecutorResult} from './executors';
 import {CpeFence} from '../lib/bridge/cpe-fence.server';
 import {SupabaseReadSource,publicText} from '../lib/studio-adapter/cpe-source.server';
 const taskFile=resolve(process.argv[2]);
@@ -15,7 +15,7 @@ if(realpathSync(FACTORY_ROOT)!==FACTORY_ROOT)throw Error('Factory worktree canno
 const credentials=parseEnv(readFileSync(resolve(FACTORY_ROOT,'dashboard/.env.local'),'utf8'));
 for(const k of ['NEXT_PUBLIC_SUPABASE_URL','SUPABASE_SERVICE_ROLE_KEY','CREATIVE_STUDIO_AGENT_PROVIDER'])if(credentials[k])process.env[k]=credentials[k];
 const source=new SupabaseReadSource(credentials.NEXT_PUBLIC_SUPABASE_URL,credentials.SUPABASE_SERVICE_ROLE_KEY);
-const fence=new CpeFence(source);
+const fence=new CpeFence(source,configuredProject());
 let childIdentity:string|null=null;let processId:number|undefined,executionCount=0,stdout='',stderr='';
 const stateFile=resolve(dirname(taskFile),'state.json');
 const atomic=(value:unknown)=>{writeFileSync(stateFile+'.tmp',JSON.stringify(value),{mode:0o600});renameSync(stateFile+'.tmp',stateFile);};
@@ -33,7 +33,14 @@ try{
    leaseTimer=setInterval(()=>{void lock.renewRunLock(lockedRun,task.executionId).catch(()=>{});},15000);
    await fence.validate(data,task.executionId);
   }
-  const plan=realCommandPlan({type:data.type,projectSlug:data.projectId,expectedGate:data.type==='APPROVE_GATE'?data.payload.gate:undefined,runId:data.type==='APPROVE_GATE'?data.payload.runId:undefined,approvedBy:task.job.requested_by},FACTORY_ROOT);
+  let definition;
+  if(data.type==='CREATE_PROJECT'){
+   const file=resolve(FACTORY_ROOT,'outputs/dev-lab/client-projects',data.projectId,'intake/production.json');
+   if(realpathSync(file)!==file)throw Error('Definition cannot be redirected.');
+   definition=JSON.parse(readFileSync(file,'utf8'));
+   if(definition.projectSlug!==data.projectId)throw Error('Definition project mismatch.');
+  }
+  const plan=realCommandPlan({definition,type:data.type,projectSlug:data.projectId,expectedGate:data.type==='APPROVE_GATE'?data.payload.gate:undefined,runId:data.type==='APPROVE_GATE'?data.payload.runId:undefined,approvedBy:task.job.requested_by},FACTORY_ROOT);
   const exitCode=await new Promise<number|null>((done,reject)=>{
    const child=spawn(plan.file,plan.args,{cwd:plan.cwd,shell:false,stdio:['ignore','pipe','pipe'],env:{PATH:process.env.PATH,HOME:process.env.HOME,USER:process.env.USER,LANG:process.env.LANG,TMPDIR:process.env.TMPDIR,NEXT_PUBLIC_SUPABASE_URL:credentials.NEXT_PUBLIC_SUPABASE_URL,SUPABASE_SERVICE_ROLE_KEY:credentials.SUPABASE_SERVICE_ROLE_KEY,CREATIVE_STUDIO_AGENT_PROVIDER:'codex'}});
    processId=child.pid;child.once('spawn',()=>{executionCount=1;childIdentity=processIdentity(child.pid);tick();});

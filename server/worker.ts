@@ -34,7 +34,7 @@ export default {
       if (mutation && actor.role !== "owner") throw new StudioError("Owner access required.",403);
       let artifactTransport;
       if(env.DEVLAB_ADAPTER_MODE==='devlab'&&env.DEVLAB_SUPABASE_URL){
-        const rows=await env.DB.prepare("SELECT id,source_artifact_id,representation FROM bridge_artifacts WHERE project_id='bridge-disposable-pass2'").all<{id:string;source_artifact_id:string;representation:string}>();
+        const rows=await env.DB.prepare("SELECT id,source_artifact_id,representation FROM bridge_artifacts WHERE project_id=?").bind(env.BRIDGE_PROJECT_SLUG||'bridge-disposable-pass2').all<{id:string;source_artifact_id:string;representation:string}>();
         const map=new Map<string,Record<string,string>>();for(const a of rows.results){const variants=map.get(a.source_artifact_id)||{};variants[a.representation]=a.id;map.set(a.source_artifact_id,variants);}
         artifactTransport={urls(id:string){const v=map.get(id);if(!v?.original)return {};return {previewUrl:`/api/bridge/artifacts/${v['report-html']||v.original}`,downloadUrl:`/api/bridge/artifacts/${v.original}?download=1`,...(v['report-png']?{thumbnailUrl:`/api/bridge/artifacts/${v['report-png']}`}:{})};}};
       }

@@ -22,9 +22,9 @@ test('reconciliation distinguishes all five outcomes without granting uncertain 
  assert.equal(classifyReconciliation({...evidence,receipt:{executionId,state:'complete',result:{...result,ok:false,executionCount:0,code:'FENCE_REJECTED'}},expectedRunId:crypto.randomUUID()}),'SAFE_TO_RETRY');
 });
 test('process identity includes kernel start time and does not accept nonexistent or arbitrary PID values',()=>{assert.match(processIdentity(process.pid)!,/^[a-f0-9]{64}$/);assert.equal(processIdentity(-1),null);assert.equal(processIdentity(NaN),null);});
-test('enrollment, historical deny, protected namespaces and clean room cannot override the disposable fence',()=>{
- const a={project_id:runId,slug:REAL_PROJECT,enabled:true,historically_denied:false,clean_room_required:true};authorizeRealProject(REAL_PROJECT,runId,a,'CLEAN_ROOM');
- for(const slug of ['eagleswings-cpe2-trial','eagleswings','rt','research-trading','normal-project'])assert.throws(()=>authorizeRealProject(slug,runId,{...a,slug},'CLEAN_ROOM'));
+test('enrollment, historical deny, protected namespaces and clean room remain mandatory for normal projects',()=>{
+ const a={project_id:runId,slug:REAL_PROJECT,enabled:true,historically_denied:false,clean_room_required:true};authorizeRealProject(REAL_PROJECT,runId,a,'CLEAN_ROOM');authorizeRealProject('normal-project',runId,{...a,slug:'normal-project'},'CLEAN_ROOM');
+ for(const slug of ['eagleswings-cpe2-trial','eagleswings','rt','research-trading'])assert.throws(()=>authorizeRealProject(slug,runId,{...a,slug},'CLEAN_ROOM'));
  assert.throws(()=>authorizeRealProject(REAL_PROJECT,undefined,a));assert.throws(()=>authorizeRealProject(REAL_PROJECT,runId,undefined));assert.throws(()=>authorizeRealProject(REAL_PROJECT,runId,{...a,enabled:false}));assert.throws(()=>authorizeRealProject(REAL_PROJECT,runId,{...a,historically_denied:true}));assert.throws(()=>authorizeRealProject(REAL_PROJECT,runId,a,'STANDARD'));
 });
 test('all approval gates require explicit run/type/stage and map to atomic CLI flags',()=>{
